@@ -9,7 +9,7 @@ local default_plugins = {
       "tjdevries/colorbuddy.nvim"
     },
     opts = function()
-      return require "plugins.themes.neosolarized"
+      return require "plugins.themes.svrana-neosolarized"
     end,
     config = function(opts)
       require("neosolarized").setup(opts)
@@ -57,6 +57,7 @@ local default_plugins = {
     config = function(_, opts)
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
+      vim.cmd [[hi NvimTreeWinSeparator guifg=#0f3a45]]
     end,
   },
 
@@ -69,10 +70,17 @@ local default_plugins = {
       return require("plugins.configs.indent-blankline")
     end,
     config = function(_, opts)
-      vim.cmd [[highlight IndentBlanklineChar guifg=#0f3a45 gui=nocombine]]
-      vim.cmd [[highlight IndentBlankineSpaceChar guifg=#0f3a45 gui=nocombine]]
-      vim.cmd [[highlight IndentBlanklineContextChar guifg=#28535e gui=nocombine]]
-      vim.cmd [[highlight IndentBlanklineContextStart guisp=#133e49 gui=nocombine]]
+      --TODO: Fix this mess
+      -- temporary, pulling directly from svrana-neosolarized
+      -- vim.cmd [[highlight IndentBlanklineChar guifg=#657b83 gui=nocombine]]
+      -- vim.cmd [[highlight IndentBlankineSpaceChar guifg=#657b83 gui=nocombine]]
+      -- vim.cmd [[highlight IndentBlanklineContextChar guifg=#586e75 gui=nocombine]]
+      -- vim.cmd [[highlight IndentBlanklineContextStart guisp=#657b83 gui=nocombine]]
+      --------
+     vim.cmd [[highlight IndentBlanklineChar guifg=#0f3a45 gui=nocombine]]
+     vim.cmd [[highlight IndentBlankineSpaceChar guifg=#0f3a45 gui=nocombine]]
+     vim.cmd [[highlight IndentBlanklineContextChar guifg=#28535e gui=nocombine]]
+     vim.cmd [[highlight IndentBlanklineContextStart guisp=#133e49 gui=nocombine]]
       require("utils.functions").load_mappings "blankline"
       require("indent_blankline").setup(opts) -- i have no idea why the original code differs like that
     end,
@@ -169,6 +177,25 @@ local default_plugins = {
     end,
   },
 
+  {"nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    init = function()
+      require("utils.functions").load_mappings "telescope"
+    end,
+
+    opts = function()
+      return require "plugins.configs.telescope"
+    end,
+
+    config = function(_, opts)
+      local telescope = require "telescope"
+      telescope.setup(opts)
+      -- load extensions
+      for _, ext in ipairs(opts.extensions_list) do
+        telescope.load_extension(ext)
+      end
+    end,
+  },
   -- Load whichkey after all other gui
   {
     "folke/which-key.nvim",

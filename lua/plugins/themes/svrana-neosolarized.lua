@@ -1,3 +1,4 @@
+--https://github.com/svrana/neosolarized.nvim
 -- options for neosolarized
 local options = {
     comment_italics = true,
