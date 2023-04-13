@@ -39,6 +39,40 @@ local default_plugins = {
   },
 
 
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    init = function()
+      require("utils.functions").lazy_load "indent-blankline.nvim"
+    end,
+    opts = function()
+      return require("plugins.configs.indent-blankline")
+    end,
+    config = function(_, opts)
+     vim.cmd [[highlight IndentBlanklineChar guifg=#0f3a45 gui=nocombine]]
+     vim.cmd [[highlight IndentBlankineSpaceChar guifg=#0f3a45 gui=nocombine]]
+     vim.cmd [[highlight IndentBlanklineContextChar guifg=#28535e gui=nocombine]]
+     vim.cmd [[highlight IndentBlanklineContextStart guisp=#133e49 gui=nocombine]]
+     require("utils.functions").load_mappings "blankline"
+     require("indent_blankline").setup(opts) -- i have no idea why the original code differs like that
+    end,
+  },
+
+  -- make sure to load nvim-treesitter after indent-blankline otherwise things will break
+  {
+    "nvim-treesitter/nvim-treesitter",
+    init = function()
+      require("utils.functions").lazy_load "nvim-treesitter"
+    end,
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate",
+    opts = function()
+      return require "plugins.configs.treesitter"
+    end,
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
+
   -- Load whichkey after all other gui
   {
     "folke/which-key.nvim",
