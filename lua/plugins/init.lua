@@ -57,7 +57,7 @@ local default_plugins = {
     config = function(_, opts)
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
-      vim.cmd [[hi NvimTreeWinSeparator guifg=#0f3a45]]
+      vim.cmd [[hi NvimTreeWinSeparator guifg=#0f3a45]] --it's for the line separating nvim-tree and the buffer
     end,
   },
 
@@ -176,9 +176,13 @@ local default_plugins = {
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
-
   {"nvim-telescope/telescope.nvim",
     cmd = "Telescope",
+    dependencies = {
+      {"nvim-telescope/telescope-fzf-native.nvim",
+        build = "make"
+      }
+    },
     init = function()
       require("utils.functions").load_mappings "telescope"
     end,

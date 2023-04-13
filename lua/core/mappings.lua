@@ -25,6 +25,11 @@ M.general = {
     ["<C-j>"] = { "<C-w>j", "window down" },
     ["<C-k>"] = { "<C-w>k", "window up" },
 
+           -- window management
+    ["<leader>sv"] = {"<C-w>v", "split window vertically"},
+    ["<leader>sh"] = {"<C-w>s", "split window horizontally"},
+    ["<leader>se"] = {"<C-w>=", "windows equal width and height"},
+    ["<leader>sx"] = {":close<CR>", "close current split window"},
     -- save
     ["<C-s>"] = { "<cmd> w <CR>", "save file" },
 

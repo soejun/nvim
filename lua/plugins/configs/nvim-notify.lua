@@ -4,7 +4,7 @@ local options = {}
 
 options = {
    background_colour = "#000000",
-     fps = 120,
+     fps = 60,
      icons = {
        DEBUG = "",
        ERROR = "",
@@ -14,7 +14,7 @@ options = {
      },
      level = 2,
      minimum_width = 50,
-     render = "default",
+     render = "minimal",
      stages = "fade_in_slide_out",
      timeout = 5000,
      top_down = true,

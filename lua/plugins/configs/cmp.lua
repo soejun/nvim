@@ -1,3 +1,4 @@
+---@diagnostic disable: different-requires
 local cmp = require "cmp"
 local lspkind = require "lspkind"
 
