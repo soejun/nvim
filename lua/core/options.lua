@@ -1,9 +1,16 @@
+-- all vim-related options, non lua
 local opt = vim .opt
 local g = vim.g
+local settings = require("core.settings")
 
 g.mapleader = " "
 
-opt.laststatus = 3 -- global statusline
+if settings.global_statusline then
+  opt.laststatus = 3 -- global statusline
+else
+  opt.laststatus = 2
+end
+
 opt.cursorline = true
 
 -- Indenting

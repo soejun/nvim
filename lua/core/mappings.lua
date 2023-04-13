@@ -18,7 +18,7 @@ M.general = {
   },
 
   n = {
-    ["<leader>nh"] = { ":noh <CR>", "clear highlights" },
+    ["<leader>no"] = { ":noh <CR>", "clear highlights" },
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },
@@ -211,6 +211,13 @@ M.lspconfig = {
   },
 }
 
+M.notify = {
+  plugin = true,
+  n ={
+    -- clear notifications
+  ["<leader><Esc>"] = {":lua require('notify').dismiss()<CR>",opts = { silent = true } }
+  }
+}
 M.nvimtree = {
   plugin = true,
 

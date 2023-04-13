@@ -24,11 +24,17 @@ local default_plugins = {
         --nvim-notify for noice and notifications
         "rcarriga/nvim-notify",
         lazy = false,
+        init = function ()
+          require("utils.functions").load_mappings "notify"
+        end,
         opts = function()
-          return require "plugins.configs.nvim-notify"
+          local notify = require("plugins.configs.nvim-notify")
+          return notify.options
         end,
         config = function(_, opts)
           require("notify").setup(opts)
+          require("plugins.configs.nvim-notify").setNotify()
+          require("plugins.configs.nvim-notify").print_override()
         end,
       },
 

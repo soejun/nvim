@@ -1,6 +1,28 @@
+local telescope = require("telescope")
+
+local fzf_opts = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
+      }
 
 
 local options = {
+  extensions = {
+      fzf = fzf_opts},
+  pickers = {
+    find_files = {
+      hidden = false,
+    },
+    buffers = {
+      ignore_current_buffer = true,
+      sort_lastused = true,
+    },
+    live_grep = {
+        sorter = telescope.extensions.fzf.native_fzf_sorter(fzf_opts),
+          only_sort_text = true,    }
+  },
   defaults = {
     vimgrep_arguments = {
       "rg",
@@ -32,16 +54,8 @@ local options = {
       height = 0.80,
       preview_cutoff = 120,
     },
-    extensions = {
-      fzf = {
-      fuzzy = true,
-      override_generic_sorter = true,
-      override_file_sorter = true,
-      case_mode = "smart_case",
-      },
-    },
---  file_sorter = require("telescope.sorters").get_fuzzy_file, --fzf to override
     file_ignore_patterns = { "node_modules" },
+    --  file_sorter = require("telescope.sorters").get_fuzzy_file, --fzf to override
 --  generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter, --fzf to override
     path_display = { "truncate" },
     winblend = 0,
