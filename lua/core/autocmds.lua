@@ -29,6 +29,27 @@ api.nvim_create_autocmd(
   }
 )
 
+-- windows to close with "q"
+api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "checkhealth",
+    "dap-float",
+    "fugitive",
+    "help",
+    "man",
+    "notify",
+    "null-ls-info",
+    "qf",
+    "PlenaryTestPopup",
+    "startuptime",
+    "tsplayground",
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+  end,
+})
+
 -- reload modules on save
 -- local NvReload = api.nvim_create_augroup("NvReload",{})
 -- api.nvim_create_autocmd("BufWritePost",{

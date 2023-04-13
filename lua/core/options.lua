@@ -3,6 +3,9 @@ local g = vim.g
 
 g.mapleader = " "
 
+opt.laststatus = 3 -- global statusline
+opt.cursorline = true
+
 -- Indenting
 opt.expandtab = true
 opt.shiftwidth = 2
@@ -20,12 +23,18 @@ opt.number = true
 opt.numberwidth = 2
 opt.ruler = false
 
+-- disable nvim intro
+opt.shortmess:append "sI"
+
 opt.signcolumn = "yes"
 opt.splitbelow = true
 opt.splitright = true
 opt.termguicolors = true
 opt.timeoutlen = 400
 opt.undofile = true
+
+-- interval for writing swap file to disk, also used by gitsigns
+opt.updatetime = 25
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line

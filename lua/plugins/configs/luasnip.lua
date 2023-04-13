@@ -1,7 +1,5 @@
 local M = {}
 
-local utils = require "utils.functions"
-
 M.luasnip = function(opts)
   require("luasnip").config.set_config(opts)
 

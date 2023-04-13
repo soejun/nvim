@@ -15,7 +15,31 @@ local default_plugins = {
       require("neosolarized").setup(opts)
     end,
   },
+  {
+    "folke/noice.nvim",
+    lazy = false,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      {
+        --nvim-notify for noice and notifications
+        "rcarriga/nvim-notify",
+        lazy = false,
+        opts = function()
+          return require "plugins.configs.nvim-notify"
+        end,
+        config = function(_, opts)
+          require("notify").setup(opts)
+        end,
+      },
 
+    },
+    opts = function()
+      return require "plugins.configs.noice"
+    end,
+    config = function(_, opts)
+      require("noice").setup(opts)
+    end,
+  },
   -- icons
   {
     "nvim-tree/nvim-web-devicons",
@@ -89,7 +113,7 @@ local default_plugins = {
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI" },
         config = function(_, opts)
-          require("plugins.configs.luasnip")
+          require("plugins.configs.luasnip").luasnip(opts)
         end,
       },
       -- autopairing of (){}[] etc
@@ -129,32 +153,7 @@ local default_plugins = {
     end,
   },
 
-  {
-    "folke/noice.nvim",
-    lazy = false,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      {
-        --nvim-notify for noice and notifications
-        "rcarriga/nvim-notify",
-        lazy = false,
-        opts = function()
-          return require "plugins.configs.nvim-notify"
-        end,
-        config = function(_, opts)
-          require("notify").setup(opts)
-        end,
-      },
-
-    },
-    opts = function()
-      return require "plugins.configs.noice"
-    end,
-    config = function(_, opts)
-      require("noice").setup(opts)
-    end,
-  },
-  -- make sure to load nvim-treesitter after indent-blankline otherwise things will break
+ -- make sure to load nvim-treesitter after indent-blankline otherwise things will break
   {
     "nvim-treesitter/nvim-treesitter",
     init = function()
@@ -187,4 +186,6 @@ local default_plugins = {
   },
 }
 
-require("lazy").setup(default_plugins)
+local lazy_config = require("core.lazy") -- config for lazy.nvim
+
+require("lazy").setup(default_plugins, lazy_config)
