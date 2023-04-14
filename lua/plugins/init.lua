@@ -48,18 +48,7 @@ local default_plugins = {
       require("noice").setup(opts)
     end,
   },
-  {
-    "nvim-lualine/lualine.nvim",
-    lazy = false,
- --   build = 'make',
-    opts = function ()
-      return require("plugins.configs.lualine")
-    end,
-    config = function (_,opts)
-      require("lualine").setup(opts)
-    end,
-  },
-  -- icons
+   -- icons
   {
     "nvim-tree/nvim-web-devicons",
   },
@@ -244,6 +233,18 @@ local default_plugins = {
 --     vim.cmd[[hi statusline guifg=NONE guibg=NONE gui=nocombine]]
     end,
   },
+  {
+    "nvim-lualine/lualine.nvim",
+    lazy = false,
+ --   build = 'make',
+    opts = function ()
+      return require("plugins.configs.lualine")
+    end,
+    config = function (_,opts)
+      require("lualine").setup(opts)
+    end,
+  },
+
   -- Load whichkey after all other gui
   {
     "folke/which-key.nvim",
