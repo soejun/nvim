@@ -9,8 +9,16 @@ options = {
   -- so to disable the fold line numbers just literally init the segment and comment out the fold part
   segments = {
 --    {text = {builtin.foldfunc}, click = "v:lua.ScFa"},
-    {text = {"%s"}, condition = { false, builtin.not_empty }, click = "v:lua.ScSa"},
+    {
+      sign = { name = { "Diagnostic" }, maxwidth = 2, auto = true },
+      click = "v:lua.ScSa"
+    },
     {text = {builtin.lnumfunc, " "}, click = "v:lua.ScLa"},
+    {
+      sign = { name = { ".*" }, maxwidth = 1, colwidth = 1, auto = true },
+      click = "v:lua.ScSa"
+    },
+--    {sign = {name = {".*"}, maxwidth = 2, colwidth = 1, auto = true}, click ="v:lua.ScSa"}
   }
 }
 return options
