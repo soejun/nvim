@@ -1,5 +1,6 @@
 ---@diagnostic disable: different-requires
 -- TODO: Seriously, we need a way better way to organize this and make it maintainable jesus christ
+-- we can start categorizng thngs, into ui, lsp, quality of life
 
 local default_plugins = {
   "nvim-lua/plenary.nvim",
