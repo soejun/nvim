@@ -8,9 +8,9 @@ options = {
   --so basically, the segment is literally the order of how things are gonna get built
   -- so to disable the fold line numbers just literally init the segment and comment out the fold part
   segments = {
---    {text = {builtin.foldfunc}, click = "v:lua.ScFa"},
+--    {sign = {name = {builtin.foldfunc}},auto = true, click = "v:lua.ScFa"},
     {
-      sign = { name = { "Diagnostic" }, maxwidth = 2, auto = true },
+      sign = {name = { "Diagnostic" }, maxwidth = 2, auto = true },
       click = "v:lua.ScSa"
     },
     {text = {builtin.lnumfunc, " "}, click = "v:lua.ScLa"},
