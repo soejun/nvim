@@ -1,7 +1,7 @@
 -- nvimtree config
 local options = {
     filters = {
-      dotfiles = false,
+      dotfiles = true,
       exclude = { vim.fn.stdpath "config" .. "/lua/custom" },
     },
     disable_netrw = true,
