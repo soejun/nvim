@@ -13,7 +13,6 @@ end
 
 M.load_mappings = function(section, mapping_opt)
   vim.schedule(function()
-
     local function set_section_map(section_values)
       if section_values.plugin then
         return
@@ -74,6 +73,42 @@ M.lazy_load = function(plugin)
       end
     end,
   })
+end
+
+M.status_line = function()
+  local mode = "%-5{%v:lua.string.upper(v:lua.vim.fn.mode())%}"
+  local file_name = "%-.16t"
+  local buf_nr = "[%n]"
+  local modified = " %-m"
+  local file_type = " %y"
+  local right_align = "%="
+  local line_no = "%10([%l/%L%)]"
+  local pct_thru_file = "%5p%%"
+
+  return string.format(
+    "%s%s%s%s%s%s%s%s",
+    mode,
+    file_name,
+    buf_nr,
+    modified,
+    file_type,
+    right_align,
+    line_no,
+    pct_thru_file
+  )
+end
+
+M.is_empty = function(s)
+  return s == nil or s == ""
+end
+
+M.get_buf_option = function(opt)
+  local status_ok, buf_option = pcall(vim.api.nvim_buf_get_option, 0, opt)
+  if not status_ok then
+    return nil
+  else
+    return buf_option
+  end
 end
 
 ---@param on_attach fun(client, buffer)

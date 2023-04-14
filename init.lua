@@ -1,6 +1,4 @@
-
-
-require "core.options" -- all non plugin related (vim) options
+require "core.options"                     -- all non plugin related (vim) options
 require("utils.functions").load_mappings() --load mappings
 
 -- bootstrap lazy.nvim
@@ -11,5 +9,5 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require "plugins" --plugin management via lazy
+require "plugins"      --plugin management via lazy
 require "core.autocmd" -- vim autocommands/autogroups

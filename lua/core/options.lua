@@ -11,6 +11,9 @@ else
   opt.laststatus = 2
 end
 
+-- winbar
+vim.opt.winbar = "%{%v:lua.require'utils.winbar'.get_winbar()%}"
+
 opt.cursorline = true
 
 -- Indenting

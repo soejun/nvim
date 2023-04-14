@@ -66,3 +66,5 @@ api.nvim_create_autocmd("FileType", {
      vim.cmd [[redraw!]]
    end,
  })
+
+vim.opt.winbar = "%{%v:lua.require'utils.winbar'.get_winbar()%}"

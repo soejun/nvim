@@ -21,12 +21,12 @@ local colors = {
 local svrana_neosolarized_theme = {
   normal = {
     a = { fg = colors.black, bg = colors.blue, gui = 'bold' },
-    b = { fg = colors.base1 },
+    b = { fg = colors.base1 }, --don't manually set bg if color scheme provides a transparent option
     c = { fg = colors.base1 },
   },
-  insert = { a = { fg = colors.black, bg = colors.green } },
-  visual = { a = { fg = colors.black, bg = colors.yellow } },
-  replace = { a = { fg = colors.black, bg = colors.red } },
+  insert = { a = { fg = colors.black, bg = colors.green, gui='bold' } },
+  visual = { a = { fg = colors.black, bg = colors.yellow, gui='bold' } },
+  replace = { a = { fg = colors.black, bg = colors.red, gui='bold' } },
 }
 M = {
   options = {

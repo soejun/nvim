@@ -80,7 +80,16 @@ local default_plugins = {
       vim.cmd [[hi NvimTreeWinSeparator guifg=#0f3a45]] --it's for the line separating nvim-tree and the buffer
     end,
   },
-
+  {
+    "numToStr/Comment.nvim",
+    -- keys = { "gc", "gb" },
+    init = function()
+      require("utils.functions").load_mappings "comment"
+    end,
+    config = function()
+      require("Comment").setup()
+    end,
+  },
   {
     "lukas-reineke/indent-blankline.nvim",
     init = function()
@@ -137,6 +146,9 @@ local default_plugins = {
           require("ufo").setup(opts)
         end,
       },
+      {
+        "SmiteshP/nvim-navic",
+      }
     },
     init = function()
       require("utils.functions").lazy_load "nvim-lspconfig"
