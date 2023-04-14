@@ -10,8 +10,15 @@ M.on_attach = function(client, bufnr)
 end
 
 
-M.capabilities_arg = vim.lsp.protocol.make_client_capabilities()
-M.capabilities = require("cmp_nvim_lsp").default_capabilities(M.capabilities_arg)
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
+
+M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
 
 local servers = {
   "lua_ls",
@@ -26,6 +33,9 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup({
     on_attach = M.on_attach,
     capabilities = M.capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    },
     settings = {
       Lua = lsp_settings.lua_ls
     },

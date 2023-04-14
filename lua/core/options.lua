@@ -1,5 +1,5 @@
 -- all vim-related options, non lua
-local opt = vim .opt
+local opt = vim.opt
 local g = vim.g
 local settings = require("core.settings")
 
@@ -20,7 +20,13 @@ opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
 
-opt.fillchars = { eob = " " }
+-- nvim-ufo folding
+opt.foldcolumn = "1"
+opt.foldlevel = 99
+opt.foldlevelstart = -1
+opt.foldenable = true
+opt.fillchars = { eob = " ", fold = " ", foldopen = " ", foldsep = " ", foldclose = " " }
+--
 opt.ignorecase = true
 opt.smartcase = true
 opt.mouse = "a"

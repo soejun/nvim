@@ -46,6 +46,7 @@ local default_plugins = {
       require("noice").setup(opts)
     end,
   },
+
   -- icons
   {
     "nvim-tree/nvim-web-devicons",
@@ -110,6 +111,20 @@ local default_plugins = {
 
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      {"kevinhwang91/nvim-ufo",
+        dependencies = { "kevinhwang91/promise-async"},
+        init = function ()
+          require("utils.functions").load_mappings "ufo"
+        end,
+        opts = function()
+          require "plugins.configs.nvim-ufo"
+        end,
+        config = function (_, opts)
+          require("ufo").setup(opts)
+        end,
+      },
+    },
     init = function()
       require("utils.functions").lazy_load "nvim-lspconfig"
     end,
@@ -204,6 +219,17 @@ local default_plugins = {
       for _, ext in ipairs(opts.extensions_list) do
         telescope.load_extension(ext)
       end
+    end,
+  },
+ {
+    "luukvbaal/statuscol.nvim",
+    lazy = false,
+    opts = function ()
+      return require "plugins.configs.statuscol"
+    end,
+    config = function (_, opts)
+      require("statuscol").setup(opts)
+--     vim.cmd[[hi statusline guifg=NONE guibg=NONE gui=nocombine]]
     end,
   },
   -- Load whichkey after all other gui

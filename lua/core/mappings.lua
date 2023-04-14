@@ -272,4 +272,12 @@ M.telescope = {
 
   },
 }
+
+M.ufo = {
+  plugin = true,
+  n = {
+    ["zR"] = {":lua require('ufo').openAllFolds()<CR>"},
+    ["zM"] = {":lua require('ufo').closeAllFolds()<CR>"}
+  }
+}
 return M
