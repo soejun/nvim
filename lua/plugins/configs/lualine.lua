@@ -15,13 +15,14 @@ local colors = {
   orange = "#cb4b16",
   green_diff = "#719e07",
   yellow_diff = "#b58900",
-  gpt_bg_rec_diff = "#073642"
+  gpt_bg_rec_diff = "#073642",
+  transparent = "#000000"
 }
 local svrana_neosolarized_theme = {
   normal = {
     a = { fg = colors.black, bg = colors.blue, gui = 'bold' },
-    b = { fg = colors.base1, bg = colors.gpt_bg_rec_diff },
-    c = { fg = colors.base1, bg = colors.gpt_bg_rec_diff },
+    b = { fg = colors.base1 },
+    c = { fg = colors.base1 },
   },
   insert = { a = { fg = colors.black, bg = colors.green } },
   visual = { a = { fg = colors.black, bg = colors.yellow } },
