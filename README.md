@@ -20,7 +20,10 @@
 </div>
 
 💻 This configuration is configured on macOS and requires Neovim >= 0.8!
+Configuration heavily inspired by NvChad, Allaman/Nvim, and cratzdog/dotfiles-public (Takya-Dev)
 
 _Terminal_: iterm2
 
 _Font_: Liga Mono
+
+
