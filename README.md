@@ -1,7 +1,7 @@
 <h1 align="center">Another NeoVim Confguration</h1>
 <div align="center"><p>
     <a href="https://github.com/neovim/neovim">
-      <img src="https://img.shields.io/badge/Neovim-0.8.0-blueviolet.svg?style=flat-square&logo=Neovim&color=90E59A&logoColor=white" alt="Neovim"/>
+      <img src="https://img.shields.io/badge/Neovim-0.9.0-blueviolet.svg?style=flat-square&logo=Neovim&color=90E59A&logoColor=white" alt="Neovim"/>
     </a>
     <a href="https://github.com/wchan-dev/nvim/pulse">
       <img src="https://img.shields.io/github/last-commit/wchan-dev/nvim" alt="Last commit"/>
@@ -12,7 +12,7 @@
     <!-- <a href="https://github.com/wchan-dev/nvim/actions/workflows/ci.yml"> -->
     <!--   <img src="https://github.com/wchan-dev/nvim/actions/workflows/ci.yml/badge.svg" alt="CI Status"/> -->
     </a>
-    <a href="https://github.com/wchan-dev/nvim/blob/main/LICENSE">
+    <a href="https://github.com/wchan-dev/nvim/LICENSE">
       <img src="https://img.shields.io/github/license/wchan-dev/nvim?style=flat-square&logo=MIT&label=License" alt="License"/>
     </a>
 </p>
