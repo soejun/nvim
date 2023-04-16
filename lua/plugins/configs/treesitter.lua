@@ -1,8 +1,8 @@
+local settings = require("core.settings")
 local options = {
   ensure_installed = {
-    "lua", "bash", "regex", "markdown", "markdown_inline",
+    settings.treesitter_ensure_installed,
   },
-
   highlight = {
     enable = true,
     use_languagetree = true,

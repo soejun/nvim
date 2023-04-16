@@ -1,4 +1,4 @@
-return  {
+return {
   base03 = "#002b36",
   base02 = "#073642",
   base01 = "#586e75",
@@ -15,5 +15,6 @@ return  {
   blue = "#268bd2",
   cyan = "#2aa198",
   green = "#719e07",
+  temp_color = "#133e49",
+  nvim_tree_sep = "#0f3a45",
 }
-

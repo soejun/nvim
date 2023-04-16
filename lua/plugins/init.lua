@@ -245,6 +245,9 @@ local default_plugins = {
   -- make sure to load nvim-treesitter after indent-blankline otherwise things will break
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      -- TODO, add other extensions later
+    },
     init = function()
       require("utils.functions").lazy_load("nvim-treesitter")
     end,
@@ -289,7 +292,6 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require("statuscol").setup(opts)
-      --     vim.cmd[[hi statusline guifg=NONE guibg=NONE gui=nocombine]]
     end,
   },
   -- Load whichkey after all other gui

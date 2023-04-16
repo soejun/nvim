@@ -28,7 +28,7 @@ M.disable_dashboard_quick_links = false
 -- treesitter parsers to be installed
 -- one of "all", "maintained" (parsers with maintainers), or a list of languages
 M.treesitter_ensure_installed = {
--- we can always ask chatgpt to reorganize this list for us
+  -- we can always ask chatgpt to reorganize this list for us
   "bash",
   "css",
   "dockerfile",
@@ -57,11 +57,9 @@ M.lsp_servers = {
   "dockerls",
   "jsonls",
   "gopls",
-  "ltex",
   "marksman",
   "pyright",
   "lua_ls",
-  "texlab",
   "tsserver",
   "yamlls",
 }

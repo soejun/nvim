@@ -1,22 +1,21 @@
-
-local utils = require "utils.functions"
+local utils = require("utils.functions")
 local nvim_lsp = require("lspconfig")
+local settings = require("core.settings")
 local lsp_settings = require("plugins.configs.lsp.settings")
 local navic = require("nvim-navic")
 
 local M = {}
 
-
 -------------------- on_attach logic ----------------------
 
 local lsp_formatting = function(bufnr)
-    vim.lsp.buf.format({
-        filter = function(client)
-            -- apply whatever logic you want (in this example, we'll only use null-ls)
-            return client.name == "null-ls"
-        end,
-        bufnr = bufnr,
-    })
+  vim.lsp.buf.format({
+    filter = function(client)
+      -- apply whatever logic you want (in this example, we'll only use null-ls)
+      return client.name == "null-ls"
+    end,
+    bufnr = bufnr,
+  })
 end
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -24,19 +23,19 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 M.on_attach = function(client, bufnr)
   utils.load_mappings("lspconfig", { buffer = bufnr })
   if client.server_capabilities.documentSymbolProvider then
-    navic.attach(client,bufnr)
+    navic.attach(client, bufnr)
   end
 
-   if client.supports_method("textDocument/formatting") then
-        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-                lsp_formatting(bufnr)
-            end,
-        })
-    end
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        lsp_formatting(bufnr)
+      end,
+    })
+  end
 end
 -------------------- on_attach logic ----------------------
 
@@ -51,14 +50,7 @@ capabilities.textDocument.foldingRange = {
 M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 -------------------- capablities logic --------------------
 
-local servers = {
-  "lua_ls",
-  "html",
-  "cssls",
-  "tsserver",
-  "gopls",
-  "bashls",
-}
+local servers = settings.lsp_servers
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup({
@@ -68,7 +60,7 @@ for _, lsp in ipairs(servers) do
       debounce_text_changes = 150,
     },
     settings = {
-      Lua = lsp_settings.lua_ls
+      Lua = lsp_settings.lua_ls,
     },
   })
 end

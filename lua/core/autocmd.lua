@@ -63,4 +63,11 @@ api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
-vim.opt.winbar = "%{%v:lua.require'utils.winbar'.get_winbar()%}"
+local colors = require("utils.colors")
+local hexcode = colors.temp_color
+--TODO, Figure out better styling option
+api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    api.nvim_command("hi WinSeparator guifg=" .. hexcode)
+  end,
+})
