@@ -8,7 +8,6 @@ api.nvim_create_autocmd("BufWritePre", {
   group = TrimWhiteSpaceGrp,
 })
 
-
 -- Highlight on yank
 api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -24,7 +23,7 @@ api.nvim_create_autocmd(
     pattern = { "*.txt", "*.md", "*.tex" },
     callback = function()
       vim.opt.spell = true
-      vim.opt.spelllang = "en,de"
+      vim.opt.spelllang = "en"
     end,
   }
 )
@@ -51,20 +50,17 @@ api.nvim_create_autocmd("FileType", {
 })
 
 -- reload modules on save
- local NvReload = api.nvim_create_augroup("NvReload",{})
- api.nvim_create_autocmd("BufWritePost",{
-   pattern =  vim.tbl_map(
-    vim.fs.normalize,
-    vim.fn.glob(vim.fn.stdpath "config" .. "/lua/**/*.lua", true, true, true)
-  ),
-   group = NvReload,
-   callback = function(opts)
-     local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r") --[[@as string]]
-     local app_name = vim.env.NVIM_APPNAME and vim.env.NVIM_APPNAME or "nvim"
-     local module = string.gsub(fp, "^.*/" .. app_name .. "/lua/", ""):gsub("/", ".")
-     require("plenary.reload").reload_module(module)
-     vim.cmd [[redraw!]]
-   end,
- })
+local NvReload = api.nvim_create_augroup("NvReload", {})
+api.nvim_create_autocmd("BufWritePost", {
+  pattern = vim.tbl_map(vim.fs.normalize, vim.fn.glob(vim.fn.stdpath("config") .. "/lua/**/*.lua", true, true, true)),
+  group = NvReload,
+  callback = function(opts)
+    local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r") --[[@as string]]
+    local app_name = vim.env.NVIM_APPNAME and vim.env.NVIM_APPNAME or "nvim"
+    local module = string.gsub(fp, "^.*/" .. app_name .. "/lua/", ""):gsub("/", ".")
+    require("plenary.reload").reload_module(module)
+    vim.cmd([[redraw!]])
+  end,
+})
 
 vim.opt.winbar = "%{%v:lua.require'utils.winbar'.get_winbar()%}"
