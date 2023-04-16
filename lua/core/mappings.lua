@@ -18,7 +18,7 @@ M.general = {
   },
 
   n = {
-    ["<leader>no"] = { ":noh <CR>", "clear highlights" },
+    ["<leader>nh"] = { ":noh <CR>", "clear highlights" },
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },
@@ -208,6 +208,8 @@ M.lspconfig = {
       end,
       "lsp formatting",
     },
+
+    ["<leader>tF"] = {"<cmd>lua require('plugins.configs.lsp.utils').toggle_autoformat()<cr>", { desc = "Toggle format on save" }},
 
     ["<leader>wa"] = {
       function()

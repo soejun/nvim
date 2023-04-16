@@ -62,7 +62,6 @@ M.lazy_load = function(plugin)
         if plugin ~= "nvim-treesitter" then
           vim.schedule(function()
             require("lazy").load { plugins = plugin }
-
             if plugin == "nvim-lspconfig" then
               vim.cmd "silent! do FileType"
             end
@@ -100,6 +99,14 @@ end
 
 M.is_empty = function(s)
   return s == nil or s == ""
+end
+
+M.notify = function(message, level, title)
+  local notify_options = {
+    title = title,
+    timeout = 2000,
+  }
+  vim.api.nvim_notify(message, level, notify_options)
 end
 
 M.get_buf_option = function(opt)

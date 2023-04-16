@@ -3,21 +3,21 @@
 -- we can start categorizng thngs, into ui, lsp, quality of life
 
 local default_plugins = {
-  "nvim-lua/plenary.nvim",
+  { "nvim-lua/plenary.nvim", lazy = false, priority = 1000 },
   {
     "svrana/neosolarized.nvim",
     lazy = false,
     dependencies = {
-      "tjdevries/colorbuddy.nvim"
+      "tjdevries/colorbuddy.nvim",
     },
     opts = function()
-      return require "plugins.themes.svrana-neosolarized"
+      return require("plugins.themes.svrana-neosolarized")
     end,
     config = function(opts)
       require("neosolarized").setup(opts)
     end,
   },
-   -- icons
+  -- icons
   {
     "nvim-tree/nvim-web-devicons",
   },
@@ -31,8 +31,8 @@ local default_plugins = {
         --nvim-notify for noice and notifications
         "rcarriga/nvim-notify",
         lazy = false,
-        init = function ()
-          require("utils.functions").load_mappings "notify"
+        init = function()
+          require("utils.functions").load_mappings("notify")
         end,
         opts = function()
           local notify = require("plugins.configs.nvim-notify")
@@ -44,10 +44,9 @@ local default_plugins = {
           require("plugins.configs.nvim-notify").print_override()
         end,
       },
-
     },
     opts = function()
-      return require "plugins.configs.noice"
+      return require("plugins.configs.noice")
     end,
     config = function(_, opts)
       require("noice").setup(opts)
@@ -56,11 +55,11 @@ local default_plugins = {
   {
     "nvim-lualine/lualine.nvim",
     lazy = false,
- --   build = 'make',
-    opts = function ()
+    --   build = 'make',
+    opts = function()
       return require("plugins.configs.lualine")
     end,
-    config = function (_,opts)
+    config = function(_, opts)
       require("lualine").setup(opts)
     end,
   },
@@ -69,22 +68,22 @@ local default_plugins = {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     init = function()
-      require("utils.functions").load_mappings "nvimtree"
+      require("utils.functions").load_mappings("nvimtree")
     end,
     opts = function()
-      return require "plugins.configs.nvimtree"
+      return require("plugins.configs.nvimtree")
     end,
     config = function(_, opts)
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
-      vim.cmd [[hi NvimTreeWinSeparator guifg=#0f3a45]] --it's for the line separating nvim-tree and the buffer
+      vim.cmd([[hi NvimTreeWinSeparator guifg=#0f3a45]]) --it's for the line separating nvim-tree and the buffer
     end,
   },
   {
     "numToStr/Comment.nvim",
     -- keys = { "gc", "gb" },
     init = function()
-      require("utils.functions").load_mappings "comment"
+      require("utils.functions").load_mappings("comment")
     end,
     config = function()
       require("Comment").setup()
@@ -93,7 +92,7 @@ local default_plugins = {
   {
     "lukas-reineke/indent-blankline.nvim",
     init = function()
-      require("utils.functions").lazy_load "indent-blankline.nvim"
+      require("utils.functions").lazy_load("indent-blankline.nvim")
     end,
     opts = function()
       return require("plugins.configs.indent-blankline")
@@ -106,11 +105,11 @@ local default_plugins = {
       -- vim.cmd [[highlight IndentBlanklineContextChar guifg=#586e75 gui=nocombine]]
       -- vim.cmd [[highlight IndentBlanklineContextStart guisp=#657b83 gui=nocombine]]
       --------
-     vim.cmd [[highlight IndentBlanklineChar guifg=#0f3a45 gui=nocombine]]
-     vim.cmd [[highlight IndentBlankineSpaceChar guifg=#0f3a45 gui=nocombine]]
-     vim.cmd [[highlight IndentBlanklineContextChar guifg=#28535e gui=nocombine]]
-     vim.cmd [[highlight IndentBlanklineContextStart guisp=#133e49 gui=nocombine]]
-      require("utils.functions").load_mappings "blankline"
+      vim.cmd([[highlight IndentBlanklineChar guifg=#0f3a45 gui=nocombine]])
+      vim.cmd([[highlight IndentBlankineSpaceChar guifg=#0f3a45 gui=nocombine]])
+      vim.cmd([[highlight IndentBlanklineContextChar guifg=#28535e gui=nocombine]])
+      vim.cmd([[highlight IndentBlanklineContextStart guisp=#133e49 gui=nocombine]])
+      require("utils.functions").load_mappings("blankline")
       require("indent_blankline").setup(opts) -- i have no idea why the original code differs like that
     end,
   },
@@ -119,7 +118,7 @@ local default_plugins = {
     "williamboman/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     opts = function()
-      return require "plugins.configs.lsp.mason"
+      return require("plugins.configs.lsp.mason")
     end,
     config = function(_, opts)
       require("mason").setup(opts)
@@ -134,27 +133,63 @@ local default_plugins = {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      {"kevinhwang91/nvim-ufo",
-        dependencies = { "kevinhwang91/promise-async"},
-        init = function ()
-          require("utils.functions").load_mappings "ufo"
+      {
+        "kevinhwang91/nvim-ufo",
+        dependencies = { "kevinhwang91/promise-async" },
+        init = function()
+          require("utils.functions").load_mappings("ufo")
         end,
         opts = function()
-          require "plugins.configs.nvim-ufo"
+          require("plugins.configs.nvim-ufo")
         end,
-        config = function (_, opts)
+        config = function(_, opts)
           require("ufo").setup(opts)
         end,
       },
       {
         "SmiteshP/nvim-navic",
-      }
+      },
     },
     init = function()
-      require("utils.functions").lazy_load "nvim-lspconfig"
+      require("utils.functions").lazy_load("nvim-lspconfig")
     end,
     config = function()
-      require "plugins.configs.lsp.lspconfig"
+      require("plugins.configs.lsp.lspconfig")
+    end,
+  },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    -- opts is currently unused
+    -- opts = function()
+    --   require("plugins.configs.lsp.null-ls")
+    -- end,
+    config = function(_, _)
+      local null_ls = require("null-ls")
+      null_ls.setup({
+        -- we need to load null-ls first and then setup the sources and opts here,
+        -- it's a little strange
+        sources = {
+          null_ls.builtins.formatting.stylua.with({
+            extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+          }),
+          null_ls.builtins.diagnostics.eslint_d,
+          null_ls.builtins.formatting.prettier.with({
+            extra_args = { "--single-quote", "false" },
+          }),
+          -- null_ls.builtins.formatting.terraform_fmt,
+          -- null_ls.builtins.formatting.black,
+          null_ls.builtins.formatting.goimports,
+          null_ls.builtins.formatting.gofumpt,
+          -- null_ls.builtins.formatting.latexindent.with({
+          --   extra_args = { "-g", "/dev/null" }, -- https://github.com/cmhughes/latexindent.pl/releases/tag/V3.9.3
+          -- }),
+          -- null_ls.builtins.code_actions.shellcheck,
+          null_ls.builtins.code_actions.gitsigns,
+          null_ls.builtins.formatting.shfmt,
+          -- null_ls.builtins.diagnostics.ruff,
+        },
+      })
     end,
   },
   {
@@ -180,13 +215,13 @@ local default_plugins = {
         config = function(_, opts)
           require("nvim-autopairs").setup(opts)
           -- setup cmp for autopairs
-          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+          local cmp_autopairs = require("nvim-autopairs.completion.cmp")
           require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end,
       },
 
       {
-        "onsails/lspkind.nvim"
+        "onsails/lspkind.nvim",
       },
       -- cmp sources plugins
       {
@@ -196,49 +231,49 @@ local default_plugins = {
         "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        "lukas-reineke/cmp-rg"
+        "lukas-reineke/cmp-rg",
       },
     },
     opts = function()
-      return require "plugins.configs.cmp"
+      return require("plugins.configs.cmp")
     end,
     config = function(_, opts)
       require("cmp").setup(opts)
     end,
   },
 
- -- make sure to load nvim-treesitter after indent-blankline otherwise things will break
+  -- make sure to load nvim-treesitter after indent-blankline otherwise things will break
   {
     "nvim-treesitter/nvim-treesitter",
     init = function()
-      require("utils.functions").lazy_load "nvim-treesitter"
+      require("utils.functions").lazy_load("nvim-treesitter")
     end,
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = function()
-      return require "plugins.configs.treesitter"
+      return require("plugins.configs.treesitter")
     end,
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
-  {"nvim-telescope/telescope.nvim",
+  {
+    "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     dependencies = {
-      {"nvim-telescope/telescope-fzf-native.nvim",
-        build = "make"
-      }
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+      },
     },
     init = function()
-      require("utils.functions").load_mappings "telescope"
+      require("utils.functions").load_mappings("telescope")
     end,
-
     opts = function()
-      return require "plugins.configs.telescope"
+      return require("plugins.configs.telescope")
     end,
-
     config = function(_, opts)
-      local telescope = require "telescope"
+      local telescope = require("telescope")
       telescope.setup(opts)
       -- load extensions
       for _, ext in ipairs(opts.extensions_list) do
@@ -246,15 +281,15 @@ local default_plugins = {
       end
     end,
   },
- {
+  {
     "luukvbaal/statuscol.nvim",
     lazy = false,
-    opts = function ()
-      return require "plugins.configs.statuscol"
+    opts = function()
+      return require("plugins.configs.statuscol")
     end,
-    config = function (_, opts)
+    config = function(_, opts)
       require("statuscol").setup(opts)
---     vim.cmd[[hi statusline guifg=NONE guibg=NONE gui=nocombine]]
+      --     vim.cmd[[hi statusline guifg=NONE guibg=NONE gui=nocombine]]
     end,
   },
   -- Load whichkey after all other gui
@@ -262,10 +297,10 @@ local default_plugins = {
     "folke/which-key.nvim",
     keys = { "<leader>", '"', "'", "`", "c", "v" },
     init = function()
-      require("utils.functions").load_mappings "whichkey"
+      require("utils.functions").load_mappings("whichkey")
     end,
     opts = function()
-      return require "plugins.configs.whichkey"
+      return require("plugins.configs.whichkey")
     end,
     config = function(opts)
       require("which-key").setup(opts)
