@@ -12,7 +12,7 @@
     <!-- <a href="https://github.com/wchan-dev/nvim/actions/workflows/ci.yml"> -->
     <!--   <img src="https://github.com/wchan-dev/nvim/actions/workflows/ci.yml/badge.svg" alt="CI Status"/> -->
     </a>
-    <a href="https://github.com/wchan-dev/nvim/blob/main/LICENSE">
+    <a href="https://github.com/wchan-dev/nvim/LICENSE">
       <img src="https://img.shields.io/github/license/wchan-dev/nvim?style=flat-square&logo=MIT&label=License" alt="License"/>
     </a>
 </p>
