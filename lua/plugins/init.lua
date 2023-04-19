@@ -23,6 +23,22 @@ local default_plugins = {
   },
 
   {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    lazy = false,
+    init = function()
+      require("utils.functions").load_mappings("toggleterm")
+    end,
+    opts = function()
+      require("plugins.configs.toggleterm")
+    end,
+    config = function(_, opts)
+      require("toggleterm").setup(opts)
+      require("utils.functions").toggle_term_mappings()
+    end,
+  },
+
+  {
     "folke/noice.nvim",
     lazy = false,
     dependencies = {

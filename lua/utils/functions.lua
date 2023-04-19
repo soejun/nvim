@@ -25,10 +25,8 @@ M.load_mappings = function(section, mapping_opt)
         for keybind, mapping_info in pairs(mode_values) do
           -- merge default + user opts
           local opts = merge_tb("force", default_opts, mapping_info.opts or {})
-
           mapping_info.opts, opts.mode = nil, nil
           opts.desc = mapping_info[2]
-
           vim.keymap.set(mode, keybind, mapping_info[1], opts)
         end
       end
@@ -47,11 +45,36 @@ M.load_mappings = function(section, mapping_opt)
   end)
 end
 
+M.toggle_term_mappings = function()
+  local map = vim.api.nvim_set_keymap
+  local buf_map = vim.api.nvim_buf_set_keymap
+
+  map("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true }) -- back to normal mode in Terminal
+
+  -- Better navigation to and from terminal
+  local set_terminal_keymaps = function()
+    local opts = { noremap = true }
+    buf_map(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+    buf_map(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opts)
+    buf_map(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opts)
+    buf_map(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opts)
+    buf_map(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opts)
+  end
+  -- if you only want these mappings for toggle term use term://*toggleterm#* instead
+  vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "term://*",
+    callback = function()
+      set_terminal_keymaps()
+    end,
+    desc = "Mappings for navigation with a terminal",
+  })
+end
+
 M.lazy_load = function(plugin)
   vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
     group = vim.api.nvim_create_augroup("BeLazyOnFileOpen" .. plugin, {}),
     callback = function()
-      local file = vim.fn.expand "%"
+      local file = vim.fn.expand("%")
       local condition = file ~= "NvimTree_1" and file ~= "[lazy]" and file ~= ""
 
       if condition then
@@ -61,13 +84,13 @@ M.lazy_load = function(plugin)
         -- This deferring only happens only when we do "nvim filename"
         if plugin ~= "nvim-treesitter" then
           vim.schedule(function()
-            require("lazy").load { plugins = plugin }
+            require("lazy").load({ plugins = plugin })
             if plugin == "nvim-lspconfig" then
-              vim.cmd "silent! do FileType"
+              vim.cmd("silent! do FileType")
             end
           end, 0)
         else
-          require("lazy").load { plugins = plugin }
+          require("lazy").load({ plugins = plugin })
         end
       end
     end,
