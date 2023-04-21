@@ -12,20 +12,40 @@ M.toggle_autoformat = function()
   )
 end
 
-M.format = function ()
+M.format = function()
   local buf = vim.api.nvim_get_current_buf()
   local ft = vim.bo[buf].filetype
   local have_nls = #require("null-ls.sources").get_available(ft, "NULL_LS_FORMMATING") > 0
 
-  vim.lsp.buf.format(vim.tbl_deep_extend("force",{
+  vim.lsp.buf.format(vim.tbl_deep_extend("force", {
     bufnr = buf,
     filter = function(client)
-    if have_nls then
-      return client.name == "null-ls"
+      if have_nls then
+        return client.name == "null-ls"
       end
-    return client.name ~= "null-ls"
+      return client.name ~= "null-ls"
     end,
   }))
+end
+
+M.get_python_path = function(workspace)
+  local lsp_util = require("lspconfig/util")
+  local path = lsp_util.path
+
+  if vim.env.VIRTUAL_ENV then
+    return path.join(vim.env.VIRTUAL_ENV, "bin", "python")
+  end
+
+  -- Find and use virtualenv inw orkspace directory
+  for _, pattern in ipairs({ "*", ".*" }) do
+    local match = vim.fn.glob(path.join(workspace, pattern, "pyvenv.cfg"))
+    if match ~= "" then
+      return path.join(path.dirname(match), "bin", "python")
+    end
+  end
+
+  --Fallback to system Python
+  return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
 end
 
 return M
