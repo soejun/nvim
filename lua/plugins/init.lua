@@ -351,7 +351,12 @@ local default_plugins = {
       },
       "theHamsta/nvim-dap-virtual-text",
       "mfussenegger/nvim-dap-python",
-      "leoluz/nvim-dap-go",
+      {
+        "leoluz/nvim-dap-go",
+        config = function(_, _)
+          require("dap-go").setup()
+        end,
+      },
       {
         "jay-babu/mason-nvim-dap.nvim",
         dependencies = "mason.nvim",
