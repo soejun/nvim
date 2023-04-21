@@ -366,6 +366,8 @@ local default_plugins = {
           -- You'll need to check that you have the required things installed
           -- online, please don't ask me how to install them :)
           ensure_installed = {
+            "python",
+            "delve",
             -- Update this to ensure that you have the debuggers for the langs you want
           },
         },
@@ -390,7 +392,16 @@ local default_plugins = {
     { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
     { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
   },
-    config = function(_, _) end,
+    config = function(_, _)
+      local icons = require("utils.lazyvim-icons")
+      for name, sign in pairs(icons.dap) do
+        sign = type(sign) == "table" and sign or { sign }
+        vim.fn.sign_defin(
+          "Dap" .. name,
+          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+        )
+      end
+    end,
   },
 
   -- Load whichkey after all other gui
