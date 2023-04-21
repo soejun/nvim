@@ -1,6 +1,7 @@
-local options = {
-  ensure_installed = { "lua-language-server" }, -- not an option from mason.nvim
+local settings = require("core.settings")
 
+local options = {
+  ensure_installed = settings.mason_ensure_installed,
   PATH = "skip",
 
   ui = {

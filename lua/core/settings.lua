@@ -64,6 +64,18 @@ M.lsp_servers = {
   "yamlls",
 }
 
+M.mason_ensure_installed = {
+  "bash-language-server",
+  "dockerfile-language-server",
+  "json-lsp",
+  "gopls",
+  "marksman",
+  "pyright",
+  "lua-language-server",
+  "typescript-language-server",
+  "yaml-language-server",
+}
+
 --Telescope
 M.telescope_grep_hidden = true
 
