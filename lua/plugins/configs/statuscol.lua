@@ -1,4 +1,3 @@
-
 local builtin = require("statuscol.builtin")
 local options = {}
 
@@ -7,18 +6,15 @@ options = {
   relculright = true,
   --so basically, the segment is literally the order of how things are gonna get built
   -- so to disable the fold line numbers just literally init the segment and comment out the fold part
+  --
   segments = {
---    {sign = {name = {builtin.foldfunc}},auto = true, click = "v:lua.ScFa"},
+    -- { text = { "%C" }, click = "v:lua.ScFa" },
+    { text = { "%s" }, click = "v:lua.ScSa" },
     {
-      sign = {name = { "Diagnostic" }, maxwidth = 2, auto = true },
-      click = "v:lua.ScSa"
+      text = { builtin.lnumfunc, " " },
+      condition = { true, builtin.not_empty },
+      click = "v:lua.ScLa",
     },
-    {text = {builtin.lnumfunc, " "}, click = "v:lua.ScLa"},
-    {
-      sign = { name = { ".*" }, maxwidth = 1, colwidth = 1, auto = true },
-      click = "v:lua.ScSa"
-    },
---    {sign = {name = {".*"}, maxwidth = 2, colwidth = 1, auto = true}, click ="v:lua.ScSa"}
-  }
+  },
 }
 return options
