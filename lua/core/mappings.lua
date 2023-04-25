@@ -81,6 +81,13 @@ M.blankline = {
   },
 }
 
+M.go = {
+  plugin = true,
+  n = {
+    ["<leader>gc"] = { "<cmd>GoCodeLenAct<CR>" },
+    ["<leader>ga"] = { "<cmd>GoCodeAction<CR>" },
+  },
+}
 M.comment = {
   plugin = true,
   -- toggle comment in both modes
@@ -100,113 +107,6 @@ M.comment = {
   },
 }
 
--- M.dap = {
---   -- in the interest of not breaking any more things
---   -- anything <leader>d* (with '*' as a wildcard) will refer to dap
---   -- yes i'm aware we to figure out something else for the db explorer
---   n = {
---     -- ["<leader>du"] = { ":lua require('dapui').toggle({ })<CR>", "Dap UI" },
---     -- ["<leader>de"] = { ":lua require('dapui).eval()<CR>", { desc = "Eval", mode = { "n, v" } } },
---     -- -- Dap
---     ["<leader>dB"] = {
---       function()
---         require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
---       end,
---       "Breakpoint Condition",
---     },
---     ["<leader>db"] = {
---       function()
---         require("dap").toggle_breakpoint()
---       end,
---       "Toggle Breakpoint",
---     },
---     ["<leader>dc"] = {
---       function()
---         require("dap").continue()
---       end,
---       "Continue",
---     },
---     ["<leader>dC"] = {
---       function()
---         require("dap").run_to_cursor()
---       end,
---       "Run to Cursor",
---     },
---     ["<leader>dg"] = {
---       function()
---         require("dap").goto_()
---       end,
---       "Go to line (no execute)",
---     },
---     ["<leader>di"] = {
---       function()
---         require("dap").step_into()
---       end,
---       "Step Into",
---     },
---     ["<leader>dj"] = {
---       function()
---         require("dap").down()
---       end,
---       "Down",
---     },
---     ["<leader>dk"] = {
---       function()
---         require("dap").up()
---       end,
---       "Up",
---     },
---     ["<leader>dl"] = {
---       function()
---         require("dap").run_last()
---       end,
---       "Run Last",
---     },
---     ["<leader>do"] = {
---       function()
---         require("dap").step_out()
---       end,
---       "Step Out",
---     },
---     ["<leader>dO"] = {
---       function()
---         require("dap").step_over()
---       end,
---       "Step Over",
---     },
---     ["<leader>dp"] = {
---       function()
---         require("dap").pause()
---       end,
---       "Pause",
---     },
---     ["<leader>dr"] = {
---       function()
---         require("dap").repl.open()
---       end,
---       "Repl",
---     },
---     ["<leader>ds"] = {
---       function()
---         require("dap").session()
---       end,
---       "Session",
---     },
---     ["<leader>dt"] = {
---       function()
---         require("dap").terminate()
---       end,
---       "Terminate",
---     },
---     ["<leader>dw"] = {
---       function()
---         require("dap.ui.widgets").hover()
---       end,
---       "Widgets",
---     },
---   },
--- }
---
 M.lspconfig = {
   plugin = true,
   -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions

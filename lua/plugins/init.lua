@@ -282,7 +282,9 @@ local default_plugins = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
+        init,
       },
+      init,
     },
     init = function()
       require("utils.functions").load_mappings("telescope")
@@ -351,6 +353,9 @@ local default_plugins = {
       dependencies = { "ray-x/guihua.lua" },
       event = "CmdLineEnter",
       ft = { "go", "gomod" },
+      init = function()
+        require("utils.functions").load_mappings("go")
+      end,
       opts = function()
         return require("plugins.configs.lsp.ray-x-go")
       end,
