@@ -200,7 +200,7 @@ local default_plugins = {
           --   extra_args = { "-g", "/dev/null" }, -- https://github.com/cmhughes/latexindent.pl/releases/tag/V3.9.3
           -- }),
           -- null_ls.builtins.code_actions.shellcheck,
-          -- null_ls.builtins.code_actions.gitsigns,
+          null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.formatting.shfmt,
           -- null_ls.builtins.diagnostics.ruff,
         },
@@ -297,6 +297,16 @@ local default_plugins = {
       for _, ext in ipairs(opts.extensions_list) do
         telescope.load_extension(ext)
       end
+    end,
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    lazy = false,
+    opts = function()
+      return require("plugins.configs.gitsigns")
+    end,
+    config = function(_, opts)
+      require("gitsigns").setup(opts)
     end,
   },
   {
