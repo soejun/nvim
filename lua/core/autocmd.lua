@@ -71,3 +71,12 @@ api.nvim_create_autocmd("VimEnter", {
     api.nvim_command("hi WinSeparator guifg=" .. hexcode)
   end,
 })
+
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    require("go.format").goimport()
+  end,
+  group = format_sync_grp,
+})

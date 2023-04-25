@@ -200,7 +200,7 @@ local default_plugins = {
           --   extra_args = { "-g", "/dev/null" }, -- https://github.com/cmhughes/latexindent.pl/releases/tag/V3.9.3
           -- }),
           -- null_ls.builtins.code_actions.shellcheck,
-          null_ls.builtins.code_actions.gitsigns,
+          -- null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.formatting.shfmt,
           -- null_ls.builtins.diagnostics.ruff,
         },
@@ -331,10 +331,22 @@ local default_plugins = {
       })
     end,
     keys = {
-      { "<leader>Dt", "<cmd>DBUIToggle<cr>",        desc = "Toggle UI" },
-      { "<leader>Df", "<cmd>DBUIFindBuffer<cr>",    desc = "Find Buffer" },
-      { "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>",  desc = "Rename Buffer" },
+      { "<leader>Dt", "<cmd>DBUIToggle<cr>", desc = "Toggle UI" },
+      { "<leader>Df", "<cmd>DBUIFindBuffer<cr>", desc = "Find Buffer" },
+      { "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>", desc = "Rename Buffer" },
       { "<leader>Dq", "<cmd>DBUILastQueryInfo<cr>", desc = "Last Query Info" },
+    },
+    {
+      "ray-x/go.nvim",
+      dependencies = { "ray-x/guihua.lua" },
+      event = "CmdLineEnter",
+      ft = { "go", "gomod" },
+      opts = function()
+        return require("plugins.configs.lsp.ray-x-go")
+      end,
+      config = function(_, opts)
+        require("go").setup(opts)
+      end,
     },
     {
       "luukvbaal/statuscol.nvim",
