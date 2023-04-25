@@ -312,9 +312,228 @@ local default_plugins = {
     end,
   },
   {
+    "ray-x/go.nvim",
+    dependencies = { "ray-x/guihua.lua" },
+    event = "CmdLineEnter",
+    ft = { "go", "gomod" },
+    init = function()
+      require("utils.functions").load_mappings("go")
+    end,
+    opts = function()
+      return require("plugins.configs.lsp.ray-x-go")
+    end,
+    config = function(_, opts)
+      require("go").setup(opts)
+    end,
+  },
+
+  {
+    "mfussenegger/nvim-dap",
+    init = function()
+      -- TODO: Remap keymappings and this whole config
+      -- require("utils.functions").load_mappings("dap")
+    end,
+    dependencies = {
+      {
+        "rcarriga/nvim-dap-ui",
+        keys = {
+          {
+            "<leader>du",
+            function()
+              require("dapui").toggle()
+            end,
+          },
+          {
+            "<leader>de",
+            function()
+              require("dapui").eval()
+            end,
+          },
+        },
+        opts = {},
+        config = function(_, opts)
+          local dap = require("dap")
+          local dapui = require("dapui")
+          dapui.setup(opts)
+          dap.listeners.after.event_initialized["dapui_config"] = function()
+            dapui.open({})
+          end
+          dap.listeners.before.event_terminated["dapui_config"] = function()
+            dapui.close({})
+          end
+          dap.listeners.before.event_exited["dapui_config"] = function()
+            dapui.close({})
+          end
+        end,
+      },
+      "theHamsta/nvim-dap-virtual-text",
+      "mfussenegger/nvim-dap-python",
+      {
+        "leoluz/nvim-dap-go",
+        config = function(_, _)
+          require("dap-go").setup()
+        end,
+      },
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies = "mason.nvim",
+        cmd = { "DapInstall", "DapUninstall" },
+        opts = {
+          -- Makes a best effort to setup the various debuggers with
+          -- reasonable debug configurations
+          automatic_setup = true,
+          -- You can provide additional configuration to the handlers,
+          -- see mason-nvim-dap README for more information
+          handlers = {},
+          -- You'll need to check that you have the required things installed
+          -- online, please don't ask me how to install them :)
+          ensure_installed = {
+            "python",
+            "delve",
+            -- Update this to ensure that you have the debuggers for the langs you want
+          },
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>dB",
+        function()
+          require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+        end,
+        desc = "Breakpoint Condition",
+      },
+      {
+        "<leader>db",
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = "Toggle Breakpoint",
+      },
+      {
+        "<leader>dc",
+        function()
+          require("dap").continue()
+        end,
+        desc = "Continue",
+      },
+      {
+        "<leader>dC",
+        function()
+          require("dap").run_to_cursor()
+        end,
+        desc = "Run to Cursor",
+      },
+      {
+        "<leader>dg",
+        function()
+          require("dap").goto_()
+        end,
+        desc = "Go to line (no execute)",
+      },
+      {
+        "<leader>di",
+        function()
+          require("dap").step_into()
+        end,
+        desc = "Step Into",
+      },
+      {
+        "<leader>dj",
+        function()
+          require("dap").down()
+        end,
+        desc = "Down",
+      },
+      {
+        "<leader>dk",
+        function()
+          require("dap").up()
+        end,
+        desc = "Up",
+      },
+      {
+        "<leader>dl",
+        function()
+          require("dap").run_last()
+        end,
+        desc = "Run Last",
+      },
+      {
+        "<leader>do",
+        function()
+          require("dap").step_out()
+        end,
+        desc = "Step Out",
+      },
+      {
+        "<leader>dO",
+        function()
+          require("dap").step_over()
+        end,
+        desc = "Step Over",
+      },
+      {
+        "<leader>dp",
+        function()
+          require("dap").pause()
+        end,
+        desc = "Pause",
+      },
+      {
+        "<leader>dr",
+        function()
+          require("dap").repl.open()
+        end,
+        desc = "Repl",
+      },
+      {
+        "<leader>ds",
+        function()
+          require("dap").session()
+        end,
+        desc = "Session",
+      },
+      {
+        "<leader>dt",
+        function()
+          require("dap").terminate()
+        end,
+        desc = "Terminate",
+      },
+      {
+        "<leader>dw",
+        function()
+          require("dap.ui.widgets").hover()
+        end,
+        desc = "Widgets",
+      },
+    },
+    config = function(_, _)
+      local icons = require("utils.lazyvim-icons")
+      for name, sign in pairs(icons.dap) do
+        sign = type(sign) == "table" and sign or { sign }
+        vim.fn.sign_define(
+          "Dap" .. name,
+          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+        )
+      end
+    end,
+  },
+  {
+    "luukvbaal/statuscol.nvim",
+    lazy = false,
+    opts = function()
+      return require("plugins.configs.statuscol")
+    end,
+    config = function(_, opts)
+      require("statuscol").setup(opts)
+    end,
+  },
+  {
     "tpope/vim-dadbod",
     dependencies = {
-      "kristijanhusak/vim-dadbod-ui",
+      { "kristijanhusak/vim-dadbod-ui" },
       "kristijanhusak/vim-dadbod-completion",
     },
     opts = {
@@ -348,226 +567,22 @@ local default_plugins = {
       { "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>", desc = "Rename Buffer" },
       { "<leader>Dq", "<cmd>DBUILastQueryInfo<cr>", desc = "Last Query Info" },
     },
-    {
-      "ray-x/go.nvim",
-      dependencies = { "ray-x/guihua.lua" },
-      event = "CmdLineEnter",
-      ft = { "go", "gomod" },
-      init = function()
-        require("utils.functions").load_mappings("go")
-      end,
-      opts = function()
-        return require("plugins.configs.lsp.ray-x-go")
-      end,
-      config = function(_, opts)
-        require("go").setup(opts)
-      end,
-    },
-    {
-      "luukvbaal/statuscol.nvim",
-      lazy = false,
-      dependencies = {
-        {
-          "mfussenegger/nvim-dap",
-          init = function()
-            -- TODO: Remap keymappings and this whole config
-            -- require("utils.functions").load_mappings("dap")
-          end,
-          dependencies = {
-            {
-              "rcarriga/nvim-dap-ui",
-              keys = {
-                {
-                  "<leader>du",
-                  function()
-                    require("dapui").toggle()
-                  end,
-                },
-                {
-                  "<leader>de",
-                  function()
-                    require("dapui").eval()
-                  end,
-                },
-              },
-              opts = {},
-              config = function(_, opts)
-                local dap = require("dap")
-                local dapui = require("dapui")
-                dapui.setup(opts)
-                dap.listeners.after.event_initialized["dapui_config"] = function()
-                  dapui.open({})
-                end
-                dap.listeners.before.event_terminated["dapui_config"] = function()
-                  dapui.close({})
-                end
-                dap.listeners.before.event_exited["dapui_config"] = function()
-                  dapui.close({})
-                end
-              end,
-            },
-            "theHamsta/nvim-dap-virtual-text",
-            "mfussenegger/nvim-dap-python",
-            {
-              "leoluz/nvim-dap-go",
-              config = function(_, _)
-                require("dap-go").setup()
-              end,
-            },
-            {
-              "jay-babu/mason-nvim-dap.nvim",
-              dependencies = "mason.nvim",
-              cmd = { "DapInstall", "DapUninstall" },
-              opts = {
-                -- Makes a best effort to setup the various debuggers with
-                -- reasonable debug configurations
-                automatic_setup = true,
-                -- You can provide additional configuration to the handlers,
-                -- see mason-nvim-dap README for more information
-                handlers = {},
-                -- You'll need to check that you have the required things installed
-                -- online, please don't ask me how to install them :)
-                ensure_installed = {
-                  "python",
-                  "delve",
-                  -- Update this to ensure that you have the debuggers for the langs you want
-                },
-              },
-            },
-          },
-          -- stylua: ignore
-          keys = {
-            {
-              "<leader>dB",
-              function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end,
-              desc =
-              "Breakpoint Condition"
-            },
-            {
-              "<leader>db",
-              function() require("dap").toggle_breakpoint() end,
-              desc =
-              "Toggle Breakpoint"
-            },
-            {
-              "<leader>dc",
-              function() require("dap").continue() end,
-              desc =
-              "Continue"
-            },
-            {
-              "<leader>dC",
-              function() require("dap").run_to_cursor() end,
-              desc =
-              "Run to Cursor"
-            },
-            {
-              "<leader>dg",
-              function() require("dap").goto_() end,
-              desc =
-              "Go to line (no execute)"
-            },
-            {
-              "<leader>di",
-              function() require("dap").step_into() end,
-              desc =
-              "Step Into"
-            },
-            {
-              "<leader>dj",
-              function() require("dap").down() end,
-              desc =
-              "Down"
-            },
-            {
-              "<leader>dk",
-              function() require("dap").up() end,
-              desc =
-              "Up"
-            },
-            {
-              "<leader>dl",
-              function() require("dap").run_last() end,
-              desc =
-              "Run Last"
-            },
-            {
-              "<leader>do",
-              function() require("dap").step_out() end,
-              desc =
-              "Step Out"
-            },
-            {
-              "<leader>dO",
-              function() require("dap").step_over() end,
-              desc =
-              "Step Over"
-            },
-            {
-              "<leader>dp",
-              function() require("dap").pause() end,
-              desc =
-              "Pause"
-            },
-            {
-              "<leader>dr",
-              function() require("dap").repl.open() end,
-              desc =
-              "Repl"
-            },
-            {
-              "<leader>ds",
-              function() require("dap").session() end,
-              desc =
-              "Session"
-            },
-            {
-              "<leader>dt",
-              function() require("dap").terminate() end,
-              desc =
-              "Terminate"
-            },
-            {
-              "<leader>dw",
-              function() require("dap.ui.widgets").hover() end,
-              desc =
-              "Widgets"
-            },
-          },
-          config = function(_, _)
-            local icons = require("utils.lazyvim-icons")
-            for name, sign in pairs(icons.dap) do
-              sign = type(sign) == "table" and sign or { sign }
-              vim.fn.sign_define(
-                "Dap" .. name,
-                { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-              )
-            end
-          end,
-        },
-      },
-      opts = function()
-        return require("plugins.configs.statuscol")
-      end,
-      config = function(_, opts)
-        require("statuscol").setup(opts)
-      end,
-    },
-    -- Load whichkey after all other gui
-    {
-      "folke/which-key.nvim",
-      keys = { "<leader>", '"', "'", "`", "c", "v" },
-      init = function()
-        require("utils.functions").load_mappings("whichkey")
-      end,
-      opts = function()
-        return require("plugins.configs.whichkey")
-      end,
-      config = function(opts)
-        require("which-key").setup(opts)
-      end,
-      lazy = false,
-    },
+  },
+
+  -- Load whichkey after all other gui
+  {
+    "folke/which-key.nvim",
+    keys = { "<leader>", '"', "'", "`", "c", "v" },
+    init = function()
+      require("utils.functions").load_mappings("whichkey")
+    end,
+    opts = function()
+      return require("plugins.configs.whichkey")
+    end,
+    config = function(opts)
+      require("which-key").setup(opts)
+    end,
+    lazy = false,
   },
 }
 
