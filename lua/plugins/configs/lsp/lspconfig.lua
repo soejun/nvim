@@ -61,6 +61,7 @@ for _, lsp in ipairs(servers) do
     },
     settings = {
       Lua = lsp_settings.lua_ls,
+      yaml = lsp_settings.yaml,
     },
   })
 end

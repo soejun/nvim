@@ -20,6 +20,18 @@ local default_plugins = {
   -- icons
   {
     "nvim-tree/nvim-web-devicons",
+    config = function(_, _)
+      require("nvim-web-devicons").setup({
+        -- override = {
+        --   ["go"] = {
+        --     icon = "\u{e65e}",
+        --     color = "#519aba",
+        --     cterm_color = "74",
+        --     name = "Go",
+        --   },
+        -- },
+      })
+    end,
   },
   {
     "akinsho/toggleterm.nvim",
@@ -273,32 +285,6 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
-    end,
-  },
-  {
-    "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    dependencies = {
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        init,
-      },
-      init,
-    },
-    init = function()
-      require("utils.functions").load_mappings("telescope")
-    end,
-    opts = function()
-      return require("plugins.configs.telescope")
-    end,
-    config = function(_, opts)
-      local telescope = require("telescope")
-      telescope.setup(opts)
-      -- load extensions
-      for _, ext in ipairs(opts.extensions_list) do
-        telescope.load_extension(ext)
-      end
     end,
   },
   {
@@ -568,6 +554,30 @@ local default_plugins = {
       { "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>", desc = "Rename Buffer" },
       { "<leader>Dq", "<cmd>DBUILastQueryInfo<cr>", desc = "Last Query Info" },
     },
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    dependencies = {
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+      },
+    },
+    init = function()
+      require("utils.functions").load_mappings("telescope")
+    end,
+    opts = function()
+      return require("plugins.configs.telescope")
+    end,
+    config = function(_, opts)
+      local telescope = require("telescope")
+      telescope.setup(opts)
+      -- load extensions
+      for _, ext in ipairs(opts.extensions_list) do
+        telescope.load_extension(ext)
+      end
+    end,
   },
 
   -- Load whichkey after all other gui
