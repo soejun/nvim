@@ -1,6 +1,7 @@
 local options = {}
-
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 options = {
+  capabilities = capabilities,
   -- NOTE: all LSP and formatting related options are disabeld.
   -- NOTE: is not related to core.plugins.lsp
   -- NOTE: manages LSP on its own

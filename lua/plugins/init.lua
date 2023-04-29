@@ -41,7 +41,7 @@ local default_plugins = {
       require("utils.functions").load_mappings("toggleterm")
     end,
     opts = function()
-      require("plugins.configs.toggleterm")
+      return require("plugins.configs.toggleterm")
     end,
     config = function(_, opts)
       require("toggleterm").setup(opts)
@@ -287,6 +287,31 @@ local default_plugins = {
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
+  {
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    dependencies = {
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+      },
+    },
+    init = function()
+      require("utils.functions").load_mappings("telescope")
+    end,
+    opts = function()
+      return require("plugins.configs.telescope")
+    end,
+    config = function(_, opts)
+      local telescope = require("telescope")
+      telescope.setup(opts)
+      -- load extensions
+      for _, ext in ipairs(opts.extensions_list) do
+        telescope.load_extension(ext)
+      end
+    end,
+  },
+
   {
     "lewis6991/gitsigns.nvim",
     lazy = false,
@@ -555,31 +580,6 @@ local default_plugins = {
       { "<leader>Dq", "<cmd>DBUILastQueryInfo<cr>", desc = "Last Query Info" },
     },
   },
-  {
-    "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    dependencies = {
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-      },
-    },
-    init = function()
-      require("utils.functions").load_mappings("telescope")
-    end,
-    opts = function()
-      return require("plugins.configs.telescope")
-    end,
-    config = function(_, opts)
-      local telescope = require("telescope")
-      telescope.setup(opts)
-      -- load extensions
-      for _, ext in ipairs(opts.extensions_list) do
-        telescope.load_extension(ext)
-      end
-    end,
-  },
-
   -- Load whichkey after all other gui
   {
     "folke/which-key.nvim",
