@@ -1,7 +1,5 @@
 local options = {}
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 options = {
-  capabilities = capabilities,
   -- NOTE: all LSP and formatting related options are disabeld.
   -- NOTE: is not related to core.plugins.lsp
   -- NOTE: manages LSP on its own
@@ -16,22 +14,20 @@ options = {
   comment_placeholder = "", -- comment_placeholder your cool placeholder e.g. ﳑ       
   -- icons = { breakpoint = icons.ui.Yoga, currentpos = icons.ui.RunningMan },
   verbose = false, -- output loginf in messages
-  lsp_cfg = false, -- true: use non-default gopls setup specified in go/lsp.lua
+  lsp_cfg = true, -- true: use non-default gopls setup specified in go/lsp.lua
   -- false: do nothing
   -- if lsp_cfg is a table, merge table with with non-default gopls setup in go/lsp.lua, e.g.
   --   lsp_cfg = {settings={gopls={matcher='CaseInsensitive', ['local'] = 'your_local_module_path', gofumpt = true }}}
   lsp_gofumpt = false, -- true: set default gofmt in gopls format to gofumpt
   lsp_diag_underline = false,
-  -- lsp_on_attach = function(client, bufnr)
-  --   local utils = require("utils.functions")
-  --   utils.load_mappings("lspconfig", { bufer = bufnr })
-  --   -- attach my LSP configs keybindings
-  --   --   }, { prefix = "<leader>", mode = "v", default_options })
-  -- end, -- nil: use on_attach function defined in go/lsp.lua,
-  -- -- --      when lsp_cfg is true
-  -- if lsp_on_attach is a function: use this function as on_attach function for gopls
-  lsp_codelens = true, -- set to false to disable codelens, true by default
-  lsp_keymaps = true, -- set to false to disable gopls/lsp keymap
+  lsp_on_attach = function(client, bufnr)
+    -- attach lsp key bindings
+    require("utils.functions").load_mappings("lspconfig", { buffer = bufnr })
+  end,
+  -- nil: use on_attach function defined in go/lsp.lua,
+  --      when lsp_cfg is true
+  -- if lsp_on_attach is a function: use this function as on_attach function for gopls lsp_codelens = true, -- set to false to disable codelens, true by default
+  lsp_keymaps = false, -- set to false to disable gopls/lsp keymap
   lsp_diag_hdlr = true, -- hook lsp diag handler
   -- lsp_diag_virtual_text = { space = 0, prefix = icons.arrows.Diamond }, -- virtual text setup
   lsp_diag_signs = true,
