@@ -3,8 +3,7 @@
 -- we can start categorizng thngs, into ui, lsp, quality of life
 -- yeeeeaaaaahhh, pls refactor
 
-local default_plugins =
-{
+local default_plugins = {
   { "nvim-lua/plenary.nvim", lazy = false, priority = 1000 },
   {
     "svrana/neosolarized.nvim",
@@ -23,8 +22,7 @@ local default_plugins =
   {
     "nvim-tree/nvim-web-devicons",
     config = function(_, _)
-      require("nvim-web-devicons").setup({
-      })
+      require("nvim-web-devicons").setup({})
     end,
   },
   {
@@ -425,9 +423,9 @@ local default_plugins =
       })
     end,
     keys = {
-      { "<leader>Dt", "<cmd>DBUIToggle<cr>",        desc = "Toggle UI" },
-      { "<leader>Df", "<cmd>DBUIFindBuffer<cr>",    desc = "Find Buffer" },
-      { "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>",  desc = "Rename Buffer" },
+      { "<leader>Dt", "<cmd>DBUIToggle<cr>", desc = "Toggle UI" },
+      { "<leader>Df", "<cmd>DBUIFindBuffer<cr>", desc = "Find Buffer" },
+      { "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>", desc = "Rename Buffer" },
       { "<leader>Dq", "<cmd>DBUILastQueryInfo<cr>", desc = "Last Query Info" },
     },
   },
