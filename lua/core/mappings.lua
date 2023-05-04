@@ -23,7 +23,7 @@ M.general = {
     ["<C-l>"] = { "<C-w>l", "window right" },
     ["<C-j>"] = { "<C-w>j", "window down" },
     ["<C-k>"] = { "<C-w>k", "window up" },
-    -- window management
+    -- window sizing management
     ["<leader>sv"] = { "<C-w>v", "split window vertically" },
     ["<leader>sh"] = { "<C-w>s", "split window horizontally" },
     ["<leader>se"] = { "<C-w>=", "windows equal width and height" },
@@ -81,6 +81,29 @@ M.blankline = {
   },
 }
 
+M.dap = {
+  plugin = true,
+  n = {
+    ["<leader>dB"] = { ':lua require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>',
+      "Breakpoint Condition" },
+    ["<leader>db"] = { ':lua require("dap").toggle_breakpoint()<CR>', "Toggle Breakpoint" },
+    ["<leader>dc"] = { ':lua require("dap").continue()<CR>', "Continue" },
+    ["<leader>dC"] = { ':lua require("dap").run_to_cursor()<CR>', "Run to Cursor" },
+    ["<leader>dg"] = { ':lua require("dap").goto_()<CR>', "Go to line (no execute)" },
+    ["<leader>di"] = { ':lua require("dap").step_into()<CR>', "Step Into" },
+    ["<leader>dj"] = { ':lua require("dap").down()<CR>', "Down" },
+    ["<leader>dk"] = { ':lua require("dap").up()<CR>', "Up" },
+    ["<leader>dl"] = { ':lua require("dap").run_last()<CR>', "Run Last" },
+    ["<leader>do"] = { ':lua require("dap").step_out()<CR>', "Step Out" },
+    ["<leader>dO"] = { ':lua require("dap").step_over()<CR>', "Step Over" },
+    ["<leader>dp"] = { ':lua require("dap").pause()<CR>', "Pause" },
+    ["<leader>dr"] = { ':lua require("dap").repl.open()<CR>', "Repl" },
+    ["<leader>ds"] = { ':lua require("dap").session()<CR>', "Session" },
+    ["<leader>dt"] = { ':lua require("dap").terminate()<CR>', "Terminate" },
+    ["<leader>dw"] = { ':lua require("dap.ui.widgets").hover()<CR>', "Hover" }
+  }
+}
+
 M.go = {
   plugin = true,
   n = {
@@ -111,106 +134,27 @@ M.lspconfig = {
   plugin = true,
   -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
   n = {
-    ["gD"] = {
-      function()
-        vim.lsp.buf.declaration()
-      end,
-      "lsp declaration",
-    },
-    ["gd"] = {
-      function()
-        vim.lsp.buf.definition()
-      end,
-      "lsp definition",
-    },
-    ["K"] = {
-      function()
-        vim.lsp.buf.hover()
-      end,
-      "lsp hover",
-    },
-    ["gi"] = {
-      function()
-        vim.lsp.buf.implementation()
-      end,
-      "lsp implementation",
-    },
-    ["<leader>ls"] = {
-      function()
-        vim.lsp.buf.signature_help()
-      end,
-      "lsp signature_help",
-    },
-    ["<leader>D"] = {
-      function()
-        vim.lsp.buf.type_definition()
-      end,
-      "lsp definition type",
-    },
-    ["<leader>ca"] = {
-      function()
-        vim.lsp.buf.code_action()
-      end,
-      "lsp code_action",
-    },
-    ["gr"] = {
-      function()
-        vim.lsp.buf.references()
-      end,
-      "lsp references",
-    },
-    ["<leader>f"] = {
-      function()
-        vim.diagnostic.open_float({ border = "rounded" })
-      end,
-      "floating diagnostic",
-    },
-    ["[d"] = {
-      function()
-        vim.diagnostic.goto_prev()
-      end,
-      "goto prev",
-    },
-    ["]d"] = {
-      function()
-        vim.diagnostic.goto_next()
-      end,
-      "goto_next",
-    },
-    ["<leader>q"] = {
-      function()
-        vim.diagnostic.setloclist()
-      end,
-      "diagnostic setloclist",
-    },
-    ["<leader>fm"] = {
-      function()
-        vim.lsp.buf.format({ async = true })
-      end,
-      "lsp formatting",
-    },
-    ["<leader>tF"] = {
-      "<cmd>lua require('plugins.configs.lsp.utils').toggle_autoformat()<cr>",
-      { desc = "Toggle format on save" },
-    },
-    ["<leader>wa"] = {
-      function()
-        vim.lsp.buf.add_workspace_folder()
-      end,
-      "add workspace folder",
-    },
-    ["<leader>wr"] = {
-      function()
-        vim.lsp.buf.remove_workspace_folder()
-      end,
-      "remove workspace folder",
-    },
-    ["<leader>wl"] = {
-      function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-      end,
-      "list workspace folders",
-    },
+    -- stylua: ignore
+    ["gD"] = { function() vim.lsp.buf.declaration() end, "lsp declaration" },
+    ["gd"] = { function() vim.lsp.buf.definition() end, "lsp definition" },
+    ["K"] = { function() vim.lsp.buf.hover() end, "lsp hover" },
+    ["gi"] = { function() vim.lsp.buf.implementation() end, "lsp implementation" },
+    ["<leader>ls"] = { function() vim.lsp.buf.signature_help() end, "lsp signature_help" },
+    ["<leader>D"] = { function() vim.lsp.buf.type_definition() end, "lsp definition type" },
+    ["<leader>ca"] = { function() vim.lsp.buf.code_action() end, "lsp code_action" },
+    ["gr"] = { function() vim.lsp.buf.references() end, "lsp references" },
+    ["<leader>f"] = { function() vim.diagnostic.open_float({ border = "rounded" }) end, "floating diagnostic" },
+    ["[d"] = { function() vim.diagnostic.goto_prev() end, "goto prev" },
+    ["]d"] = { function() vim.diagnostic.goto_next() end, "goto_next" },
+    ["<leader>q"] = { function() vim.diagnostic.setloclist() end, "diagnostic setloclist" },
+    ["<leader>fm"] = { function() vim.lsp.buf.format({ async = true }) end, "lsp formatting" },
+    ["<leader>tF"] = { "<cmd>lua require('plugins.configs.lsp.utils').toggle_autoformat()<cr>", {
+      desc = "Toggle format on save" } },
+    ["<leader>wa"] = { function() vim.lsp.buf.add_workspace_folder() end, "add workspace folder" },
+    ["<leader>wr"] = { function() vim.lsp.buf.remove_workspace_folder() end, "remove workspace folder" },
+    ["<leader>wl"] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+      "list workspace folders" },
+    --stylua: ignore end
   },
 }
 
@@ -224,9 +168,7 @@ M.notify = {
 M.nvimtree = {
   plugin = true,
   n = {
-    -- toggle
     ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
-    -- focus
     ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
   },
 }

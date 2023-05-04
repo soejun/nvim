@@ -3,7 +3,8 @@
 -- we can start categorizng thngs, into ui, lsp, quality of life
 -- yeeeeaaaaahhh, pls refactor
 
-local default_plugins = {
+local default_plugins =
+{
   { "nvim-lua/plenary.nvim", lazy = false, priority = 1000 },
   {
     "svrana/neosolarized.nvim",
@@ -23,14 +24,6 @@ local default_plugins = {
     "nvim-tree/nvim-web-devicons",
     config = function(_, _)
       require("nvim-web-devicons").setup({
-        -- override = {
-        --   ["go"] = {
-        --     icon = "\u{e65e}",
-        --     color = "#519aba",
-        --     cterm_color = "74",
-        --     name = "Go",
-        --   },
-        -- },
       })
     end,
   },
@@ -83,7 +76,6 @@ local default_plugins = {
   {
     "nvim-lualine/lualine.nvim",
     lazy = false,
-    --   build = 'make',
     opts = function()
       return require("plugins.configs.lualine")
     end,
@@ -126,12 +118,6 @@ local default_plugins = {
       return require("plugins.configs.indent-blankline")
     end,
     config = function(_, opts)
-      --TODO: Fix this mess
-      -- temporary, pulling directly from svrana-neosolarized
-      -- vim.cmd [[highlight IndentBlanklineChar guifg=#657b83 gui=nocombine]]
-      -- vim.cmd [[highlight IndentBlankineSpaceChar guifg=#657b83 gui=nocombine]]
-      -- vim.cmd [[highlight IndentBlanklineContextChar guifg=#586e75 gui=nocombine]]
-      -- vim.cmd [[highlight IndentBlanklineContextStart guisp=#657b83 gui=nocombine]]
       --------
       vim.cmd([[highlight IndentBlanklineChar guifg=#0f3a45 gui=nocombine]])
       vim.cmd([[highlight IndentBlankineSpaceChar guifg=#0f3a45 gui=nocombine]])
@@ -150,7 +136,6 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require("mason").setup(opts)
-      -- custom nvchad cmd to install all mason binaries listed
       vim.api.nvim_create_user_command("MasonInstallAll", function()
         vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
       end, {})
@@ -188,15 +173,9 @@ local default_plugins = {
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    -- opts is currently unused
-    -- opts = function()
-    --   require("plugins.configs.lsp.null-ls")
-    -- end,
     config = function(_, _)
       local null_ls = require("null-ls")
       null_ls.setup({
-        -- we need to load null-ls first and then setup the sources and opts here,
-        -- it's a little strange
         sources = {
           null_ls.builtins.formatting.stylua.with({
             extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
@@ -205,17 +184,10 @@ local default_plugins = {
           null_ls.builtins.formatting.prettier.with({
             extra_args = { "--single-quote", "false" },
           }),
-          -- null_ls.builtins.formatting.terraform_fmt,
-          -- null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.goimports,
           null_ls.builtins.formatting.gofumpt,
-          -- null_ls.builtins.formatting.latexindent.with({
-          --   extra_args = { "-g", "/dev/null" }, -- https://github.com/cmhughes/latexindent.pl/releases/tag/V3.9.3
-          -- }),
-          -- null_ls.builtins.code_actions.shellcheck,
           null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.formatting.shfmt,
-          -- null_ls.builtins.diagnostics.ruff,
         },
       })
     end,
@@ -225,7 +197,6 @@ local default_plugins = {
     event = "InsertEnter",
     dependencies = {
       {
-        -- snippet plugin
         "L3MON4D3/LuaSnip",
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI" },
@@ -233,16 +204,14 @@ local default_plugins = {
           require("plugins.configs.luasnip").luasnip(opts)
         end,
       },
-      -- autopairing of (){}[] etc
       {
-        "windwp/nvim-autopairs",
+        "windwp/nvim-autopairs", -- autopairing of (){}[] etc
         opts = {
           fast_wrap = {},
           disable_filetype = { "TelescopePrompt", "vim" },
         },
         config = function(_, opts)
-          require("nvim-autopairs").setup(opts)
-          -- setup cmp for autopairs
+          require("nvim-autopairs").setup(opts) -- setup cmp for autopairs
           local cmp_autopairs = require("nvim-autopairs.completion.cmp")
           require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end,
@@ -250,8 +219,7 @@ local default_plugins = {
 
       {
         "onsails/lspkind.nvim",
-      },
-      -- cmp sources plugins
+      }, -- cmp sources plugins
       {
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lua",
@@ -273,9 +241,7 @@ local default_plugins = {
   -- make sure to load nvim-treesitter after indent-blankline otherwise things will break
   {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      -- TODO, add other extensions later
-    },
+    dependencies = {},
     init = function()
       require("utils.functions").lazy_load("nvim-treesitter")
     end,
@@ -342,8 +308,7 @@ local default_plugins = {
   {
     "mfussenegger/nvim-dap",
     init = function()
-      -- TODO: Remap keymappings and this whole config
-      -- require("utils.functions").load_mappings("dap")
+      require("utils.functions").load_mappings("dap")
     end,
     dependencies = {
       {
@@ -407,120 +372,6 @@ local default_plugins = {
         },
       },
     },
-    keys = {
-      {
-        "<leader>dB",
-        function()
-          require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
-        end,
-        desc = "Breakpoint Condition",
-      },
-      {
-        "<leader>db",
-        function()
-          require("dap").toggle_breakpoint()
-        end,
-        desc = "Toggle Breakpoint",
-      },
-      {
-        "<leader>dc",
-        function()
-          require("dap").continue()
-        end,
-        desc = "Continue",
-      },
-      {
-        "<leader>dC",
-        function()
-          require("dap").run_to_cursor()
-        end,
-        desc = "Run to Cursor",
-      },
-      {
-        "<leader>dg",
-        function()
-          require("dap").goto_()
-        end,
-        desc = "Go to line (no execute)",
-      },
-      {
-        "<leader>di",
-        function()
-          require("dap").step_into()
-        end,
-        desc = "Step Into",
-      },
-      {
-        "<leader>dj",
-        function()
-          require("dap").down()
-        end,
-        desc = "Down",
-      },
-      {
-        "<leader>dk",
-        function()
-          require("dap").up()
-        end,
-        desc = "Up",
-      },
-      {
-        "<leader>dl",
-        function()
-          require("dap").run_last()
-        end,
-        desc = "Run Last",
-      },
-      {
-        "<leader>do",
-        function()
-          require("dap").step_out()
-        end,
-        desc = "Step Out",
-      },
-      {
-        "<leader>dO",
-        function()
-          require("dap").step_over()
-        end,
-        desc = "Step Over",
-      },
-      {
-        "<leader>dp",
-        function()
-          require("dap").pause()
-        end,
-        desc = "Pause",
-      },
-      {
-        "<leader>dr",
-        function()
-          require("dap").repl.open()
-        end,
-        desc = "Repl",
-      },
-      {
-        "<leader>ds",
-        function()
-          require("dap").session()
-        end,
-        desc = "Session",
-      },
-      {
-        "<leader>dt",
-        function()
-          require("dap").terminate()
-        end,
-        desc = "Terminate",
-      },
-      {
-        "<leader>dw",
-        function()
-          require("dap.ui.widgets").hover()
-        end,
-        desc = "Widgets",
-      },
-    },
     config = function(_, _)
       local icons = require("utils.lazyvim-icons")
       for name, sign in pairs(icons.dap) do
@@ -554,7 +405,6 @@ local default_plugins = {
       end,
     },
     config = function(_, opts)
-      -- vim.g.db_ui_save_location = vim.fn.stdpath("config" .. require("plenary.path").path.sep .. "db_ui")
       vim.g.db_ui_save_location = "/Users/soejun/workspace/scripts/sql-scripts/db_ui"
       vim.api.nvim_create_autocmd("FileType", {
         pattern = {
@@ -575,9 +425,9 @@ local default_plugins = {
       })
     end,
     keys = {
-      { "<leader>Dt", "<cmd>DBUIToggle<cr>", desc = "Toggle UI" },
-      { "<leader>Df", "<cmd>DBUIFindBuffer<cr>", desc = "Find Buffer" },
-      { "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>", desc = "Rename Buffer" },
+      { "<leader>Dt", "<cmd>DBUIToggle<cr>",        desc = "Toggle UI" },
+      { "<leader>Df", "<cmd>DBUIFindBuffer<cr>",    desc = "Find Buffer" },
+      { "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>",  desc = "Rename Buffer" },
       { "<leader>Dq", "<cmd>DBUILastQueryInfo<cr>", desc = "Last Query Info" },
     },
   },
@@ -597,7 +447,4 @@ local default_plugins = {
     lazy = false,
   },
 }
-
-local lazy_config = require("core.lazy") -- config for lazy.nvim
-
 require("lazy").setup(default_plugins, lazy_config)
