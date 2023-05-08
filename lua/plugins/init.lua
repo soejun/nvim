@@ -13,20 +13,30 @@ local default_plugins = {
   --     require("neosolarized").setup(opts)
   --   end,
   -- },
+  -- {
+  --   "navarasu/onedark.nvim",
+  --   lazy = false,
+  --   prioritt = 1000,
+  --   config = function()
+  --     require("onedark").setup({
+  --       style = "darker",
+  --       transparent = true,
+  --       lualine = { transparent = true },
+  --     })
+  --     require("onedark").load()
+  --   end,
+  -- },
+  --
   {
-    "navarasu/onedark.nvim",
+    "folke/tokyonight.nvim",
     lazy = false,
-    prioritt = 1000,
-    config = function()
-      require("onedark").setup({
-        style = "darker",
-        transparent = true,
-        lualine = { transparent = true },
-      })
-      require("onedark").load()
+    priority = 1000,
+    config = function(_, _)
+      require("plugins.themes.tokyonight")
+      vim.cmd([[colorscheme tokyonight]])
     end,
   },
-  -- icons
+  -- -- icons
   {
     "nvim-tree/nvim-web-devicons",
     config = function(_, _)
