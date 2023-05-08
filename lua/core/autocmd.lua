@@ -68,7 +68,7 @@ local hexcode = colors.temp_color
 --TODO, Figure out better styling option
 api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    api.nvim_command("hi WinSeparator guifg=" .. hexcode)
+    api.nvim_command("hi WinSeparator guifg=#3b4261")
   end,
 })
 
