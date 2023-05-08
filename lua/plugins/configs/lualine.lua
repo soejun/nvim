@@ -16,71 +16,74 @@ local colors = {
   green_diff = "#719e07",
   yellow_diff = "#b58900",
   gpt_bg_rec_diff = "#073642",
-  transparent = "#000000"
+  transparent = "#000000",
 }
 local svrana_neosolarized_theme = {
   normal = {
-    a = { fg = colors.black, bg = colors.blue, gui = 'bold' },
+    a = { fg = colors.black, bg = colors.blue, gui = "bold" },
     b = { fg = colors.base1 }, --don't manually set bg if color scheme provides a transparent option
     c = { fg = colors.base1 },
   },
-  insert = { a = { fg = colors.black, bg = colors.green, gui='bold' } },
-  visual = { a = { fg = colors.black, bg = colors.yellow, gui='bold' } },
-  replace = { a = { fg = colors.black, bg = colors.red, gui='bold' } },
+  insert = { a = { fg = colors.black, bg = colors.green, gui = "bold" } },
+  visual = { a = { fg = colors.black, bg = colors.yellow, gui = "bold" } },
+  replace = { a = { fg = colors.black, bg = colors.red, gui = "bold" } },
 }
 M = {
   options = {
     icons_enabled = true,
-    theme = svrana_neosolarized_theme,
+    theme = "onedark",
     --    theme = 'solarized_dark',
     section_separators = { "|" },
     component_separators = {},
-    disabled_filetypes = {}
+    disabled_filetypes = {},
   },
   sections = {
-    lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+    lualine_a = { { "mode", separator = { left = "" }, right_padding = 2 } },
     lualine_b = {
-      'branch',
-      {
-        'diff',
-        colored = true,
-        diff_color =
-        {
-          added = { fg = colors.green_diff },
-          modified = { fg = colors.yellow_diff },
-          removed = { fg = colors.red }
-        },
-      },
-      { 'diagnostics' },
+      "branch",
+      -- {
+      --   "diff",
+      --   colored = true,
+      --   diff_color = {
+      --     added = { fg = colors.green_diff },
+      --     modified = { fg = colors.yellow_diff },
+      --     removed = { fg = colors.red },
+      --   },
+      -- },
+      { "diagnostics" },
     },
-    lualine_c = { {
-      'filename',
-      file_status = true, -- displays file status (readonly status, modified status)
-      path = 1,           -- 0 = just filename, 1 = relative path, 2 = absolute path   ,
-    } },
-    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_c = {
+      {
+        "filename",
+        file_status = true, -- displays file status (readonly status, modified status)
+        path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path   ,
+      },
+    },
+    lualine_x = { "encoding", "fileformat", "filetype" },
     --    lualine_x = {
     --      { 'diagnostics', sources = { "nvim_diagnostic" }, symbols = { error = ' ', warn = ' ', info = ' ',
     --        hint = ' ' } },
     --     'encoding',
     --    'filetype'
     --    },
-    lualine_y = { 'progress' },
-    lualine_z = { { 'location', separator = { right = '' }, left_padding = 2 } }
+    lualine_y = { "progress" },
+    lualine_z = { { "location", separator = { right = "" }, left_padding = 2 } },
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { {
-      'filename',
-      file_status = true, -- displays file status (readonly status, modified status)
-      path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
-    } },
+    lualine_c = {
+      {
+        "filename",
+        file_status = true, -- displays file status (readonly status, modified status)
+        path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
+      },
+    },
     lualine_x = {},
     lualine_y = {},
-    lualine_z = { 'location' }
+    lualine_z = { "location" },
   },
   tabline = {},
-  extensions = {}
+  extensions = {},
 }
 return M

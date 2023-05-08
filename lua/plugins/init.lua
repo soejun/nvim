@@ -1,16 +1,29 @@
 local default_plugins = {
   { "nvim-lua/plenary.nvim", lazy = false, priority = 1000 },
+  -- {
+  --   "svrana/neosolarized.nvim",
+  --   lazy = false,
+  --   dependencies = {
+  --     "tjdevries/colorbuddy.nvim",
+  --   },
+  --   opts = function()
+  --     return require("plugins.themes.svrana-neosolarized")
+  --   end,
+  --   config = function(opts)
+  --     require("neosolarized").setup(opts)
+  --   end,
+  -- },
   {
-    "svrana/neosolarized.nvim",
+    "navarasu/onedark.nvim",
     lazy = false,
-    dependencies = {
-      "tjdevries/colorbuddy.nvim",
-    },
-    opts = function()
-      return require("plugins.themes.svrana-neosolarized")
-    end,
-    config = function(opts)
-      require("neosolarized").setup(opts)
+    prioritt = 1000,
+    config = function()
+      require("onedark").setup({
+        style = "darker",
+        transparent = true,
+        lualine = { transparent = true },
+      })
+      require("onedark").load()
     end,
   },
   -- icons
@@ -89,7 +102,7 @@ local default_plugins = {
     config = function(_, opts)
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
-      vim.cmd([[hi NvimTreeWinSeparator guifg=#0f3a45]]) --it's for the line separating nvim-tree and the buffer
+      -- vim.cmd([[hi NvimTreeWinSeparator guifg=#0f3a45]]) --it's for the line separating nvim-tree and the buffer
     end,
   },
   {
@@ -112,10 +125,10 @@ local default_plugins = {
     end,
     config = function(_, opts)
       --------
-      vim.cmd([[highlight IndentBlanklineChar guifg=#0f3a45 gui=nocombine]])
-      vim.cmd([[highlight IndentBlankineSpaceChar guifg=#0f3a45 gui=nocombine]])
-      vim.cmd([[highlight IndentBlanklineContextChar guifg=#28535e gui=nocombine]])
-      vim.cmd([[highlight IndentBlanklineContextStart guisp=#133e49 gui=nocombine]])
+      -- vim.cmd([[highlight IndentBlanklineChar guifg=#0f3a45 gui=nocombine]])
+      -- vim.cmd([[highlight IndentBlankineSpaceChar guifg=#0f3a45 gui=nocombine]])
+      -- vim.cmd([[highlight IndentBlanklineContextChar guifg=#28535e gui=nocombine]])
+      -- vim.cmd([[highlight IndentBlanklineContextStart guisp=#133e49 gui=nocombine]])
       require("utils.functions").load_mappings("blankline")
       require("indent_blankline").setup(opts) -- i have no idea why the original code differs like that
     end,

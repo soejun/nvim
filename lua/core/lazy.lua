@@ -1,7 +1,7 @@
 return {
   defaults = { lazy = true },
   install = {
-    colorscheme = { "neosolarized" },
+    colorscheme = { "onedark" },
     ui = {
       icons = {
         ft = "",
