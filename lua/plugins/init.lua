@@ -112,7 +112,7 @@ local default_plugins = {
     config = function(_, opts)
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
-      vim.cmd([[highlight NvimTreeWinSeparator guifg=#3b4261]]) --it's for the line separating nvim-tree and the buffer
+      vim.cmd([[highlight NvimTreeWinSeparator guifg=#2C3249]]) --it's for the line separating nvim-tree and the buffer
     end,
   },
   {
