@@ -80,3 +80,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
   group = format_sync_grp,
 })
+
+-- vim will now yank to system clipboard
+vim.api.nvim_create_autocmd({ "BufRead", "VimEnter" }, {
+  callback = function()
+    vim.cmd([[set clipboard+=unnamedplus]])
+  end,
+})
