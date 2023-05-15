@@ -54,6 +54,11 @@ local servers = settings.lsp_servers
 
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup({
+    before_init == function(_, config)
+      if lsp == "pyright" then
+        config.settings.python.pythonPath = require("plugins.configs.lsp.utils").get_python_path(config.root_dir)
+      end
+    end,
     on_attach = M.on_attach,
     capabilities = M.capabilities,
     flags = {

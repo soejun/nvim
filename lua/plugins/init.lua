@@ -1,32 +1,5 @@
 local default_plugins = {
   { "nvim-lua/plenary.nvim", lazy = false, priority = 1000 },
-  -- {
-  --   "svrana/neosolarized.nvim",
-  --   lazy = false,
-  --   dependencies = {
-  --     "tjdevries/colorbuddy.nvim",
-  --   },
-  --   opts = function()
-  --     return require("plugins.themes.svrana-neosolarized")
-  --   end,
-  --   config = function(opts)
-  --     require("neosolarized").setup(opts)
-  --   end,
-  -- },
-  -- {
-  --   "navarasu/onedark.nvim",
-  --   lazy = false,
-  --   prioritt = 1000,
-  --   config = function()
-  --     require("onedark").setup({
-  --       style = "darker",
-  --       transparent = true,
-  --       lualine = { transparent = true },
-  --     })
-  --     require("onedark").load()
-  --   end,
-  -- },
-  --
   {
     "folke/tokyonight.nvim",
     lazy = false,
@@ -156,6 +129,14 @@ local default_plugins = {
         vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
       end, {})
       vim.g.mason_binaries_list = opts.ensure_installed
+      local mr = require("mason-registry")
+      local settings = require("core.settings")
+      for _, tool in ipairs(settings.tools) do
+        local p = mr.get_package(tool)
+        if not p:is_installed() then
+          p:install()
+        end
+      end
     end,
   },
 
@@ -200,6 +181,10 @@ local default_plugins = {
           null_ls.builtins.formatting.prettier.with({
             extra_args = { "--single-quote", "false" },
           }),
+          -- python stuff --
+          null_ls.builtins.formatting.black,
+          null_ls.builtins.diagnostics.ruff,
+          -- python stuff --
           null_ls.builtins.formatting.goimports,
           null_ls.builtins.formatting.gofumpt,
           null_ls.builtins.code_actions.gitsigns,
@@ -323,9 +308,6 @@ local default_plugins = {
 
   {
     "mfussenegger/nvim-dap",
-    init = function()
-      require("utils.functions").load_mappings("dap")
-    end,
     dependencies = {
       {
         "rcarriga/nvim-dap-ui",
@@ -390,6 +372,121 @@ local default_plugins = {
         },
       },
     },
+    keys = {
+      {
+        "<leader>dB",
+        function()
+          require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+        end,
+        desc = "Breakpoint Condition",
+      },
+      {
+        "<leader>db",
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = "Toggle Breakpoint",
+      },
+      {
+        "<leader>dc",
+        function()
+          require("dap").continue()
+        end,
+        desc = "Continue",
+      },
+      {
+        "<leader>dC",
+        function()
+          require("dap").run_to_cursor()
+        end,
+        desc = "Run to Cursor",
+      },
+      {
+        "<leader>dg",
+        function()
+          require("dap").goto_()
+        end,
+        desc = "Go to line (no execute)",
+      },
+      {
+        "<leader>di",
+        function()
+          require("dap").step_into()
+        end,
+        desc = "Step Into",
+      },
+      {
+        "<leader>dj",
+        function()
+          require("dap").down()
+        end,
+        desc = "Down",
+      },
+      {
+        "<leader>dk",
+        function()
+          require("dap").up()
+        end,
+        desc = "Up",
+      },
+      {
+        "<leader>dl",
+        function()
+          require("dap").run_last()
+        end,
+        desc = "Run Last",
+      },
+      {
+        "<leader>dO",
+        function()
+          require("dap").step_out()
+        end,
+        desc = "Step Out",
+      },
+      {
+        "<leader>do",
+        function()
+          require("dap").step_over()
+        end,
+        desc = "Step Over",
+      },
+      {
+        "<leader>dp",
+        function()
+          require("dap").pause()
+        end,
+        desc = "Pause",
+      },
+      {
+        "<leader>dr",
+        function()
+          require("dap").repl.toggle()
+        end,
+        desc = "Toggle REPL",
+      },
+      {
+        "<leader>ds",
+        function()
+          require("dap").session()
+        end,
+        desc = "Session",
+      },
+      {
+        "<leader>dt",
+        function()
+          require("dap").terminate()
+        end,
+        desc = "Terminate",
+      },
+      {
+        "<leader>dw",
+        function()
+          require("dap.ui.widgets").hover()
+        end,
+        desc = "Widgets",
+      },
+    },
+
     config = function(_, _)
       local icons = require("utils.lazyvim-icons")
       for name, sign in pairs(icons.dap) do

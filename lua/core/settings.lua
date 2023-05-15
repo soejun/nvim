@@ -63,7 +63,21 @@ M.lsp_servers = {
   "tsserver",
   "yamlls",
 }
-
+M.tools = {
+  -- Formatter
+  "black",
+  "prettier",
+  "stylua",
+  "shfmt",
+  -- Linter
+  "eslint_d",
+  "shellcheck",
+  "tflint",
+  "yamllint",
+  "ruff",
+  -- DAP
+  "debugpy",
+}
 M.mason_ensure_installed = {
   "bash-language-server",
   "dockerfile-language-server",
