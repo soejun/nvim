@@ -310,4 +310,11 @@ M.ufo = {
   },
 }
 
+M.webtools = {
+  plugin = true,
+  n = {
+    ["<leader>bsc"] = { "<cmd>BrowserSync<CR>", desc = "BrowserSync live" },
+  },
+}
+
 return M
