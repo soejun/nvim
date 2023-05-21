@@ -1,5 +1,6 @@
 local default_plugins = {
   { "nvim-lua/plenary.nvim", lazy = false, priority = 1000 },
+
   {
     "folke/tokyonight.nvim",
     lazy = false,
@@ -172,6 +173,7 @@ local default_plugins = {
     event = { "BufReadPre", "BufNewFile" },
     config = function(_, _)
       local null_ls = require("null-ls")
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
       null_ls.setup({
         sources = {
           null_ls.builtins.formatting.stylua.with({
@@ -190,6 +192,20 @@ local default_plugins = {
           null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.formatting.shfmt,
         },
+        on_attach = function(client, bufnr)
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                if AUTOFORMAT_ACTIVE then -- global var defined in functions.lua
+                  vim.lsp.buf.format({ bufnr = bufnr })
+                end
+              end,
+            })
+          end
+        end,
       })
     end,
   },
