@@ -93,7 +93,7 @@ options = {
   },
   lsp = {
     progress = {
-      enabled = true,
+      enabled = false,
       -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
       -- See the section on formatting for more details on how to customize.
       --- @type NoiceFormat|string
@@ -105,20 +105,20 @@ options = {
     },
     override = {
       -- override the default lsp markdown formatter with Noice
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
       -- override the lsp markdown formatter with Noice
-      ["vim.lsp.util.stylize_markdown"] = true,
+      ["vim.lsp.util.stylize_markdown"] = false,
       -- override cmp documentation with Noice (needs the other options to work)
-      ["cmp.entry.get_documentation"] = true,
+      ["cmp.entry.get_documentation"] = false,
     },
     hover = {
-      enabled = true,
+      enabled = false,
       view = nil, -- when nil, use defaults from documentation
       ---@type NoiceViewOptions
       opts = {}, -- merged with defaults from documentation
     },
     signature = {
-      enabled = true,
+      enabled = false,
       auto_open = {
         enabled = true,
         trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
@@ -131,7 +131,7 @@ options = {
     },
     message = {
       -- Messages shown by lsp servers
-      enabled = true,
+      enabled = false,
       view = "notify",
       opts = {},
     },
