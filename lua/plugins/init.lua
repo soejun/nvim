@@ -360,7 +360,12 @@ local default_plugins = {
         end,
       },
       "theHamsta/nvim-dap-virtual-text",
-      "mfussenegger/nvim-dap-python",
+      {
+        "mfussenegger/nvim-dap-python",
+        config = function(_, _)
+          require("dap-python").setup("python3", {})
+        end,
+      },
       {
         "leoluz/nvim-dap-go",
         config = function(_, _)

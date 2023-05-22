@@ -26,16 +26,16 @@ M.on_attach = function(client, bufnr)
     navic.attach(client, bufnr)
   end
 
-  if client.supports_method("textDocument/formatting") then
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        lsp_formatting(bufnr)
-      end,
-    })
-  end
+  -- if client.supports_method("textDocument/formatting") then
+  --   vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+  --   vim.api.nvim_create_autocmd("BufWritePre", {
+  --     group = augroup,
+  --     buffer = bufnr,
+  --     callback = function()
+  --       lsp_formatting(bufnr)
+  --     end,
+  --   })
+  -- end
 end
 -------------------- on_attach logic ----------------------
 
