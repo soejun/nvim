@@ -19,7 +19,7 @@
 
 </div>
 
-![](./docs/nvim.png)
+![](./docs/nvim2.png)
 
 💻 This configuration is configured on macOS and requires Neovim >= 0.8!
 Configuration takes ideas from NvChad, Allaman/Nvim, and cratzdog/dotfiles-public (Takyua-Dev)
