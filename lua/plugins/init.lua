@@ -185,7 +185,7 @@ local default_plugins = {
           }),
           -- python stuff --
           null_ls.builtins.formatting.black,
-          null_ls.builtins.diagnostics.ruff,
+          -- null_ls.builtins.diagnostics.ruff,
           -- python stuff --
           null_ls.builtins.formatting.goimports,
           null_ls.builtins.formatting.gofumpt,
