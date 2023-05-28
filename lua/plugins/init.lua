@@ -179,13 +179,13 @@ local default_plugins = {
           null_ls.builtins.formatting.stylua.with({
             extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
           }),
-          null_ls.builtins.diagnostics.eslint_d,
+          null_ls.builtins.diagnostics.eslint,
           null_ls.builtins.formatting.prettier.with({
             extra_args = { "--single-quote", "false" },
           }),
           -- python stuff --
           null_ls.builtins.formatting.black,
-          -- null_ls.builtins.diagnostics.ruff,
+          null_ls.builtins.diagnostics.ruff,
           -- python stuff --
           null_ls.builtins.formatting.goimports,
           null_ls.builtins.formatting.gofumpt,
@@ -233,7 +233,6 @@ local default_plugins = {
           require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end,
       },
-
       {
         "onsails/lspkind.nvim",
       }, -- cmp sources plugins
@@ -269,8 +268,17 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+      parser_config.tsx.filettpe_to_parsername = { "javascript", "typescript.tsx" }
     end,
   },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function(_, _)
+      require("nvim-ts-autotag").setup()
+    end,
+  },
+
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
@@ -363,7 +371,7 @@ local default_plugins = {
       {
         "mfussenegger/nvim-dap-python",
         config = function(_, _)
-          require("dap-python").setup("python3", {})
+          require("dap-python").setup("")
         end,
       },
       {

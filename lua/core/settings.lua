@@ -46,6 +46,8 @@ M.treesitter_ensure_installed = {
   "regex",
   "scss",
   "toml",
+  "typescript",
+  "tsx", -- otherwise syntax highlighting won't work
   "vim",
   "vimdoc",
   "yaml",
@@ -82,7 +84,9 @@ M.tools = {
 }
 M.mason_ensure_installed = {
   "bash-language-server",
+  "black",
   "dockerfile-language-server",
+  "eslint_d",
   "json-lsp",
   "gopls",
   "html-lsp",
@@ -90,6 +94,8 @@ M.mason_ensure_installed = {
   -- "pyright",
   "jedi-language-server",
   "lua-language-server",
+  "ruff",
+  "tflint",
   "typescript-language-server",
   "yaml-language-server",
 }
