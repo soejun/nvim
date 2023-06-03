@@ -292,13 +292,13 @@ M.toggleterm = {
   plugin = true,
   n = {
     -- toggle in normal mode
-    ["<leader>v"] = { "<cmd>ToggleTerm direction=vertical<CR>", desc = "toggle vertical term" },
-    ["<leader>h"] = { "<cmd>ToggleTerm direction=horizontal<CR>", desc = "toggle horizontal term" },
+    ["<leader>V"] = { "<cmd>ToggleTerm direction=vertical<CR>", desc = "toggle vertical term" },
+    ["<leader>H"] = { "<cmd>ToggleTerm direction=horizontal<CR>", desc = "toggle horizontal term" },
   },
   t = {
     -- toggle in terminal mode
-    ["<leader>v"] = { "<cmd>ToggleTerm direction=vertical<CR>", desc = "toggle vertical term" },
-    ["<leader>h"] = { "<cmd>ToggleTerm direction=horizontal<CR>", desc = "toggle horizontal term" },
+    ["<leader>V"] = { "<cmd>ToggleTerm direction=vertical<CR>", desc = "toggle vertical term" },
+    ["<leader>H"] = { "<cmd>ToggleTerm direction=horizontal<CR>", desc = "toggle horizontal term" },
   },
 }
 
