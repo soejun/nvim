@@ -16,5 +16,8 @@ return {
   cyan = "#2aa198",
   green = "#719e07",
   temp_color = "#133e49",
+  temp_color2 = "#286j72",
+  temp_color3 = "3FA69B",
+  temp_color4 = "#51C8C1",
   nvim_tree_sep = "#0f3a45",
 }

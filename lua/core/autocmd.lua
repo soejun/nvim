@@ -64,7 +64,7 @@ api.nvim_create_autocmd("BufWritePost", {
 })
 
 local colors = require("utils.colors")
-local hexcode = colors.temp_color
+local hexcode = colors.temp_color4
 --TODO, Figure out better styling option
 api.nvim_create_autocmd("VimEnter", {
   callback = function()
