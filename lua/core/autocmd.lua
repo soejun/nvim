@@ -64,11 +64,12 @@ api.nvim_create_autocmd("BufWritePost", {
 })
 
 local colors = require("utils.colors")
-local hexcode = colors.temp_color4
+-- local hexcode = colors.temp_color2
+local hexcode = "#3b4261"
 --TODO, Figure out better styling option
 api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    api.nvim_command("hi WinSeparator guifg=#2C3249")
+    api.nvim_command("hi WinSeparator guifg=" .. hexcode)
   end,
 })
 

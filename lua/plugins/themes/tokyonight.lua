@@ -33,7 +33,7 @@ return require("tokyonight").setup({
   ---@param c ColorScheme
   on_highlights = function(hl, c)
     local prompt = "#2d3149"
-    local temp = "#2C3249"
+    local temp = "#3b4261"
     hl.TelescopeBorder = {
       fg = temp,
     }

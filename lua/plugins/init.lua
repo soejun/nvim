@@ -86,7 +86,7 @@ local default_plugins = {
     config = function(_, opts)
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
-      vim.cmd([[highlight NvimTreeWinSeparator guifg=#2C3249]]) --it's for the line separating nvim-tree and the buffer
+      vim.cmd([[highlight NvimTreeWinSeparator guifg=#3b4261]]) --it's for the line separating nvim-tree and the buffer
     end,
   },
   {
@@ -549,7 +549,8 @@ local default_plugins = {
       end,
     },
     config = function(_, opts)
-      vim.g.db_ui_save_location = "/Users/soejun/workspace/scripts/sql-scripts/db_ui"
+      -- vim.g.db_ui_save_location = "/Users/soejun/workspace/scripts/sql-scripts/db_ui"
+      vim.g.db_ui_save_location = "/Users/soejun/workspace/post-fud-checker/backend/app/database/scripts/"
       vim.api.nvim_create_autocmd("FileType", {
         pattern = {
           "sql",
