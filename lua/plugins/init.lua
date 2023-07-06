@@ -599,6 +599,13 @@ local default_plugins = {
       })
     end,
   },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function(_, _)
+      require("colorizer").setup()
+    end,
+    -- :ColorizerToggle
+  },
 
   -- Load whichkey after all other gui
   {
