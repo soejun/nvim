@@ -26,6 +26,19 @@ M.on_attach = function(client, bufnr)
     navic.attach(client, bufnr)
   end
 
+  local border = {
+    -- { "🭽", "FloatBorder" },
+    { "▔", "FloatBorder" },
+    -- { "🭾", "FloatBorder" },
+    { "▕", "FloatBorder" },
+    -- { "🭿", "FloatBorder" },
+    { "▁", "FloatBorder" },
+    -- { "🭼", "FloatBorder" },
+    { "▏", "FloatBorder" },
+  }
+
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
   -- if client.supports_method("textDocument/formatting") then
   --   vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
   --   vim.api.nvim_create_autocmd("BufWritePre", {

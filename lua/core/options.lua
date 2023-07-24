@@ -61,6 +61,9 @@ opt.whichwrap:append("<>[]hl")
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 vim.env.PATH = vim.env.PATH .. (is_windows and ";" or ":") .. vim.fn.stdpath("data") .. "/mason/bin"
 
-vim.api.nvim_set_var('guicursor', 'n-v-c:block-Cursor/lCursor-blinkon0,i-ci-ve:ver25-Cursor/lCursor-blinkon0,r-cr:hor20-Cursor/lCursor-blinkon0')
+vim.api.nvim_set_var(
+  "guicursor",
+  "n-v-c:block-Cursor/lCursor-blinkon0,i-ci-ve:ver25-Cursor/lCursor-blinkon0,r-cr:hor20-Cursor/lCursor-blinkon0"
+)
 
-
+vim.o.cmdheight = 1
