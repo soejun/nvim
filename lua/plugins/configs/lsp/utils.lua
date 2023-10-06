@@ -1,7 +1,7 @@
 local M = {}
 local utils = require("utils.functions")
 
-AUTOFORMAT_ACTIVE = true
+AUTOFORMAT_ACTIVE = false
 -- toggle null-ls's autoformatting
 M.toggle_autoformat = function()
   AUTOFORMAT_ACTIVE = not AUTOFORMAT_ACTIVE

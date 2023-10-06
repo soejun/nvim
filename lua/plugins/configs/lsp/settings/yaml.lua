@@ -19,8 +19,8 @@ local opts = {
     ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
     ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
   },
-  format = { enabled = true },
-  -- anabling this conflicts between Kubernetes resources and kustomization.yaml and Helmreleases
+  format = { enabled = false },
+  -- eanabling this conflicts between Kubernetes resources and kustomization.yaml and Helmreleases
   -- see utils.custom_lsp_attach() for the workaround
   -- how can I detect Kubernetes ONLY yaml files? (no CRDs, Helmreleases, etc.)
   validate = false,

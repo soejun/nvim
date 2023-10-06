@@ -16,17 +16,17 @@ api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Enable spell checking for certain file types
-api.nvim_create_autocmd(
-  { "BufRead", "BufNewFile" },
-  -- { pattern = { "*.txt", "*.md", "*.tex" }, command = [[setlocal spell<cr> setlocal spelllang=en,de<cr>]] }
-  {
-    pattern = { "*.txt", "*.md", "*.tex" },
-    callback = function()
-      vim.opt.spell = true
-      vim.opt.spelllang = "en"
-    end,
-  }
-)
+-- api.nvim_create_autocmd(
+--   { "BufRead", "BufNewFile" },
+--   -- { pattern = { "*.txt", "*.md", "*.tex" }, command = [[setlocal spell<cr> setlocal spelllang=en,de<cr>]] }
+--   {
+--     pattern = { "*.txt", "*.md", "*.tex" },
+--     callback = function()
+--       vim.opt.spell = true
+--       vim.opt.spelllang = "en"
+--     end,
+--   }
+-- )
 
 -- windows to close with "q"
 api.nvim_create_autocmd("FileType", {
@@ -87,4 +87,13 @@ vim.api.nvim_create_autocmd({ "BufRead", "VimEnter" }, {
   callback = function()
     vim.cmd([[set clipboard+=unnamedplus]])
   end,
+})
+
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {"yaml,yml"},
+  callback = function()
+    require("ufo").detach()
+    vim.opt_local.foldenable = false
+  end
 })

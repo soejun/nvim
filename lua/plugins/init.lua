@@ -1,6 +1,5 @@
 local default_plugins = {
   { "nvim-lua/plenary.nvim", lazy = false, priority = 1000 },
-
   {
     "folke/tokyonight.nvim",
     lazy = false,
@@ -101,9 +100,10 @@ local default_plugins = {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    init = function()
-      require("utils.functions").lazy_load("indent-blankline.nvim")
-    end,
+    event = { "BufReadPost", "BufNewFile" },
+    -- init = function()
+    --   require("utils.functions").lazy_load("indent-blankline.nvim")
+    -- end,
     opts = function()
       return require("plugins.configs.indent-blankline")
     end,
@@ -113,8 +113,8 @@ local default_plugins = {
       -- vim.cmd([[highlight IndentBlankineSpaceChar guifg=#0f3a45 gui=nocombine]])
       -- vim.cmd([[highlight IndentBlanklineContextChar guifg=#28535e gui=nocombine]])
       -- vim.cmd([[highlight IndentBlanklineContextStart guisp=#133e49 gui=nocombine]])
-      require("utils.functions").load_mappings("blankline")
-      require("indent_blankline").setup(opts) -- i have no idea why the original code differs like that
+      -- require("utils.functions").load_mappings("blankline")
+      require("ibl").setup(opts) -- i have no idea why the original code differs like that
     end,
   },
   -- lsp stuff
@@ -175,6 +175,9 @@ local default_plugins = {
       local null_ls = require("null-ls")
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
       null_ls.setup({
+        -- on_init = function(new_client, _)
+        --   new_client.offset_encoding = "utf-32"
+        -- end,
         sources = {
           null_ls.builtins.formatting.stylua.with({
             extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
@@ -186,10 +189,14 @@ local default_plugins = {
           -- python stuff --
           null_ls.builtins.formatting.black,
           null_ls.builtins.diagnostics.ruff,
-          -- python stuff --
+          -- golang stuff --
           null_ls.builtins.formatting.goimports,
           null_ls.builtins.formatting.gofumpt,
+          -- misc stuff --
           null_ls.builtins.code_actions.gitsigns,
+          -- bash stuf --
+          null_ls.builtins.code_actions.shellcheck,
+          null_ls.builtins.diagnostics.shellcheck,
           null_ls.builtins.formatting.shfmt,
         },
         on_attach = function(client, bufnr)
@@ -279,6 +286,31 @@ local default_plugins = {
     end,
   },
 
+  -- log highlighting
+  {
+    "fei6409/log-highlight.nvim",
+    config = function()
+      require("log-highlight").setup({
+        -- The following options support either a string or a table of strings.
+
+        -- The file extensions.
+        extension = "log",
+
+        -- The file names or the full file paths.
+        filename = {
+          "messages",
+        },
+
+        -- The file path glob patterns, e.g. `.*%.lg`, `/var/log/.*`.
+        -- Note: `%.` is to match a literal dot (`.`) in a pattern in Lua, but most
+        -- of the time `.` and `%.` here make no observable difference.
+        pattern = {
+          "/var/log/.*",
+          "messages%..*",
+        },
+      })
+    end,
+  },
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",

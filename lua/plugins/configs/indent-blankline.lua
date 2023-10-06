@@ -1,34 +1,40 @@
 local options = {
-  indentLine_enabled = 1,
-   char = "▏",
-  filetype_exclude = {
-    "help",
-    "terminal",
-    "lazy",
-    "lspinfo",
-    "TelescopePrompt",
-    "TelescopeResults",
-    "mason",
-    "", --for all buffers without a file type
+  -- scope = {
+  --   enabled = vim.g.config.plugins.indent_blankline.enable_scope,
+  -- },
+  indent = {
+    char = { "|", "¦", "┆", "┊" },
   },
-  buftype_exclude = { "terminal" },
-  show_trailing_blankline_indent = false,
-  show_first_indent_level = true,
-  show_current_context = true,
-  show_current_context_start = true,
-  context_patterns = {
-      "class",
-      "function",
-      "method",
-      "block",
-      "list_literal",
-      "selector",
-      "^if",
-      "^table",
-      "if_statement",
-      "while",
-      "for",
+  exclude = {
+    filetypes = {
+      "startify",
+      "dashboard",
+      "dotooagenda",
+      "log",
+      "fugitive",
+      "gitcommit",
+      "packer",
+      "vimwiki",
+      "markdown",
+      "json",
+      "txt",
+      "vista",
+      "help",
+      "todoist",
+      "NvimTree",
+      "neo-tree",
+      "peekaboo",
+      "git",
+      "TelescopePrompt",
+      "undotree",
+      "flutterToolsOutline",
+      "", -- for all buffers without a file type
     },
+    buftypes = {
+      "terminal",
+      "nofile",
+    },
+  },
 }
 
 return options

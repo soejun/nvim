@@ -56,6 +56,7 @@ M.treesitter_ensure_installed = {
 -- LSPs that should be installed by Mason-lspconfig
 M.lsp_servers = {
   "bashls",
+  "clangd",
   "dockerls",
   "jsonls",
   "gopls",
@@ -75,6 +76,7 @@ M.tools = {
   "shfmt",
   -- Linter
   "eslint_d",
+  "flake8",
   "shellcheck",
   "tflint",
   "yamllint",
@@ -85,8 +87,12 @@ M.tools = {
 M.mason_ensure_installed = {
   "bash-language-server",
   "black",
+  "clangd",
+  "clang-format",
+  "codelldb",
   "dockerfile-language-server",
   "eslint_d",
+  "flake8",
   "json-lsp",
   "gopls",
   "html-lsp",

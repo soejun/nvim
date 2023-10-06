@@ -39,39 +39,65 @@ M.on_attach = function(client, bufnr)
   }
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
-  -- if client.supports_method("textDocument/formatting") then
-  --   vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-  --   vim.api.nvim_create_autocmd("BufWritePre", {
-  --     group = augroup,
-  --     buffer = bufnr,
-  --     callback = function()
-  --       lsp_formatting(bufnr)
-  --     end,
-  --   })
-  -- end
 end
 -------------------- on_attach logic ----------------------
 
 -------------------- capablities logic --------------------
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true,
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    "documentation",
+    "detail",
+    "additionalTextEdits",
+  },
 }
 
+local present, ufo = pcall(require, "ufo")
+if present then
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+  }
+end
+
 M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
 -------------------- capablities logic --------------------
 
 local servers = settings.lsp_servers
 
+local lsp_special_config = {
+  clangd = {
+    cmd = {
+      "clangd",
+      "--offset-encoding=utf-16",
+    },
+    capabilities = M.capabilities,
+    on_attach = M.on_attach,
+  },
+}
+
+local servers = settings.lsp_servers
+
+local lsp_special_config = {
+  clangd = {
+    cmd = {
+      "clangd",
+      "--offset-encoding=utf-16",
+    },
+    capabilities = M.capabilities,
+    on_attach = M.on_attach,
+  },
+}
+
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup({
-    -- before_init = function(_, config)
-    --   if lsp == "pyright" then
-    --     config.settings.python.pythonPath = require("plugins.configs.lsp.utils").get_python_path(config.root_dir)
-    --   end
-    -- end,
+  local server_config = {
+    before_init = function(_, config)
+      if lsp == "pyright" then
+        config.settings.python.pythonPath = require("plugins.configs.lsp.utils").get_python_path(config.root_dir)
+      end
+    end,
     on_attach = M.on_attach,
     capabilities = M.capabilities,
     flags = {
@@ -81,5 +107,14 @@ for _, lsp in ipairs(servers) do
       Lua = lsp_settings.lua,
       yaml = lsp_settings.yaml,
     },
-  })
+  }
+
+  -- Merge special configuration if exists
+  if lsp_special_config[lsp] then
+    for k, v in pairs(lsp_special_config[lsp]) do
+      server_config[k] = v
+    end
+  end
+
+  nvim_lsp[lsp].setup(server_config)
 end

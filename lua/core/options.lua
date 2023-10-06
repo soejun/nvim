@@ -67,3 +67,9 @@ vim.api.nvim_set_var(
 )
 
 vim.o.cmdheight = 1
+
+vim.o.title = true
+vim.o.titlestring = "nvim/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+vim.o.titleold = "Terminal"
+
+g.python3_host_prog = '/usr/bin/python3'
