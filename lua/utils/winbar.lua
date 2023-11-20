@@ -35,9 +35,9 @@ end
 local function get_modified()
   if utils.get_buf_option "mod" then
     local mod = icons.git.Mod
-    return "%#WinBarFilename#" .. mod .. " " .. "%t" .. "%*"
+    return "%#WinBarFilename#" .. mod .. " " .. "%F" .. "%*"
   end
-  return "%#WinBarFilename#" .. "%t" .. "%*"
+  return "%#WinBarFilename#" .. "%F" .. "%*"
 end
 
 local function get_location()

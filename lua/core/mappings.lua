@@ -255,6 +255,8 @@ M.nvimtree = {
   },
 }
 
+-- ctrl+y, move screen up one line
+-- ctrl+e, move screen down one line
 M.whichkey = {
   plugin = true,
   n = {
