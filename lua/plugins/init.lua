@@ -24,7 +24,7 @@ local default_plugins = {
       require("utils.functions").load_mappings("toggleterm")
     end,
     opts = function()
-      return require("plugins.configs.toggleterm")
+      return require("plugins.configs.toggleterm_opts")
     end,
     config = function(_, opts)
       require("toggleterm").setup(opts)
@@ -56,7 +56,7 @@ local default_plugins = {
       },
     },
     opts = function()
-      return require("plugins.configs.noice")
+      return require("plugins.configs.noice_opts")
     end,
     config = function(_, opts)
       require("noice").setup(opts)
@@ -66,7 +66,7 @@ local default_plugins = {
     "nvim-lualine/lualine.nvim",
     lazy = false,
     opts = function()
-      return require("plugins.configs.lualine")
+      return require("plugins.configs.lualine_opts")
     end,
     config = function(_, opts)
       require("lualine").setup(opts)
@@ -257,6 +257,7 @@ local default_plugins = {
       return require("plugins.configs.cmp")
     end,
     config = function(_, opts)
+      -- require("saadparwaiz1/cmp_luasnip").setup()
       require("cmp").setup(opts)
     end,
   },
@@ -279,6 +280,7 @@ local default_plugins = {
       parser_config.tsx.filettpe_to_parsername = { "javascript", "typescript.tsx" }
     end,
   },
+  { "danymat/neogen", dependencies = "nvim-treesitter/nvim-treesitter", config = true },
   {
     "windwp/nvim-ts-autotag",
     config = function(_, _)
@@ -563,7 +565,7 @@ local default_plugins = {
     "luukvbaal/statuscol.nvim",
     lazy = false,
     opts = function()
-      return require("plugins.configs.statuscol")
+      return require("plugins.configs.statuscol_opts")
     end,
     config = function(_, opts)
       require("statuscol").setup(opts)

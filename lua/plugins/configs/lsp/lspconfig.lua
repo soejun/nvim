@@ -38,7 +38,7 @@ M.on_attach = function(client, bufnr)
     { "│", "FloatBorder" },
   }
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+  -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
 end
 -------------------- on_attach logic ----------------------
 
@@ -64,19 +64,6 @@ end
 M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -------------------- capablities logic --------------------
-
-local servers = settings.lsp_servers
-
-local lsp_special_config = {
-  clangd = {
-    cmd = {
-      "clangd",
-      "--offset-encoding=utf-16",
-    },
-    capabilities = M.capabilities,
-    on_attach = M.on_attach,
-  },
-}
 
 local servers = settings.lsp_servers
 

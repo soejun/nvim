@@ -29,7 +29,8 @@ options = {
     enabled = true, -- enables the Noice messages UI
     view = "notify", -- default view for messages
     view_error = "notify", -- view for errors
-    view_warn = "notify", -- view for warnings
+    view_warn = false, -- because i'm sick of seeing the stupid go.lua lsp update
+    -- view_warn = "notify", -- view for warnings
     view_history = "messages", -- view for :messages
     view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
   },
@@ -118,7 +119,7 @@ options = {
       opts = {}, -- merged with defaults from documentation
     },
     signature = {
-      enabled = false,
+      enabled = true,
       auto_open = {
         enabled = true,
         trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
