@@ -11,8 +11,8 @@ local options = {
 
   formatting = {
     format = lspkind.cmp_format({
-      mode = "symbol",
-      maxwidth = 50,
+      mode = "symbol_text",
+      maxwidth = 60,
       ellipsis_char = "...",
     }),
   },
@@ -55,12 +55,13 @@ local options = {
   },
   sources = {
     { name = "nvim_lsp" },
-    { name = "nvim_lsp_signature_help" },
+    -- { name = "nvim_lsp_signature_help" }, -- this currently conflcit with noice signature help
+    -- keyword_length so we stop getting every single crap under the sun
     { name = "luasnip" },
-    { name = "buffer" },
+    { name = "buffer", keyword_length = 5},
     { name = "nvim_lua" },
     { name = "path" },
-    { name = "rg" },
+    { name = "rg" , keyword_length = 5},
   },
 }
 

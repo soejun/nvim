@@ -45,8 +45,7 @@ local default_plugins = {
           require("utils.functions").load_mappings("notify")
         end,
         opts = function()
-          local notify = require("plugins.configs.nvim-notify")
-          return notify.options
+          return require("plugins.configs.nvim-notify").options
         end,
         config = function(_, opts)
           require("notify").setup(opts)
@@ -225,7 +224,7 @@ local default_plugins = {
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI" },
         config = function(_, opts)
-          require("plugins.configs.luasnip").luasnip(opts)
+          require("plugins.configs.luasnip_opts").luasnip(opts)
         end,
       },
       {
@@ -247,14 +246,14 @@ local default_plugins = {
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lsp-signature-help",
+        -- "hrsh7th/cmp-nvim-lsp-signature-help",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "lukas-reineke/cmp-rg",
       },
     },
     opts = function()
-      return require("plugins.configs.cmp")
+      return require("plugins.configs.cmp_opts")
     end,
     config = function(_, opts)
       -- require("saadparwaiz1/cmp_luasnip").setup()

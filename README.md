@@ -29,5 +29,5 @@ _Terminal_: iterm2
 _Font_: Liga Mono
 
 
-Note: Set iTerm2 margin bottom to 1 to allow LuaLine to be flush with the bottom of the monitor 
+Note: Set iTerm2 margin bottom to 1 to allow LuaLine to be flush with the bottom of the monitor
 
