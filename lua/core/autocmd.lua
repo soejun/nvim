@@ -89,11 +89,10 @@ vim.api.nvim_create_autocmd({ "BufRead", "VimEnter" }, {
   end,
 })
 
-
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = {"yaml,yml"},
+  pattern = { "yaml,yml" },
   callback = function()
     require("ufo").detach()
     vim.opt_local.foldenable = false
-  end
+  end,
 })

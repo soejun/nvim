@@ -59,6 +59,7 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require("noice").setup(opts)
+      -- vim.cmd([[ highlight NormalFloat guifg="#29a4bd" guibg="#1f2335"]])
     end,
   },
   {
@@ -187,7 +188,9 @@ local default_plugins = {
           }),
           -- python stuff --
           null_ls.builtins.formatting.black,
-          null_ls.builtins.diagnostics.ruff,
+          null_ls.builtins.diagnostics.pylint,
+          -- move over ruff, pylint is better
+          -- null_ls.builtins.diagnostics.ruff,
           -- golang stuff --
           null_ls.builtins.formatting.goimports,
           null_ls.builtins.formatting.gofumpt,

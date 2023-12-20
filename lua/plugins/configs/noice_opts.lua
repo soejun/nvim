@@ -171,6 +171,7 @@ options = {
     enabled = true, -- you can disable this behaviour here
     -- add any filetypes here, that shouldn't trigger smart move.
     excluded_filetypes = { "cmp_menu", "cmp_docs", "notify" },
+    -- excluded_filetypes = { "notify" },
   },
   ---@type NoicePresets
   presets = {
@@ -180,7 +181,7 @@ options = {
     command_palette = true, -- position the cmdline and popupmenu together
     long_message_to_split = true, -- long messages will be sent to a split
     inc_rename = false, -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = false, -- add a border to hover docs and signature help
+    lsp_doc_border = true, -- add a border to hover docs and signature help
   },
   throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
   ---@type NoiceConfigViews

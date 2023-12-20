@@ -17,6 +17,11 @@ local options = {
     }),
   },
 
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
+
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -58,10 +63,10 @@ local options = {
     -- { name = "nvim_lsp_signature_help" }, -- this currently conflcit with noice signature help
     -- keyword_length so we stop getting every single crap under the sun
     { name = "luasnip" },
-    { name = "buffer", keyword_length = 5},
+    { name = "buffer", keyword_length = 5 },
     { name = "nvim_lua" },
     { name = "path" },
-    { name = "rg" , keyword_length = 5},
+    { name = "rg", keyword_length = 5 },
   },
 }
 

@@ -1,5 +1,6 @@
 -- This file contains configuration settings for Vim-Options, TreeSitter, LSP servers, tools, and Telescope.
 -- Instead of cluttering the individual configuration files with lengthy settings, we've organized them here to make it easier to manage and maintain the configuration.
+-- For the love of god please rename this and reorganize your stuff
 
 local M = {}
 -- TODO: Cleanup, this is an initial glance for Allaman/nvim's settings
@@ -80,6 +81,7 @@ M.tools = {
   "shellcheck",
   "tflint",
   "yamllint",
+  "pylint",
   "ruff",
   -- DAP
   "debugpy",
@@ -101,6 +103,7 @@ M.mason_ensure_installed = {
   "jedi-language-server",
   "lua-language-server",
   "ruff",
+  "pylint",
   "tflint",
   "typescript-language-server",
   "yaml-language-server",
