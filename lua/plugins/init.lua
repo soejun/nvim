@@ -9,7 +9,6 @@ local default_plugins = {
       vim.cmd([[colorscheme tokyonight]])
     end,
   },
-  -- -- icons
   {
     "nvim-tree/nvim-web-devicons",
     config = function(_, _)
@@ -59,7 +58,6 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require("noice").setup(opts)
-      -- vim.cmd([[ highlight NormalFloat guifg="#29a4bd" guibg="#1f2335"]])
     end,
   },
   {
@@ -101,20 +99,11 @@ local default_plugins = {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPost", "BufNewFile" },
-    -- init = function()
-    --   require("utils.functions").lazy_load("indent-blankline.nvim")
-    -- end,
     opts = function()
       return require("plugins.configs.indent-blankline")
     end,
     config = function(_, opts)
-      --------
-      -- vim.cmd([[highlight IndentBlanklineChar guifg=#0f3a45 gui=nocombine]])
-      -- vim.cmd([[highlight IndentBlankineSpaceChar guifg=#0f3a45 gui=nocombine]])
-      -- vim.cmd([[highlight IndentBlanklineContextChar guifg=#28535e gui=nocombine]])
-      -- vim.cmd([[highlight IndentBlanklineContextStart guisp=#133e49 gui=nocombine]])
-      -- require("utils.functions").load_mappings("blankline")
-      require("ibl").setup(opts) -- i have no idea why the original code differs like that
+      require("ibl").setup(opts)
     end,
   },
   -- lsp stuff
@@ -175,9 +164,7 @@ local default_plugins = {
       local null_ls = require("null-ls")
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
       null_ls.setup({
-        -- on_init = function(new_client, _)
-        --   new_client.offset_encoding = "utf-32"
-        -- end,
+        debug = true,
         sources = {
           null_ls.builtins.formatting.stylua.with({
             extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
@@ -407,7 +394,7 @@ local default_plugins = {
       {
         "mfussenegger/nvim-dap-python",
         config = function(_, _)
-          require("dap-python").setup("")
+          require("dap-python").setup("configs.dap.python")
         end,
       },
       {
@@ -437,121 +424,26 @@ local default_plugins = {
         },
       },
     },
+    -- stylua: ignore start
     keys = {
-      {
-        "<leader>dB",
-        function()
-          require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
-        end,
-        desc = "Breakpoint Condition",
-      },
-      {
-        "<leader>db",
-        function()
-          require("dap").toggle_breakpoint()
-        end,
-        desc = "Toggle Breakpoint",
-      },
-      {
-        "<leader>dc",
-        function()
-          require("dap").continue()
-        end,
-        desc = "Continue",
-      },
-      {
-        "<leader>dC",
-        function()
-          require("dap").run_to_cursor()
-        end,
-        desc = "Run to Cursor",
-      },
-      {
-        "<leader>dg",
-        function()
-          require("dap").goto_()
-        end,
-        desc = "Go to line (no execute)",
-      },
-      {
-        "<leader>di",
-        function()
-          require("dap").step_into()
-        end,
-        desc = "Step Into",
-      },
-      {
-        "<leader>dj",
-        function()
-          require("dap").down()
-        end,
-        desc = "Down",
-      },
-      {
-        "<leader>dk",
-        function()
-          require("dap").up()
-        end,
-        desc = "Up",
-      },
-      {
-        "<leader>dl",
-        function()
-          require("dap").run_last()
-        end,
-        desc = "Run Last",
-      },
-      {
-        "<leader>dO",
-        function()
-          require("dap").step_out()
-        end,
-        desc = "Step Out",
-      },
-      {
-        "<leader>do",
-        function()
-          require("dap").step_over()
-        end,
-        desc = "Step Over",
-      },
-      {
-        "<leader>dp",
-        function()
-          require("dap").pause()
-        end,
-        desc = "Pause",
-      },
-      {
-        "<leader>dr",
-        function()
-          require("dap").repl.toggle()
-        end,
-        desc = "Toggle REPL",
-      },
-      {
-        "<leader>ds",
-        function()
-          require("dap").session()
-        end,
-        desc = "Session",
-      },
-      {
-        "<leader>dt",
-        function()
-          require("dap").terminate()
-        end,
-        desc = "Terminate",
-      },
-      {
-        "<leader>dw",
-        function()
-          require("dap.ui.widgets").hover()
-        end,
-        desc = "Widgets",
-      },
+      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition", },
+      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint", },
+      { "<leader>dc", function() require("dap").continue() end, desc = "Continue", },
+      { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor", },
+      { "<leader>dg", function() require("dap").goto_() end, desc = "Go to line (no execute)", },
+      { "<leader>di", function() require("dap").step_into() end, desc = "Step Into", },
+      { "<leader>dj", function() require("dap").down() end, desc = "Down", },
+      { "<leader>dk", function() require("dap").up() end, desc = "Up", },
+      { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last", },
+      { "<leader>dO", function() require("dap").step_out() end, desc = "Step Out", },
+      { "<leader>do", function() require("dap").step_over() end, desc = "Step Over", },
+      { "<leader>dp", function() require("dap").pause() end, desc = "Pause", },
+      { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL", },
+      { "<leader>ds", function() require("dap").session() end, desc = "Session", },
+      { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate", },
+      { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets", },
     },
-
+    -- stylua: ignore end
     config = function(_, _)
       local icons = require("utils.lazyvim-icons")
       for name, sign in pairs(icons.dap) do
