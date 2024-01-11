@@ -63,8 +63,9 @@ M.lsp_servers = {
   "gopls",
   "html",
   "marksman",
-  "jedi_language_server",
-  -- "pyright",
+  -- "jedi_language_server",
+  -- Literally just make sure you run this command `sudo npm install pyright -g`
+  "pyright",
   "lua_ls",
   "tsserver",
   "yamlls",

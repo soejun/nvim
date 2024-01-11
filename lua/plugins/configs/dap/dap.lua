@@ -3,6 +3,7 @@
 local M = {}
 
 local function configure()
+  -- TODO Fix this
   local dap_breakpoint = {
     error = {
       text = "🟥",
