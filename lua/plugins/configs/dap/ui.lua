@@ -34,38 +34,41 @@ opts = {
     {
       elements = {
         {
-          id = "repl",
-          size = 0.25,
-        },
-        {
           id = "breakpoints",
-          size = 0.25,
+          size = 0.175,
         },
         {
           id = "stacks",
-          size = 0.25,
+          size = 0.175,
         },
+
+        {
+          id = "scopes",
+          size = 0.3,
+        },
+
         {
           id = "watches",
-          size = 0.25,
+          size = 0.35,
         },
       },
       position = "left",
-      size = 50,
+      size = 0.3,
     },
     {
       elements = {
         {
-          id = "scopes",
-          size = 0.7,
+          id = "repl",
+          size = 0.6,
         },
+
         {
           id = "console",
-          size = 0.3,
+          size = 0.4,
         },
       },
       position = "bottom",
-      size = 18,
+      size = 0.35,
     },
   },
   mappings = {

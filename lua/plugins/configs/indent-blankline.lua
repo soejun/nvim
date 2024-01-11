@@ -1,7 +1,4 @@
 local options = {
-  -- scope = {
-  --   enabled = vim.g.config.plugins.indent_blankline.enable_scope,
-  -- },
   indent = {
     char = { "|", "¦", "┆", "┊" },
   },

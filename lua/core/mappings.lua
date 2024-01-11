@@ -163,9 +163,11 @@ M.lspconfig = {
 M.notify = {
   plugin = true,
   n = {
-   -- stylua: ignore start
-    ["<leader><Esc>"] = { ":lua require('notify').dismiss()<CR>", desc ="clear notifications", opts = { silent = true } },
-    -- stylua: ignore end
+    ["<leader><Esc>"] = {
+      ":lua require('notify').dismiss()<CR>",
+      desc = "clear notifications",
+      opts = { silent = true },
+    },
   },
 }
 M.nvimtree = {

@@ -1,5 +1,7 @@
 local M = {}
 
+-- This is basically just backup assets
+
 M.arrows = {
   ArrowRight = "❯",
   ArrowLeft = "❮",

@@ -1,9 +1,16 @@
+-- TODO: Organize into the following:
+-- core essentials: plenary
+-- ui related: tokyonight, nvim-tree, toggleterm
+-- lsp functionality: mason, lsp_config
+-- dap functionality: nvim-dap, nvim-dap-ui
+-- utils organization as it relates to plugins, not core utils
+-- database: it's been so long i forgot, whatever this is
 local default_plugins = {
-  { "nvim-lua/plenary.nvim", lazy = false, priority = 1000 },
+  { "nvim-lua/plenary.nvim", lazy = false, priority = 100 },
   {
     "folke/tokyonight.nvim",
     lazy = false,
-    priority = 1000,
+    priority = 90,
     config = function(_, _)
       require("plugins.themes.tokyonight")
       vim.cmd([[colorscheme tokyonight]])
@@ -11,6 +18,7 @@ local default_plugins = {
   },
   {
     "nvim-tree/nvim-web-devicons",
+    lazy = false, -- stops invalid window id error
     config = function(_, _)
       require("nvim-web-devicons").setup({})
     end,
@@ -70,8 +78,8 @@ local default_plugins = {
       require("lualine").setup(opts)
     end,
   },
-  -- file managing , picker etc
   {
+    -- UI Related
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     init = function()
@@ -83,12 +91,14 @@ local default_plugins = {
     config = function(_, opts)
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
+      -- TODO: I mean this is hacky as hell, we should redirect our attentions eventually to a unified theming effort
+      -- Look to NvChad's themepicker for inspiration, we can figure out a list of highlights to configure to our own plugin needs
       vim.cmd([[highlight NvimTreeWinSeparator guifg=#3b4261]]) --it's for the line separating nvim-tree and the buffer
     end,
   },
   {
+    -- Comments out blocks of code
     "numToStr/Comment.nvim",
-    -- keys = { "gc", "gb" },
     init = function()
       require("utils.functions").load_mappings("comment")
     end,
@@ -97,6 +107,7 @@ local default_plugins = {
     end,
   },
   {
+    -- Shows lines as it relates to code indents (vertical lines)
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPost", "BufNewFile" },
     opts = function()
@@ -106,8 +117,8 @@ local default_plugins = {
       require("ibl").setup(opts)
     end,
   },
-  -- lsp stuff
   {
+    -- LSP Functionality, good god organize this PLEASE PLEASE PLEASE
     "williamboman/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     opts = function()
@@ -131,6 +142,8 @@ local default_plugins = {
   },
 
   {
+    -- LSP Functionality, why the hell is this separate from mason again?
+    -- My god we just need a separate table for all this and just import it that way
     "neovim/nvim-lspconfig",
     dependencies = {
       {
@@ -149,6 +162,9 @@ local default_plugins = {
       {
         "SmiteshP/nvim-navic",
       },
+      {
+        "folke/neodev.nvim",
+      },
     },
     init = function()
       require("utils.functions").lazy_load("nvim-lspconfig")
@@ -158,6 +174,7 @@ local default_plugins = {
     end,
   },
   {
+    -- RIP, deprecated, find different fork eventually
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = function(_, _)
@@ -165,6 +182,7 @@ local default_plugins = {
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
       null_ls.setup({
         debug = true,
+        border = "rounded",
         sources = {
           null_ls.builtins.formatting.stylua.with({
             extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
@@ -206,6 +224,8 @@ local default_plugins = {
     end,
   },
   {
+    -- LSP Functionality, organize as well
+    --
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
@@ -251,10 +271,10 @@ local default_plugins = {
     end,
   },
 
-  -- make sure to load nvim-treesitter after indent-blankline otherwise things will break
   {
+    -- IMPORTANT: make sure to load nvim-treesitter after indent-blankline otherwise things will break
+    -- Idk when the hell i wrote that above comment or how true that is now, fix later
     "nvim-treesitter/nvim-treesitter",
-    dependencies = {},
     init = function()
       require("utils.functions").lazy_load("nvim-treesitter")
     end,
@@ -269,7 +289,12 @@ local default_plugins = {
       parser_config.tsx.filettpe_to_parsername = { "javascript", "typescript.tsx" }
     end,
   },
-  { "danymat/neogen", dependencies = "nvim-treesitter/nvim-treesitter", config = true },
+
+  { -- Again, why is this not with the autocomplete stuff??
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = true,
+  },
   {
     "windwp/nvim-ts-autotag",
     config = function(_, _)
@@ -277,13 +302,12 @@ local default_plugins = {
     end,
   },
 
-  -- log highlighting
   {
+    -- log highlighting
     "fei6409/log-highlight.nvim",
     config = function()
       require("log-highlight").setup({
         -- The following options support either a string or a table of strings.
-
         -- The file extensions.
         extension = "log",
 
@@ -303,6 +327,7 @@ local default_plugins = {
     end,
   },
   {
+    -- Is this UI or utils? I think we need a separate UTILS thing
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     dependencies = {
@@ -328,6 +353,7 @@ local default_plugins = {
   },
 
   {
+    -- What the hell is this again? I think UI related?
     "lewis6991/gitsigns.nvim",
     lazy = false,
     opts = function()
@@ -338,6 +364,7 @@ local default_plugins = {
     end,
   },
   {
+    -- lmao pls, we need to figure out the config and organize for this
     "ray-x/go.nvim",
     dependencies = { "ray-x/guihua.lua" },
     event = "CmdLineEnter",
@@ -352,8 +379,8 @@ local default_plugins = {
       require("go").setup(opts)
     end,
   },
-
   {
+    -- Debugger functionality
     "mfussenegger/nvim-dap",
     dependencies = {
       {
@@ -382,19 +409,19 @@ local default_plugins = {
           dap.listeners.after.event_initialized["dapui_config"] = function()
             dapui.open({})
           end
-          dap.listeners.before.event_terminated["dapui_config"] = function()
-            dapui.close({})
-          end
-          dap.listeners.before.event_exited["dapui_config"] = function()
-            dapui.close({})
-          end
+          -- dap.listeners.before.event_terminated["dapui_config"] = function()
+          --   dapui.close({})
+          -- end
+          -- dap.listeners.before.event_exited["dapui_config"] = function()
+          --   dapui.close({})
+          -- end
         end,
       },
       "theHamsta/nvim-dap-virtual-text",
       {
         "mfussenegger/nvim-dap-python",
         config = function(_, _)
-          require("dap-python").setup("configs.dap.python")
+          require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
         end,
       },
       {
@@ -456,6 +483,7 @@ local default_plugins = {
     end,
   },
   {
+    -- Uhhh, what was this again? I know it deinitely broke something when i tried initially setting it up
     "luukvbaal/statuscol.nvim",
     lazy = false,
     opts = function()
@@ -466,6 +494,8 @@ local default_plugins = {
     end,
   },
   {
+    -- database gang, figure out later, this is low priority
+    -- reason being is that god forbid we use nvim for db stuff
     "tpope/vim-dadbod",
     dependencies = {
       { "kristijanhusak/vim-dadbod-ui" },
@@ -477,8 +507,7 @@ local default_plugins = {
       end,
     },
     config = function(_, opts)
-      -- vim.g.db_ui_save_location = "/Users/soejun/workspace/scripts/sql-scripts/db_ui"
-      vim.g.db_ui_save_location = "/Users/soejun/workspace/post-fud-checker/backend/app/database/scripts/"
+      -- TODO: Dynamic save, propbably default create folder at wherever neovim is pulled up unless stated otherwise
       vim.api.nvim_create_autocmd("FileType", {
         pattern = {
           "sql",
@@ -497,6 +526,7 @@ local default_plugins = {
         end,
       })
     end,
+    -- TODO: Figure out load order for this so the keys here can literally not be here
     keys = {
       { "<leader>Dt", "<cmd>DBUIToggle<cr>", desc = "Toggle UI" },
       { "<leader>Df", "<cmd>DBUIFindBuffer<cr>", desc = "Find Buffer" },
@@ -505,6 +535,7 @@ local default_plugins = {
     },
   },
   {
+    -- TODO: Why the hell do we have this??
     "ray-x/web-tools.nvim",
     -- default port is 3000 for preview
     init = function()
@@ -528,15 +559,17 @@ local default_plugins = {
     end,
   },
   {
+    -- belongs in utils
     "norcalli/nvim-colorizer.lua",
     config = function(_, _)
       require("colorizer").setup()
     end,
-    -- :ColorizerToggle
   },
 
-  -- Load whichkey after all other gui
   {
+    -- Load whichkey after all other gui
+    -- Again, why? In reference to load after everything else I know why we have this
+
     "folke/which-key.nvim",
     keys = { "<leader>", '"', "'", "`", "c", "v" },
     init = function()
@@ -551,4 +584,4 @@ local default_plugins = {
     lazy = false,
   },
 }
-require("lazy").setup(default_plugins, lazy_config)
+require("lazy").setup(default_plugins)

@@ -78,6 +78,8 @@ local lsp_special_config = {
   },
 }
 
+
+require("neodev").setup({})
 for _, lsp in ipairs(servers) do
   local server_config = {
     before_init = function(_, config)

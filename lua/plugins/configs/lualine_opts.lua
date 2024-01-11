@@ -1,33 +1,6 @@
 local M = {}
-local colors = {
-  blue = "#268bd2",
-  cyan = "#2aa198",
-  black = "#073642",
-  white = "#fdf6e3",
-  red = "#dc322f",
-  violet = "#6c71c4",
-  grey = "#073642",
-  base00 = "#657b83",
-  base0 = "#839496",
-  base1 = "#93a1a1",
-  green = "#719e07",
-  yellow = "#b58900",
-  orange = "#cb4b16",
-  green_diff = "#719e07",
-  yellow_diff = "#b58900",
-  gpt_bg_rec_diff = "#073642",
-  transparent = "#000000",
-}
-local svrana_neosolarized_theme = {
-  normal = {
-    a = { fg = colors.black, bg = colors.blue, gui = "bold" },
-    b = { fg = colors.base1 }, --don't manually set bg if color scheme provides a transparent option
-    c = { fg = colors.base1 },
-  },
-  insert = { a = { fg = colors.black, bg = colors.green, gui = "bold" } },
-  visual = { a = { fg = colors.black, bg = colors.yellow, gui = "bold" } },
-  replace = { a = { fg = colors.black, bg = colors.red, gui = "bold" } },
-}
+
+
 M = {
   options = {
     icons_enabled = true,
