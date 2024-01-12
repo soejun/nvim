@@ -141,7 +141,7 @@ M.lspconfig = {
     -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
     ["gD"] = { function() vim.lsp.buf.declaration() end, "lsp declaration", },
     ["gd"] = { function() vim.lsp.buf.definition() end, "lsp definition", },
-    ["K"] = { function() vim.lsp.buf.hover() end, "lsp hover", },
+     ["K"] = { function() vim.lsp.buf.hover() end, "lsp hover; press twice to jump into window", },
     ["gi"] = { function() vim.lsp.buf.implementation() end, "lsp implementation", },
     ["<leader>ls"] = { function() vim.lsp.buf.signature_help() end, "lsp signature_help", },
     ["<leader>D"] = { function() vim.lsp.buf.type_definition() end, "lsp definition type", },

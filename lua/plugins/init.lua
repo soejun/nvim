@@ -194,6 +194,7 @@ local default_plugins = {
           -- python stuff --
           null_ls.builtins.formatting.black,
           null_ls.builtins.diagnostics.pylint,
+          null_ls.builtins.diagnostics.mypy,
           -- move over ruff, pylint is better
           -- null_ls.builtins.diagnostics.ruff,
           -- golang stuff --
@@ -565,7 +566,15 @@ local default_plugins = {
       require("colorizer").setup()
     end,
   },
-
+  {
+    "iamcco/markdown-preview.nvim",
+    --TODO: Add hotkeys
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
   {
     -- Load whichkey after all other gui
     -- Again, why? In reference to load after everything else I know why we have this
