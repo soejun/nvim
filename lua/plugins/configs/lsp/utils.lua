@@ -48,4 +48,7 @@ M.get_python_path = function(workspace)
   return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
 end
 
+M.get_python_path_pylsp = function()
+end
+
 return M
