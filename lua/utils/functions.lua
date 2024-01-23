@@ -152,4 +152,16 @@ function M.on_attach(on_attach)
   })
 end
 
+
+
+function ToggleVirtualText()
+
+  local virtual_text_enabled = true
+  virtual_text_enabled = not virtual_text_enabled
+  vim.diagnostic.config({
+    virtual_text = virtual_text_enabled,
+    -- You can add other diagnostic configurations here if needed
+  })
+end
+
 return M

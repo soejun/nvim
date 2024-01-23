@@ -6,6 +6,17 @@ local M = {}
 -- format
 -- [binding] = {command, description}
 -- example: ["<C-b>"] = { "<ESC>^i", "beginning of line" },
+
+local diagnostics_visible = true
+function ToggleDiagnostics()
+  diagnostics_visible = not diagnostics_visible
+  vim.diagnostic.config({
+    virtual_text = diagnostics_visible,
+    underline = diagnostics_visible,
+    -- You can add other diagnostic configurations here if needed
+  })
+end
+
 M.general = {
   i = {
     -- go to  beginning and end
@@ -21,6 +32,8 @@ M.general = {
   },
   n = {
     ["<leader>nh"] = { ":noh <CR>", "clear highlights" },
+    -- toggle diagnostics
+    ["<leader>te"] = { ":lua ToggleDiagnostics()<CR>", "toggle diagnostics" },
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },

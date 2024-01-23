@@ -64,13 +64,12 @@ M.lsp_servers = {
   "html",
   "marksman",
   "jedi_language_server",
-  -- Literally just make sure you run this command `sudo npm install pyright -g`
-  -- "pyright",
-  -- "pylsp",
   "lua_ls",
   "tsserver",
   "yamlls",
 }
+
+-- Linters, formatters, and debuggers installed by mason
 M.tools = {
   -- Formatter
   "black",
@@ -79,7 +78,6 @@ M.tools = {
   "shfmt",
   -- Linter
   "eslint_d",
-  "flake8",
   "shellcheck",
   "tflint",
   "yamllint",
@@ -88,26 +86,19 @@ M.tools = {
   -- DAP
   "debugpy",
 }
+
+-- LSP's installed by mason
 M.mason_ensure_installed = {
   "bash-language-server",
-  "black",
   "clangd",
-  "clang-format",
-  "codelldb",
   "dockerfile-language-server",
-  "eslint_d",
-  "flake8",
   "json-lsp",
   "gopls",
   "html-lsp",
+  "htmx-lsp",
   "marksman",
-  -- "pyright",
-  -- "python-lsp-server",
   "jedi-language-server",
   "lua-language-server",
-  "ruff",
-  "pylint",
-  "tflint",
   "typescript-language-server",
   "yaml-language-server",
 }

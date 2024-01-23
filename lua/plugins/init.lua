@@ -165,6 +165,12 @@ local default_plugins = {
       {
         "folke/neodev.nvim",
       },
+      {
+        "linux-cultist/venv-selector.nvim",
+        config = function()
+          require("venv-selector").setup()
+        end,
+      },
     },
     init = function()
       require("utils.functions").lazy_load("nvim-lspconfig")
@@ -569,6 +575,7 @@ local default_plugins = {
   {
     "iamcco/markdown-preview.nvim",
     --TODO: Add hotkeys
+    -- It will interact with last window the mouse interacted with
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     build = function()

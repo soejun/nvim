@@ -62,6 +62,7 @@ local lsp_special_config = {
     capabilities = M.capabilities,
     on_attach = M.on_attach,
   },
+  html = { filetypes = { "html", "htmldjango" } },
 }
 
 require("neodev").setup({})
@@ -70,8 +71,8 @@ for _, lsp in ipairs(servers) do
     before_init = function(_, config)
       if lsp == "pyright" then
         config.settings.python.pythonPath = require("plugins.configs.lsp.utils").get_python_path(config.root_dir)
-      -- if lsp is pylsp do this:
-      -- ~/.local/share/nvim/mason/packages/python-lsp-server/venv/bin/python3 -m pip install "python-lsp-server[all]"
+        -- if lsp is pylsp do this:
+        -- ~/.local/share/nvim/mason/packages/python-lsp-server/venv/bin/python3 -m pip install "python-lsp-server[all]"
       end
       -- if lsp == "pylsp" then
       --   config.settings.python.pythonPath = ""
@@ -85,13 +86,6 @@ for _, lsp in ipairs(servers) do
     settings = {
       Lua = lsp_settings.lua,
       yaml = lsp_settings.yaml,
-      pylsp = {
-        plugins = {
-          pylsp_mypy = { enabled = true },
-          jedi_completion = { fuzzy = true, eager = true},
-          pyls_isort = { enabled = true },
-        },
-      },
     },
   }
 
