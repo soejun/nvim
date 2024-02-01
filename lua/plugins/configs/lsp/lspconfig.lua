@@ -6,6 +6,8 @@ local navic = require("nvim-navic")
 
 local M = {}
 
+-- /home/wchan/.local/share/nvim/mason/packages/jedi-language-server
+
 -------------------- on_attach logic ----------------------
 
 local lsp_formatting = function(bufnr)
@@ -65,18 +67,28 @@ local lsp_special_config = {
   html = { filetypes = { "html", "htmldjango" } },
 }
 
+-- if lsp == "pyright" then
+--   config.settings.python.pythonPath = require("plugins.configs.lsp.utils").get_python_path(config.root_dir)
+-- end
+-- example
+-- cd /path/to/your/project
+-- pyenv virtualenv 3.10.0 my_project_venv
+-- pyenv local my_project_venv
+-- pyenv activate my_project_venv
+-- `pyenv versions` to see which ones are there
+-- pipx should replace the roel of .venv-tools since it runs python stuff on isolated packages
+-- we should utilize pipx for jupyter and anaconda and stuff
+
+
 require("neodev").setup({})
 for _, lsp in ipairs(servers) do
   local server_config = {
     before_init = function(_, config)
-      if lsp == "pyright" then
-        config.settings.python.pythonPath = require("plugins.configs.lsp.utils").get_python_path(config.root_dir)
-        -- if lsp is pylsp do this:
-        -- ~/.local/share/nvim/mason/packages/python-lsp-server/venv/bin/python3 -m pip install "python-lsp-server[all]"
+      if lsp == "jedi_language_server" then
+        -- Amazing, just setup pyenv properly and jedi and null_ls sources should handle the rest!
+        local lsp_utils = require("plugins.configs.lsp.utils")
+        config.initializationOptions.workspace.environmentPath = lsp_utils.get_python_path(config.root_dir)
       end
-      -- if lsp == "pylsp" then
-      --   config.settings.python.pythonPath = ""
-      -- end
     end,
     on_attach = M.on_attach,
     capabilities = M.capabilities,

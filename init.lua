@@ -15,3 +15,8 @@ vim.cmd([[  set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
   \,sm:block-blinkwait175-blinkoff150-blinkon175]])
 AUTOFORMAT_ACTIVE = false
+
+vim.lsp.set_log_level("debug")
+if vim.fn.has("nvim-0.5.1") == 1 then
+  require("vim.lsp.log").set_format_func(vim.inspect)
+end

@@ -140,6 +140,61 @@ local default_plugins = {
       end
     end,
   },
+  {
+    -- RIP, deprecated, find different fork eventually
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function(_, _)
+      local null_ls = require("null-ls")
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+      null_ls.setup({
+        debug = true,
+        border = "rounded",
+        sources = {
+          null_ls.builtins.formatting.stylua.with({
+            extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+          }),
+          null_ls.builtins.diagnostics.eslint,
+          null_ls.builtins.formatting.prettier.with({
+            extra_args = { "--single-quote", "false" },
+          }),
+          -- python stuff --
+          -- No need for mason so long as we keep on using venvs
+          null_ls.builtins.formatting.black,
+          -- null_ls.builtins.diagnostics.pylint.with({
+          --   extra_args = {
+          --     "--load-plugins=pylint_flask_sqlalchemy",
+          --   },
+          -- }),
+          null_ls.builtins.diagnostics.pylint,
+          null_ls.builtins.diagnostics.mypy,
+          -- golang stuff --
+          null_ls.builtins.formatting.goimports,
+          null_ls.builtins.formatting.gofumpt,
+          -- misc stuff --
+          null_ls.builtins.code_actions.gitsigns,
+          -- bash stuf --
+          null_ls.builtins.code_actions.shellcheck,
+          null_ls.builtins.diagnostics.shellcheck,
+          null_ls.builtins.formatting.shfmt,
+        },
+        on_attach = function(client, bufnr)
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                if AUTOFORMAT_ACTIVE then -- global var defined in functions.lua
+                  vim.lsp.buf.format({ bufnr = bufnr })
+                end
+              end,
+            })
+          end
+        end,
+      })
+    end,
+  },
 
   {
     -- LSP Functionality, why the hell is this separate from mason again?
@@ -177,57 +232,6 @@ local default_plugins = {
     end,
     config = function()
       require("plugins.configs.lsp.lspconfig")
-    end,
-  },
-  {
-    -- RIP, deprecated, find different fork eventually
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function(_, _)
-      local null_ls = require("null-ls")
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-      null_ls.setup({
-        debug = true,
-        border = "rounded",
-        sources = {
-          null_ls.builtins.formatting.stylua.with({
-            extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
-          }),
-          null_ls.builtins.diagnostics.eslint,
-          null_ls.builtins.formatting.prettier.with({
-            extra_args = { "--single-quote", "false" },
-          }),
-          -- python stuff --
-          null_ls.builtins.formatting.black,
-          null_ls.builtins.diagnostics.pylint,
-          null_ls.builtins.diagnostics.mypy,
-          -- move over ruff, pylint is better
-          -- null_ls.builtins.diagnostics.ruff,
-          -- golang stuff --
-          null_ls.builtins.formatting.goimports,
-          null_ls.builtins.formatting.gofumpt,
-          -- misc stuff --
-          null_ls.builtins.code_actions.gitsigns,
-          -- bash stuf --
-          null_ls.builtins.code_actions.shellcheck,
-          null_ls.builtins.diagnostics.shellcheck,
-          null_ls.builtins.formatting.shfmt,
-        },
-        on_attach = function(client, bufnr)
-          if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                if AUTOFORMAT_ACTIVE then -- global var defined in functions.lua
-                  vim.lsp.buf.format({ bufnr = bufnr })
-                end
-              end,
-            })
-          end
-        end,
-      })
     end,
   },
   {

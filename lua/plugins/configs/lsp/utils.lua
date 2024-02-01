@@ -36,7 +36,7 @@ M.get_python_path = function(workspace)
     return path.join(vim.env.VIRTUAL_ENV, "bin", "python")
   end
 
-  -- Find and use virtualenv i nworkspace directory
+  -- Find and use virtualenv in workspace directory
   for _, pattern in ipairs({ "*", ".*" }) do
     local match = vim.fn.glob(path.join(workspace, pattern, "pyvenv.cfg"))
     if match ~= "" then
