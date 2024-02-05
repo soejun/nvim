@@ -69,6 +69,12 @@ local default_plugins = {
     end,
   },
   {
+    "goolord/alpha-nvim",
+    config = function()
+      require("alpha").setup(require'alpha.themes.dashboard'.config)
+    end,
+  },
+  {
     "nvim-lualine/lualine.nvim",
     lazy = false,
     opts = function()
@@ -160,14 +166,15 @@ local default_plugins = {
           }),
           -- python stuff --
           -- No need for mason so long as we keep on using venvs
-          null_ls.builtins.formatting.black,
+          -- null_ls.builtins.formatting.black,
           -- null_ls.builtins.diagnostics.pylint.with({
           --   extra_args = {
           --     "--load-plugins=pylint_flask_sqlalchemy",
           --   },
           -- }),
           null_ls.builtins.diagnostics.pylint,
-          null_ls.builtins.diagnostics.mypy,
+          null_ls.builtins.formatting.yapf.with({ extra_args = { "--style={based_on_style: google, column_limit=120}" } }),
+          -- null_ls.builtins.diagnostics.mypy,
           -- golang stuff --
           null_ls.builtins.formatting.goimports,
           null_ls.builtins.formatting.gofumpt,

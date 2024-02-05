@@ -70,9 +70,11 @@ M.lsp_servers = {
 }
 
 -- Linters, formatters, and debuggers installed by mason
+-- TODO, yapf, black, pylint and associated python tools from null_ls should be pointed to virtual environments
 M.tools = {
   -- Formatter
-  "black",
+  -- "black",
+  -- "yapf",
   "prettier",
   "stylua",
   "shfmt",
@@ -81,7 +83,7 @@ M.tools = {
   "shellcheck",
   "tflint",
   "yamllint",
-  "pylint",
+  -- "pylint",
   "ruff",
   -- DAP
   "debugpy",
