@@ -8,14 +8,23 @@
 local default_plugins = {
   { "nvim-lua/plenary.nvim", lazy = false, priority = 100 },
   {
-    "folke/tokyonight.nvim",
+    "catppuccin/nvim",
     lazy = false,
     priority = 90,
     config = function(_, _)
-      require("plugins.themes.tokyonight")
-      vim.cmd([[colorscheme tokyonight]])
+      require("plugins.themes.catpuccin")
+      vim.cmd([[colorscheme catppuccin-macchiato]])
     end,
   },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   lazy = false,
+  --   priority = 90,
+  --   config = function(_, _)
+  --     require("plugins.themes.tokyonight")
+  --     vim.cmd([[colorscheme tokyonight]])
+  --   end,
+  -- },
   {
     "nvim-tree/nvim-web-devicons",
     lazy = false, -- stops invalid window id error
@@ -38,7 +47,19 @@ local default_plugins = {
       require("utils.functions").toggle_term_mappings()
     end,
   },
-
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+    },
+    init = function()
+      require("utils.functions").load_mappings("vim_tmux_navigator")
+    end,
+  },
   {
     "folke/noice.nvim",
     lazy = false,
@@ -71,7 +92,7 @@ local default_plugins = {
   {
     "goolord/alpha-nvim",
     config = function()
-      require("alpha").setup(require'alpha.themes.dashboard'.config)
+      require("alpha").setup(require("alpha.themes.dashboard").config)
     end,
   },
   {
@@ -173,7 +194,9 @@ local default_plugins = {
           --   },
           -- }),
           null_ls.builtins.diagnostics.pylint,
-          null_ls.builtins.formatting.yapf.with({ extra_args = { "--style={based_on_style: google, column_limit=120}" } }),
+          null_ls.builtins.formatting.yapf.with({
+            extra_args = { "--style={based_on_style: google, column_limit=120}" },
+          }),
           -- null_ls.builtins.diagnostics.mypy,
           -- golang stuff --
           null_ls.builtins.formatting.goimports,

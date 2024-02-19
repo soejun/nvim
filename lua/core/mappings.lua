@@ -270,4 +270,14 @@ M.webtools = {
   },
 }
 
+M.vim_tmux_navigator = {
+  plugin = true,
+  n = {
+    ["<C-h>"] = { "<cmd>TmuxNavigateLeft<CR>" },
+    ["<C-j>"] = { "<cmd>TmuxNavigateDown<CR>" },
+    ["<C-k>"] = { "<cmd>TmuxNavigateUp<CR>" },
+    ["<C-l>"] = { "<cmd>TmuxNavigateRight<CR>" },
+    ["<C-\\>"] = { "<cmd>TmuxNavigatePrevious<CR>" },
+  },
+}
 return M
