@@ -5,9 +5,9 @@ local navic = require "nvim-navic"
 local utils = require "utils.functions"
 local icons = require "utils.alpha2phi-icons"
 
-vim.api.nvim_set_hl(0, "WinBarSeparator", { fg = colors.grey })
-vim.api.nvim_set_hl(0, "WinBarFilename", { fg = colors.base1, bg = colors.grey })
-vim.api.nvim_set_hl(0, "WinBarContext", { fg = colors.yellow, bg = colors.grey })
+-- vim.api.nvim_set_hl(0, "WinBarSeparator", { fg = colors.grey })
+-- vim.api.nvim_set_hl(0, "WinBarFilename", { fg = colors.base1, bg = colors.grey })
+-- vim.api.nvim_set_hl(0, "WinBarContext", { fg = colors.yellow, bg = colors.grey })
 
 M.winbar_filetype_exclude = {
   "help",

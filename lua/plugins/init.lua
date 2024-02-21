@@ -120,7 +120,7 @@ local default_plugins = {
       vim.g.nvimtree_side = opts.view.side
       -- TODO: I mean this is hacky as hell, we should redirect our attentions eventually to a unified theming effort
       -- Look to NvChad's themepicker for inspiration, we can figure out a list of highlights to configure to our own plugin needs
-      vim.cmd([[highlight NvimTreeWinSeparator guifg=#3b4261]]) --it's for the line separating nvim-tree and the buffer
+      -- vim.cmd([[highlight NvimTreeWinSeparator guifg=#3b4261]]) --it's for the line separating nvim-tree and the buffer
     end,
   },
   {
