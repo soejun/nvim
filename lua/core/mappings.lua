@@ -17,6 +17,11 @@ function ToggleDiagnostics()
   })
 end
 
+function ToggleSpellCheck()
+  local current_value = vim.wo.spell
+  vim.wo.spell = not current_value
+end
+
 M.general = {
   i = {
     -- go to  beginning and end
@@ -32,8 +37,9 @@ M.general = {
   },
   n = {
     ["<leader>nh"] = { ":noh <CR>", "clear highlights" },
-    -- toggle diagnostics
+    -- spellcheck and diagnostics
     ["<leader>te"] = { ":lua ToggleDiagnostics()<CR>", "toggle diagnostics" },
+    ["<leader>ts"] = { ":lua ToggleSpellCheck()<CR>", "toggle spellcheck" },
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },

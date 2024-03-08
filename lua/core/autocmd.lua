@@ -25,10 +25,30 @@ api.nvim_create_autocmd("TextYankPost", {
 api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*.txt", "*.md", "*.tex", "*.typ" },
   callback = function()
-    vim.opt.spell = true
-    vim.opt.spelllang = "en"
+    local ignore_files = {
+      "requirements.txt",
+      "lint_requirements.txt",
+      "test_requirements.txt",
+    }
+    -- Get the name of the current file
+    local filename = vim.fn.expand("%:t")
+
+    -- Check if the current file is in the ignore list
+    local should_ignore = false
+    for _, ignore_file in ipairs(ignore_files) do
+      if filename == ignore_file then
+        should_ignore = true
+        break
+      end
+    end
+
+    -- If the file is not in the ignore list, enable spell checking
+    if not should_ignore then
+      vim.opt.spell = true
+      vim.opt.spelllang = "en"
+    end
   end,
-  desc = "Enable spell checking for certain file types",
+  desc = "Enable spell checking for certain file types, excludes certain files",
 })
 
 -- set various configuration files to .ini file types where applicable
@@ -38,7 +58,7 @@ api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   callback = function()
     vim.api.nvim_command("set filetype=ini")
   end,
-  desc = "set ini-like files to filetype ini"
+  desc = "set ini-like files to filetype ini",
 })
 
 -- we'll figure this out later
@@ -72,7 +92,6 @@ api.nvim_create_autocmd("FileType", {
   end,
 })
 
-
 api.nvim_create_autocmd("BufReadPost", {
   callback = function()
     local mark = vim.api.nvim_buf_get_mark(0, '"')
@@ -83,7 +102,6 @@ api.nvim_create_autocmd("BufReadPost", {
   end,
   desc = "go to last loc when opening a buffer",
 })
-
 
 -- cursor line stuff
 local cursorGrp = api.nvim_create_augroup("CursorLine", { clear = true })
