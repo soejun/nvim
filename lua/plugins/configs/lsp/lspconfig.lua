@@ -41,15 +41,12 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   },
 }
 
-local present, ufo = pcall(require, "ufo")
-if present then
-  capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-  }
-end
-
 M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+-- set folding after capabilities from cmp_nvim_lsp to nvim-ufo can fold yaml
+M.capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
 
 -------------------- capablities logic --------------------
 
@@ -78,7 +75,6 @@ local lsp_special_config = {
 -- `pyenv versions` to see which ones are there
 -- pipx should replace the roel of .venv-tools since it runs python stuff on isolated packages
 -- we should utilize pipx for jupyter and anaconda and stuff
-
 
 require("neodev").setup({})
 for _, lsp in ipairs(servers) do

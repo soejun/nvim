@@ -8,6 +8,13 @@ api.nvim_create_autocmd("BufWritePre", {
   group = TrimWhiteSpaceGrp,
 })
 
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    vim.opt.formatoptions:remove({ "c", "r", "o" })
+  end,
+  desc = "Disable New Line Comment",
+})
+
 -- Highlight on yank
 api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -15,18 +22,34 @@ api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- Enable spell checking for certain file types
--- api.nvim_create_autocmd(
---   { "BufRead", "BufNewFile" },
---   -- { pattern = { "*.txt", "*.md", "*.tex" }, command = [[setlocal spell<cr> setlocal spelllang=en,de<cr>]] }
---   {
---     pattern = { "*.txt", "*.md", "*.tex" },
---     callback = function()
---       vim.opt.spell = true
---       vim.opt.spelllang = "en"
---     end,
---   }
--- )
+api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.txt", "*.md", "*.tex", "*.typ" },
+  callback = function()
+    vim.opt.spell = true
+    vim.opt.spelllang = "en"
+  end,
+  desc = "Enable spell checking for certain file types",
+})
+
+-- set various configuration files to .ini file types where applicable
+-- these are ini-like, not exactly ini but close enough, we just want the highlighting
+api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*pylintrc", "*.service", "*.conf", "*.mount" },
+  callback = function()
+    vim.api.nvim_command("set filetype=ini")
+  end,
+  desc = "set ini-like files to filetype ini"
+})
+
+-- we'll figure this out later
+-- disable warning diagnostics for .env files
+-- api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+--   pattern = { ".env",".*.env" },
+--   callback = function()
+--     vim.diagnostic.config({severity ={ min = vim.diagnostic.severity.INFO, max=vim.diagnostic.severity.ERROR}}, namespace)
+--   end,
+--   desc = ""
+-- })
 
 -- windows to close with "q"
 api.nvim_create_autocmd("FileType", {
@@ -48,6 +71,32 @@ api.nvim_create_autocmd("FileType", {
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
+
+
+api.nvim_create_autocmd("BufReadPost", {
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+  desc = "go to last loc when opening a buffer",
+})
+
+
+-- cursor line stuff
+local cursorGrp = api.nvim_create_augroup("CursorLine", { clear = true })
+api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
+  pattern = "*",
+  command = "set cursorline",
+  group = cursorGrp,
+  desc = "show cursor line only in active window",
+})
+api.nvim_create_autocmd(
+  { "InsertEnter", "WinLeave" },
+  { pattern = "*", command = "set nocursorline", group = cursorGrp }
+)
 
 -- reload modules on save
 local NvReload = api.nvim_create_augroup("NvReload", {})
@@ -86,13 +135,5 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.api.nvim_create_autocmd({ "BufRead", "VimEnter" }, {
   callback = function()
     vim.cmd([[set clipboard+=unnamedplus]])
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "yaml,yml" },
-  callback = function()
-    require("ufo").detach()
-    vim.opt_local.foldenable = false
   end,
 })
