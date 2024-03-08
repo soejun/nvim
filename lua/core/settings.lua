@@ -30,28 +30,46 @@ M.disable_dashboard_quick_links = false
 -- one of "all", "maintained" (parsers with maintainers), or a list of languages
 M.treesitter_ensure_installed = {
   -- we can always ask chatgpt to reorganize this list for us
+  -- languages --
   "bash",
-  "css",
-  "dockerfile",
+  "javascript",
   "go",
+  "lua",
+  "lua_patterns",
+  "python",
+  "typescript",
+  -- languages --
+  -- config file types --
+  "json",
+  "ini",
+  "toml",
+  "yaml",
+  "xml",
+  "git_config",
+  "git_rebase",
+  "gitignore",
+  "gitattributes",
+  "gitcommit",
+  "pip_requirements",
+  -- config file types --
+  -- misc --
+  "make",
+  "cmake",
+  "dockerfile",
+  "css",
+  "scss",
   "gomod",
   "gosum",
   "html",
-  "javascript",
-  "json",
-  "lua",
   "markdown",
   "markdown_inline",
+  -- misc --
   "query",
-  "python",
   "regex",
-  "scss",
-  "toml",
-  "typescript",
-  "tsx", -- otherwise syntax highlighting won't work
+  "tsx",
   "vim",
   "vimdoc",
-  "yaml",
+  -- misc --
 }
 
 -- LSPs that should be installed by Mason-lspconfig
