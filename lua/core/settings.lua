@@ -35,7 +35,6 @@ M.treesitter_ensure_installed = {
   "javascript",
   "go",
   "lua",
-  "lua_patterns",
   "python",
   "typescript",
   -- languages --
@@ -50,7 +49,6 @@ M.treesitter_ensure_installed = {
   "gitignore",
   "gitattributes",
   "gitcommit",
-  "pip_requirements",
   -- config file types --
   -- misc --
   "make",
