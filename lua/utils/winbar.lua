@@ -1,13 +1,8 @@
 local M = {}
 
-local colors = require "utils.colors"
-local navic = require "nvim-navic"
-local utils = require "utils.functions"
-local icons = require "utils.alpha2phi-icons"
-
--- vim.api.nvim_set_hl(0, "WinBarSeparator", { fg = colors.grey })
--- vim.api.nvim_set_hl(0, "WinBarFilename", { fg = colors.base1, bg = colors.grey })
--- vim.api.nvim_set_hl(0, "WinBarContext", { fg = colors.yellow, bg = colors.grey })
+local navic = require("nvim-navic")
+local utils = require("utils.functions")
+local icons = require("utils.alpha2phi-icons")
 
 M.winbar_filetype_exclude = {
   "help",
@@ -33,7 +28,10 @@ local excludes = function()
 end
 
 local function get_modified()
-  if utils.get_buf_option "mod" then
+  -- %t, just the current buffer
+  -- %f, includes parent
+  -- %f, absolute path
+  if utils.get_buf_option("mod") then
     local mod = icons.git.Mod
     return "%#WinBarFilename#" .. mod .. " " .. "%f" .. "%*"
   end
@@ -54,14 +52,14 @@ M.get_winbar = function()
   end
   if navic.is_available() then
     return "%#WinBarSeparator#"
-        .. "%="
-        -- .. ""
-        .. "%*"
-        .. get_modified()
-        .. get_location()
-        .. "%#WinBarSeparator#"
-        -- .. ""
-        .. "%*"
+      .. "%="
+      -- .. ""
+      .. "%*"
+      .. get_modified()
+      .. get_location()
+      .. "%#WinBarSeparator#"
+      -- .. ""
+      .. "%*  " -- Append whitespace for margin, crappy fix? Maybe but it works lol
   else
     return "%#WinBarSeparator#" .. "%=" .. "%*" .. get_modified() .. "%#WinBarSeparator#" .. "%*"
   end
