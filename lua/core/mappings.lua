@@ -256,6 +256,7 @@ M.toggleterm = {
     -- toggle in normal mode
     ["<leader>V"] = { "<cmd>ToggleTerm direction=vertical<CR>", desc = "toggle vertical term" },
     ["<leader>H"] = { "<cmd>ToggleTerm direction=horizontal<CR>", desc = "toggle horizontal term" },
+    ["<leader>F"] = {"<cmd> ToggleTerm direction=float<CR>", desc = "toggle floating term"}
   },
   t = {
     -- toggle in terminal mode

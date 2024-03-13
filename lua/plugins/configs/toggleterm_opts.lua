@@ -18,7 +18,7 @@ options = {
   start_in_insert = true,
   insert_mappings = true, -- whether or not the open mapping applies in insert mode
   persist_size = true,
-  persist_mode = false,
+  persist_mode = true,
   direction = "horizontal", -- 'vertical' | 'horizontal' | 'window' | 'float',
   close_on_exit = true, -- close the terminal window when the process exits
   shell = vim.o.shell, -- change the default shell
@@ -31,11 +31,11 @@ options = {
     border = "single", -- 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
     -- width = <value>,
     -- height = <value>,
-    winblend = 3,
-    highlights = {
-      border = "Normal",
-      background = "Normal",
-    },
+    -- winblend = 1,
+    -- highlights = {
+    --   border = "Normal",
+    --   background = "Normal",
+    -- },
   },
 }
 
