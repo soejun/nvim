@@ -235,6 +235,9 @@ M.telescope = {
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
     ["<leader>fs"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
+    -- LSP Related
+    ["<leader>fd"] = { "<cmd> Telescope lsp_document_symbols <CR> ", "lists LSP document symbols in current buffer"},
+    ["<leader>fr"] = { "<cmd> Telescope lsp_workspace_symbols <CR> ", "lists LSP document symbols in current workspace"},
     -- git
     ["<leader>gm"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
