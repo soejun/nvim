@@ -196,6 +196,13 @@ M.nvimtree = {
     ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
   },
 }
+M.outline_nvim = {
+  plugin = true,
+  n = {
+    -- A lot of keys are in outline_opts fyi as defaults
+    ["<C-o>"] = {"<cmd>Outline<CR>", desc = "Toggle outline"}
+  }
+}
 
 -- ctrl+y, move screen up one line
 -- ctrl+e, move screen down one line

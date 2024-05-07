@@ -48,6 +48,7 @@ local default_plugins = {
     end,
   },
   {
+    -- what the fuck do we have this for we don't even use tmux
     "christoomey/vim-tmux-navigator",
     cmd = {
       "TmuxNavigateLeft",
@@ -183,7 +184,7 @@ local default_plugins = {
           }),
           null_ls.builtins.diagnostics.eslint,
           null_ls.builtins.formatting.prettier.with({
-            extra_args = { "--single-quote", "false" },
+            extra_args = { "--single-quote", "true", "--trailing-comma", "all" },
           }),
           -- python stuff --
           -- No need for mason so long as we keep on using venvs
@@ -203,6 +204,9 @@ local default_plugins = {
           null_ls.builtins.formatting.gofumpt,
           -- misc stuff --
           null_ls.builtins.code_actions.gitsigns,
+          null_ls.builtins.formatting.sqlformat,
+          null_ls.builtins.diagnostics.djlint,
+          -- null_ls.builtins.formatting.pg_format,
           -- bash stuf --
           null_ls.builtins.code_actions.shellcheck,
           null_ls.builtins.diagnostics.shellcheck,
@@ -523,6 +527,21 @@ local default_plugins = {
       end
     end,
   },
+  {
+    "hedyhli/outline.nvim",
+    lazy = true,
+    cmd = { "Outline", "OutlineOpen" },
+    init = function()
+      require("utils.functions").load_mappings("outline_nvim")
+    end,
+    opts = function()
+      return require("plugins.configs.outline_opts")
+    end,
+    config = function(_, opts)
+      require("outline").setup(opts)
+    end,
+  },
+
   {
     -- Uhhh, what was this again? I know it deinitely broke something when i tried initially setting it up
     "luukvbaal/statuscol.nvim",
