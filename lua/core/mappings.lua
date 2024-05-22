@@ -200,7 +200,7 @@ M.outline_nvim = {
   plugin = true,
   n = {
     -- A lot of keys are in outline_opts fyi as defaults
-    ["<C-o>"] = {"<cmd>Outline<CR>", desc = "Toggle outline"}
+    ["<leader>o"] = {"<cmd>Outline<CR>", desc = "Toggle outline"}
   }
 }
 
