@@ -29,9 +29,10 @@ M.disable_dashboard_quick_links = false
 -- treesitter parsers to be installed
 -- one of "all", "maintained" (parsers with maintainers), or a list of languages
 M.treesitter_ensure_installed = {
-  -- we can always ask chatgpt to reorganize this list for us
   -- languages --
   "bash",
+  "c",
+  "c_sharp",
   "javascript",
   "go",
   "lua",
@@ -78,6 +79,9 @@ M.lsp_servers = {
   "jsonls",
   "gopls",
   "html",
+  "nginx_language_server",
+  "csharp_ls",
+  -- "omnisharp", do not use
   "marksman",
   "jedi_language_server",
   "lua_ls",
@@ -117,8 +121,13 @@ M.mason_ensure_installed = {
   "marksman",
   "jedi-language-server",
   "lua-language-server",
+  "nginx-language-server",
+  -- "omnisharp",
   "typescript-language-server",
   "yaml-language-server",
+  "netcoredbg",
+  "csharpier",
+
 }
 
 --Telescope

@@ -6,14 +6,11 @@ local navic = require("nvim-navic")
 
 local M = {}
 
--- /home/wchan/.local/share/nvim/mason/packages/jedi-language-server
-
 -------------------- on_attach logic ----------------------
 
 local lsp_formatting = function(bufnr)
   vim.lsp.buf.format({
     filter = function(client)
-      -- apply whatever logic you want (in this example, we'll only use null-ls)
       return client.name == "null-ls"
     end,
     bufnr = bufnr,
@@ -52,6 +49,11 @@ M.capabilities.textDocument.foldingRange = {
 
 local servers = settings.lsp_servers
 
+-- c# binaries for lsp
+local omnisharp_bin_mason = "/home/wchan/.local/share/nvim/mason/bin/omnisharp"
+local csharp_ls_binary = "/home/wchan/.dotnet/tools/csharp-ls"
+local pid = vim.fn.getpid()
+
 local lsp_special_config = {
   clangd = {
     cmd = {
@@ -61,27 +63,46 @@ local lsp_special_config = {
     capabilities = M.capabilities,
     on_attach = M.on_attach,
   },
+  csharp_ls = {
+    cmd = { csharp_ls_binary },
+    filetypes = { "cs", "vb" },
+    on_attach = M.on_attach,
+    capabilities = M.capabilities,
+  },
   html = { filetypes = { "html", "htmldjango" } },
+  --   omnisharp = {
+  --   handlers = {
+  --     ["textDocument/definition"] = function(...)
+  --       return require("omnisharp_extended").handler(...)
+  --     end,
+  --   },
+  --   keys = {
+  --     {
+  --       "gd",
+  --       function()
+  --         require("omnisharp_extended").telescope_lsp_definitions()
+  --       end,
+  --       desc = "Goto Definition",
+  --     },
+  --   },
+  --   enable_roslyn_analyzers = true,
+  --   organize_imports_on_format = true,
+  --   enable_import_completion = true,
+  --   cmd = {
+  --     omnisharp_bin_mason,
+  --     "--languageserver",
+  --     "--hostPID",
+  --     tostring(pid),
+  --   },
+  -- },
 }
-
--- if lsp == "pyright" then
---   config.settings.python.pythonPath = require("plugins.configs.lsp.utils").get_python_path(config.root_dir)
--- end
--- example
--- cd /path/to/your/project
--- pyenv virtualenv 3.10.0 my_project_venv
--- pyenv local my_project_venv
--- pyenv activate my_project_venv
--- `pyenv versions` to see which ones are there
--- pipx should replace the roel of .venv-tools since it runs python stuff on isolated packages
--- we should utilize pipx for jupyter and anaconda and stuff
 
 require("neodev").setup({})
 for _, lsp in ipairs(servers) do
   local server_config = {
     before_init = function(_, config)
+      -- jedi_language_server is capable of automatically detecting virtual environments
       if lsp == "jedi_language_server" then
-        -- Amazing, just setup pyenv properly and jedi and null_ls sources should handle the rest!
         local lsp_utils = require("plugins.configs.lsp.utils")
         config.initializationOptions.workspace.environmentPath = lsp_utils.get_python_path(config.root_dir)
       end
@@ -100,7 +121,11 @@ for _, lsp in ipairs(servers) do
   -- Merge special configuration if exists
   if lsp_special_config[lsp] then
     for k, v in pairs(lsp_special_config[lsp]) do
-      server_config[k] = v
+      if type(server_config[k]) == "table" and type(v) == "table" then
+        server_config[k] = vim.tbl_deep_extend("force", server_config[k], v)
+      else
+        server_config[k] = v
+      end
     end
   end
 

@@ -254,6 +254,9 @@ local default_plugins = {
       {
         "folke/neodev.nvim",
       },
+      -- load omnisharp-extended-lsp here
+      -- but setup in lspconfig.lua
+      {"Hoffs/omnisharp-extended-lsp.nvim", lazy=true},
       {
         "linux-cultist/venv-selector.nvim",
         config = function()
@@ -270,7 +273,6 @@ local default_plugins = {
   },
   {
     -- LSP Functionality, organize as well
-    --
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
