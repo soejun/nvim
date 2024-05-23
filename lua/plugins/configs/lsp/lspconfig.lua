@@ -54,6 +54,7 @@ for _, lsp in ipairs(servers) do
       debounce_text_changes = 150,
     },
     settings = {
+      html = lsp_settings.html,
       Lua = lsp_settings.lua,
       yaml = lsp_settings.yaml,
     },

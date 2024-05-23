@@ -57,8 +57,7 @@ local default_plugins = {
     dependencies = {
       "MunifTanjim/nui.nvim",
       {
-        --nvim-notify for noice and notifications
-        "rcarriga/nvim-notify",
+        "rcarriga/nvim-notify", -- nvim-notify for noice and notifications
         lazy = false,
         init = function()
           require("utils.functions").load_mappings("notify")
@@ -227,12 +226,6 @@ local default_plugins = {
       {
         "folke/neodev.nvim",
       },
-      {
-        "linux-cultist/venv-selector.nvim",
-        config = function()
-          require("venv-selector").setup()
-        end,
-      },
     },
     init = function()
       require("utils.functions").lazy_load("nvim-lspconfig")
@@ -312,33 +305,21 @@ local default_plugins = {
   },
   {
     "windwp/nvim-ts-autotag",
-    config = function(_, _)
-      require("nvim-ts-autotag").setup()
+    opts = function()
+      return require("plugins.configs.nvim_ts_autotag_opts")
+    end,
+    config = function(_, opts)
+      require("nvim-ts-autotag").setup(opts)
     end,
   },
 
   {
-    -- log highlighting
     "fei6409/log-highlight.nvim",
-    config = function()
-      require("log-highlight").setup({
-        -- The following options support either a string or a table of strings.
-        -- The file extensions.
-        extension = "log",
-
-        -- The file names or the full file paths.
-        filename = {
-          "messages",
-        },
-
-        -- The file path glob patterns, e.g. `.*%.lg`, `/var/log/.*`.
-        -- Note: `%.` is to match a literal dot (`.`) in a pattern in Lua, but most
-        -- of the time `.` and `%.` here make no observable difference.
-        pattern = {
-          "/var/log/.*",
-          "messages%..*",
-        },
-      })
+    opts = function ()
+      return require("plugins.configs.log_highlight_opts")
+    end,
+    config = function(_, opts)
+      require("log-highlight").setup(opts)
     end,
   },
   {
@@ -394,23 +375,16 @@ local default_plugins = {
   {
     -- Debugger functionality
     "mfussenegger/nvim-dap",
+    init = function()
+      require("utils.functions").load_mappings("dap")
+    end,
     dependencies = {
       {
         "rcarriga/nvim-dap-ui",
-        keys = {
-          {
-            "<leader>du",
-            function()
-              require("dapui").toggle()
-            end,
-          },
-          {
-            "<leader>de",
-            function()
-              require("dapui").eval()
-            end,
-          },
-        },
+        dependencies = { "nvim-neotest/nvim-nio" },
+        init = function()
+          require("utils.functions").load_mappings("dap_ui")
+        end,
         opts = function()
           return require("plugins.configs.dap.ui")
         end,
@@ -421,15 +395,8 @@ local default_plugins = {
           dap.listeners.after.event_initialized["dapui_config"] = function()
             dapui.open({})
           end
-          -- dap.listeners.before.event_terminated["dapui_config"] = function()
-          --   dapui.close({})
-          -- end
-          -- dap.listeners.before.event_exited["dapui_config"] = function()
-          --   dapui.close({})
-          -- end
         end,
       },
-      "theHamsta/nvim-dap-virtual-text",
       {
         "mfussenegger/nvim-dap-python",
         config = function(_, _)
@@ -462,27 +429,8 @@ local default_plugins = {
           },
         },
       },
+      "theHamsta/nvim-dap-virtual-text",
     },
-    -- stylua: ignore start
-    keys = {
-      { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition", },
-      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint", },
-      { "<leader>dc", function() require("dap").continue() end, desc = "Continue", },
-      { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor", },
-      { "<leader>dg", function() require("dap").goto_() end, desc = "Go to line (no execute)", },
-      { "<leader>di", function() require("dap").step_into() end, desc = "Step Into", },
-      { "<leader>dj", function() require("dap").down() end, desc = "Down", },
-      { "<leader>dk", function() require("dap").up() end, desc = "Up", },
-      { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last", },
-      { "<leader>dO", function() require("dap").step_out() end, desc = "Step Out", },
-      { "<leader>do", function() require("dap").step_over() end, desc = "Step Over", },
-      { "<leader>dp", function() require("dap").pause() end, desc = "Pause", },
-      { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL", },
-      { "<leader>ds", function() require("dap").session() end, desc = "Session", },
-      { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate", },
-      { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets", },
-    },
-    -- stylua: ignore end
     config = function(_, _)
       local icons = require("utils.lazyvim-icons")
       for name, sign in pairs(icons.dap) do
@@ -522,7 +470,12 @@ local default_plugins = {
   {
     "tpope/vim-dadbod",
     dependencies = {
-      { "kristijanhusak/vim-dadbod-ui" },
+      {
+        "kristijanhusak/vim-dadbod-ui",
+        init = function()
+          require("utils.functions").load_mappings("vim_dadbod")
+        end,
+      },
       "kristijanhusak/vim-dadbod-completion",
     },
     opts = {
@@ -531,14 +484,12 @@ local default_plugins = {
       end,
     },
     config = function(_, opts)
-      -- TODO: Dynamic save, propbably default create folder at wherever neovim is pulled up unless stated otherwise
       vim.api.nvim_create_autocmd("FileType", {
         pattern = {
           "sql",
         },
         command = [[setlocal omnifunc=vim_dadbod_completion#omni]],
       })
-
       vim.api.nvim_create_autocmd("FileType", {
         pattern = {
           "sql",
@@ -550,16 +501,8 @@ local default_plugins = {
         end,
       })
     end,
-    -- TODO: Figure out load order for this so the keys here can literally not be here
-    keys = {
-      { "<leader>Dt", "<cmd>DBUIToggle<cr>", desc = "Toggle UI" },
-      { "<leader>Df", "<cmd>DBUIFindBuffer<cr>", desc = "Find Buffer" },
-      { "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>", desc = "Rename Buffer" },
-      { "<leader>Dq", "<cmd>DBUILastQueryInfo<cr>", desc = "Last Query Info" },
-    },
   },
   {
-    -- TODO: Why the hell do we have this??
     "ray-x/web-tools.nvim",
     -- default port is 3000 for preview
     init = function()

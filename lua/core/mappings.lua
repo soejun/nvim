@@ -104,26 +104,44 @@ M.general = {
 
 M.dap = {
   plugin = true,
+    -- stylua: ignore start
   n = {
-    ["<leader>dB"] = {
-      ':lua require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>',
-      "Breakpoint Condition",
+    ["<leader>dB"] = { function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
+                       desc = "Breakpoint Condition", },
+    ["<leader>db"] = { function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint",  },
+    ["<leader>dc"] = { function() require("dap").continue() end, desc = "Continue" },
+    ["<leader>dC"] = { function() require("dap").run_to_cursor() end, desc = "Run to Cursor", },
+    ["<leader>dg"] = { function() require("dap").goto_() end, desc = "Go to line (no execute)", },
+    ["<leader>di"] = { function() require("dap").step_into() end, desc = "Step Into", },
+    ["<leader>dj"] = { function() require("dap").down() end, desc = "Down", },
+    ["<leader>dk"] = { function() require("dap").up() end, desc = "Up", },
+    ["<leader>dl"] = { function() require("dap").run_last() end, desc = "Run Last", },
+    ["<leader>do"] = { function() require("dap").step_out() end, desc = "Step Out", },
+    ["<leader>dO"] = { function() require("dap").step_over() end, desc = "Step Over", },
+    ["<leader>dp"] = { function() require("dap").pause() end, desc = "Pause", },
+    ["<leader>dr"] = { function() require("dap").repl.toggle() end, desc = "Toggle REPL", },
+    ["<leader>ds"] = { function() require("dap").session() end, desc = "Session", },
+    ["<leader>dt"] = { function() require("dap").terminate() end, desc = "Terminate", },
+    ["<leader>dw"] = { function() require("dap.ui.widgets").hover() end, desc = "Widgets", },
+  },
+    -- stylua: ignore end
+}
+
+M.dap_ui = {
+  plugin = true,
+  n = {
+    ["<leader>du"] = {
+      function()
+        require("dapui").toggle()
+      end,
+      "Toggle dap-ui",
     },
-    ["<leader>db"] = { ':lua require("dap").toggle_breakpoint()<CR>', "Toggle Breakpoint" },
-    ["<leader>dc"] = { ':lua require("dap").continue()<CR>', "Continue" },
-    ["<leader>dC"] = { ':lua require("dap").run_to_cursor()<CR>', "Run to Cursor" },
-    ["<leader>dg"] = { ':lua require("dap").goto_()<CR>', "Go to line (no execute)" },
-    ["<leader>di"] = { ':lua require("dap").step_into()<CR>', "Step Into" },
-    ["<leader>dj"] = { ':lua require("dap").down()<CR>', "Down" },
-    ["<leader>dk"] = { ':lua require("dap").up()<CR>', "Up" },
-    ["<leader>dl"] = { ':lua require("dap").run_last()<CR>', "Run Last" },
-    ["<leader>do"] = { ':lua require("dap").step_out()<CR>', "Step Out" },
-    ["<leader>dO"] = { ':lua require("dap").step_over()<CR>', "Step Over" },
-    ["<leader>dp"] = { ':lua require("dap").pause()<CR>', "Pause" },
-    ["<leader>dr"] = { ':lua require("dap").repl.open()<CR>', "Repl" },
-    ["<leader>ds"] = { ':lua require("dap").session()<CR>', "Session" },
-    ["<leader>dt"] = { ':lua require("dap").terminate()<CR>', "Terminate" },
-    ["<leader>dw"] = { ':lua require("dap.ui.widgets").hover()<CR>', "Hover" },
+    ["<leader>de"] = {
+      function()
+        require("dapui").eval()
+      end,
+      "Evaluate dap-ui",
+    },
   },
 }
 
@@ -200,8 +218,8 @@ M.outline_nvim = {
   plugin = true,
   n = {
     -- A lot of keys are in outline_opts fyi as defaults
-    ["<leader>o"] = {"<cmd>Outline<CR>", desc = "Toggle outline"}
-  }
+    ["<leader>o"] = { "<cmd>Outline<CR>", desc = "Toggle outline" },
+  },
 }
 
 -- ctrl+y, move screen up one line
@@ -243,8 +261,11 @@ M.telescope = {
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
     ["<leader>fs"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
     -- LSP Related
-    ["<leader>fd"] = { "<cmd> Telescope lsp_document_symbols <CR> ", "lists LSP document symbols in current buffer"},
-    ["<leader>fr"] = { "<cmd> Telescope lsp_workspace_symbols <CR> ", "lists LSP document symbols in current workspace"},
+    ["<leader>fd"] = { "<cmd> Telescope lsp_document_symbols <CR> ", "lists LSP document symbols in current buffer" },
+    ["<leader>fr"] = {
+      "<cmd> Telescope lsp_workspace_symbols <CR> ",
+      "lists LSP document symbols in current workspace",
+    },
     -- git
     ["<leader>gm"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
@@ -263,7 +284,7 @@ M.toggleterm = {
     -- toggle in normal mode
     ["<leader>V"] = { "<cmd>ToggleTerm direction=vertical<CR>", desc = "toggle vertical term" },
     ["<leader>H"] = { "<cmd>ToggleTerm direction=horizontal<CR>", desc = "toggle horizontal term" },
-    ["<leader>F"] = {"<cmd> ToggleTerm direction=float<CR>", desc = "toggle floating term"}
+    ["<leader>F"] = { "<cmd> ToggleTerm direction=float<CR>", desc = "toggle floating term" },
   },
   t = {
     -- toggle in terminal mode
@@ -295,6 +316,16 @@ M.vim_tmux_navigator = {
     ["<C-k>"] = { "<cmd>TmuxNavigateUp<CR>" },
     ["<C-l>"] = { "<cmd>TmuxNavigateRight<CR>" },
     ["<C-\\>"] = { "<cmd>TmuxNavigatePrevious<CR>" },
+  },
+}
+
+M.vim_dadbod = {
+  plugin = true,
+  n = {
+    ["<leader>Dt"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle UI" },
+    ["<leader>Df"] = { "<cmd>DBUIFindBuffer<cr>", desc = "Find Buffer" },
+    ["<leader>Dr"] = { "<cmd>DBUIRenameBuffer<cr>", desc = "Rename Buffer" },
+    ["<leader>Dq"] = { "<cmd>DBUILastQueryInfo<cr>", desc = "Last Query Info" },
   },
 }
 return M
