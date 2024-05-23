@@ -22,37 +22,36 @@ api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*.txt", "*.md", "*.tex", "*.typ" },
-  callback = function()
-    local ignore_files = {
-      "requirements.txt",
-      "lint_requirements.txt",
-      "test_requirements.txt",
-    }
-    -- Get the name of the current file
-    local filename = vim.fn.expand("%:t")
-
-    -- Check if the current file is in the ignore list
-    local should_ignore = false
-    for _, ignore_file in ipairs(ignore_files) do
-      if filename == ignore_file then
-        should_ignore = true
-        break
-      end
-    end
-
-    -- If the file is not in the ignore list, enable spell checking
-    if not should_ignore then
-      vim.opt.spell = true
-      vim.opt.spelllang = "en"
-    end
-  end,
-  desc = "Enable spell checking for certain file types, excludes certain files",
-})
+-- api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+--   pattern = { "*.txt", "*.md", "*.tex", "*.typ" },
+--   callback = function()
+--     local ignore_files = {
+--       "requirements.txt",
+--       "lint_requirements.txt",
+--       "test_requirements.txt",
+--     }
+--     -- Get the name of the current file
+--     local filename = vim.fn.expand("%:t")
+--
+--     -- Check if the current file is in the ignore list
+--     local should_ignore = false
+--     for _, ignore_file in ipairs(ignore_files) do
+--       if filename == ignore_file then
+--         should_ignore = true
+--         break
+--       end
+--     end
+--
+--     -- If the file is not in the ignore list, enable spell checking
+--     if not should_ignore then
+--       vim.opt.spell = true
+--       vim.opt.spelllang = "en"
+--     end
+--   end,
+--   desc = "Enable spell checking for certain file types, excludes certain files",
+-- })
 
 -- set various configuration files to .ini file types where applicable
--- these are ini-like, not exactly ini but close enough, we just want the highlighting
 api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*pylintrc", "*.service", "*.conf", "*.mount" },
   callback = function()

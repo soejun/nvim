@@ -8,17 +8,6 @@ local M = {}
 
 -------------------- on_attach logic ----------------------
 
-local lsp_formatting = function(bufnr)
-  vim.lsp.buf.format({
-    filter = function(client)
-      return client.name == "null-ls"
-    end,
-    bufnr = bufnr,
-  })
-end
-
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
 M.on_attach = function(client, bufnr)
   utils.load_mappings("lspconfig", { buffer = bufnr })
   if client.server_capabilities.documentSymbolProvider then
@@ -49,54 +38,6 @@ M.capabilities.textDocument.foldingRange = {
 
 local servers = settings.lsp_servers
 
--- c# binaries for lsp
-local omnisharp_bin_mason = "/home/wchan/.local/share/nvim/mason/bin/omnisharp"
-local csharp_ls_binary = "/home/wchan/.dotnet/tools/csharp-ls"
-local pid = vim.fn.getpid()
-
-local lsp_special_config = {
-  clangd = {
-    cmd = {
-      "clangd",
-      "--offset-encoding=utf-16",
-    },
-    capabilities = M.capabilities,
-    on_attach = M.on_attach,
-  },
-  csharp_ls = {
-    cmd = { csharp_ls_binary },
-    filetypes = { "cs", "vb" },
-    on_attach = M.on_attach,
-    capabilities = M.capabilities,
-  },
-  html = { filetypes = { "html", "htmldjango" } },
-  --   omnisharp = {
-  --   handlers = {
-  --     ["textDocument/definition"] = function(...)
-  --       return require("omnisharp_extended").handler(...)
-  --     end,
-  --   },
-  --   keys = {
-  --     {
-  --       "gd",
-  --       function()
-  --         require("omnisharp_extended").telescope_lsp_definitions()
-  --       end,
-  --       desc = "Goto Definition",
-  --     },
-  --   },
-  --   enable_roslyn_analyzers = true,
-  --   organize_imports_on_format = true,
-  --   enable_import_completion = true,
-  --   cmd = {
-  --     omnisharp_bin_mason,
-  --     "--languageserver",
-  --     "--hostPID",
-  --     tostring(pid),
-  --   },
-  -- },
-}
-
 require("neodev").setup({})
 for _, lsp in ipairs(servers) do
   local server_config = {
@@ -117,17 +58,6 @@ for _, lsp in ipairs(servers) do
       yaml = lsp_settings.yaml,
     },
   }
-
-  -- Merge special configuration if exists
-  if lsp_special_config[lsp] then
-    for k, v in pairs(lsp_special_config[lsp]) do
-      if type(server_config[k]) == "table" and type(v) == "table" then
-        server_config[k] = vim.tbl_deep_extend("force", server_config[k], v)
-      else
-        server_config[k] = v
-      end
-    end
-  end
 
   nvim_lsp[lsp].setup(server_config)
 end

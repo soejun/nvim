@@ -16,15 +16,6 @@ local default_plugins = {
       vim.cmd([[colorscheme catppuccin-macchiato]])
     end,
   },
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   lazy = false,
-  --   priority = 90,
-  --   config = function(_, _)
-  --     require("plugins.themes.tokyonight")
-  --     vim.cmd([[colorscheme tokyonight]])
-  --   end,
-  -- },
   {
     "nvim-tree/nvim-web-devicons",
     lazy = false, -- stops invalid window id error
@@ -48,7 +39,6 @@ local default_plugins = {
     end,
   },
   {
-    -- what the fuck do we have this for we don't even use tmux
     "christoomey/vim-tmux-navigator",
     cmd = {
       "TmuxNavigateLeft",
@@ -107,7 +97,6 @@ local default_plugins = {
     end,
   },
   {
-    -- UI Related
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     init = function()
@@ -119,9 +108,6 @@ local default_plugins = {
     config = function(_, opts)
       require("nvim-tree").setup(opts)
       vim.g.nvimtree_side = opts.view.side
-      -- TODO: I mean this is hacky as hell, we should redirect our attentions eventually to a unified theming effort
-      -- Look to NvChad's themepicker for inspiration, we can figure out a list of highlights to configure to our own plugin needs
-      -- vim.cmd([[highlight NvimTreeWinSeparator guifg=#3b4261]]) --it's for the line separating nvim-tree and the buffer
     end,
   },
   {
@@ -146,7 +132,6 @@ local default_plugins = {
     end,
   },
   {
-    -- LSP Functionality, good god organize this PLEASE PLEASE PLEASE
     "williamboman/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
     opts = function()
@@ -186,19 +171,10 @@ local default_plugins = {
           null_ls.builtins.formatting.prettier.with({
             extra_args = { "--single-quote", "true", "--trailing-comma", "all" },
           }),
-          -- python stuff --
-          -- No need for mason so long as we keep on using venvs
-          -- null_ls.builtins.formatting.black,
-          -- null_ls.builtins.diagnostics.pylint.with({
-          --   extra_args = {
-          --     "--load-plugins=pylint_flask_sqlalchemy",
-          --   },
-          -- }),
           null_ls.builtins.diagnostics.pylint,
           null_ls.builtins.formatting.yapf.with({
             extra_args = { "--style={based_on_style: google, column_limit=120}" },
           }),
-          -- null_ls.builtins.diagnostics.mypy,
           -- golang stuff --
           null_ls.builtins.formatting.goimports,
           null_ls.builtins.formatting.gofumpt,
@@ -206,8 +182,7 @@ local default_plugins = {
           null_ls.builtins.code_actions.gitsigns,
           null_ls.builtins.formatting.sqlformat,
           null_ls.builtins.diagnostics.djlint,
-          -- null_ls.builtins.formatting.pg_format,
-          -- bash stuf --
+          -- bash stuff --
           null_ls.builtins.code_actions.shellcheck,
           null_ls.builtins.diagnostics.shellcheck,
           null_ls.builtins.formatting.shfmt,
@@ -231,8 +206,6 @@ local default_plugins = {
   },
 
   {
-    -- LSP Functionality, why the hell is this separate from mason again?
-    -- My god we just need a separate table for all this and just import it that way
     "neovim/nvim-lspconfig",
     dependencies = {
       {
@@ -254,9 +227,6 @@ local default_plugins = {
       {
         "folke/neodev.nvim",
       },
-      -- load omnisharp-extended-lsp here
-      -- but setup in lspconfig.lua
-      {"Hoffs/omnisharp-extended-lsp.nvim", lazy=true},
       {
         "linux-cultist/venv-selector.nvim",
         config = function()
@@ -272,7 +242,6 @@ local default_plugins = {
     end,
   },
   {
-    -- LSP Functionality, organize as well
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
@@ -303,7 +272,7 @@ local default_plugins = {
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-nvim-lsp",
-        -- "hrsh7th/cmp-nvim-lsp-signature-help",
+        -- "hrsh7th/cmp-nvim-lsp-signature-help", -- We disable because it conflicts with noice.nvim lsp signature help
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "lukas-reineke/cmp-rg",
@@ -320,7 +289,6 @@ local default_plugins = {
 
   {
     -- IMPORTANT: make sure to load nvim-treesitter after indent-blankline otherwise things will break
-    -- Idk when the hell i wrote that above comment or how true that is now, fix later
     "nvim-treesitter/nvim-treesitter",
     init = function()
       require("utils.functions").lazy_load("nvim-treesitter")
@@ -337,7 +305,7 @@ local default_plugins = {
     end,
   },
 
-  { -- Again, why is this not with the autocomplete stuff??
+  {
     "danymat/neogen",
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = true,
@@ -374,7 +342,6 @@ local default_plugins = {
     end,
   },
   {
-    -- Is this UI or utils? I think we need a separate UTILS thing
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     dependencies = {
@@ -400,7 +367,6 @@ local default_plugins = {
   },
 
   {
-    -- What the hell is this again? I think UI related?
     "lewis6991/gitsigns.nvim",
     lazy = false,
     opts = function()
@@ -411,7 +377,6 @@ local default_plugins = {
     end,
   },
   {
-    -- lmao pls, we need to figure out the config and organize for this
     "ray-x/go.nvim",
     dependencies = { "ray-x/guihua.lua" },
     event = "CmdLineEnter",
@@ -545,7 +510,6 @@ local default_plugins = {
   },
 
   {
-    -- Uhhh, what was this again? I know it deinitely broke something when i tried initially setting it up
     "luukvbaal/statuscol.nvim",
     lazy = false,
     opts = function()
@@ -556,8 +520,6 @@ local default_plugins = {
     end,
   },
   {
-    -- database gang, figure out later, this is low priority
-    -- reason being is that god forbid we use nvim for db stuff
     "tpope/vim-dadbod",
     dependencies = {
       { "kristijanhusak/vim-dadbod-ui" },
@@ -621,7 +583,6 @@ local default_plugins = {
     end,
   },
   {
-    -- belongs in utils
     "norcalli/nvim-colorizer.lua",
     config = function(_, _)
       require("colorizer").setup()
@@ -629,8 +590,6 @@ local default_plugins = {
   },
   {
     "iamcco/markdown-preview.nvim",
-    --TODO: Add hotkeys
-    -- It will interact with last window the mouse interacted with
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     build = function()
@@ -638,9 +597,6 @@ local default_plugins = {
     end,
   },
   {
-    -- Load whichkey after all other gui
-    -- Again, why? In reference to load after everything else I know why we have this
-
     "folke/which-key.nvim",
     keys = { "<leader>", '"', "'", "`", "c", "v" },
     init = function()

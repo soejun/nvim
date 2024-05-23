@@ -1,7 +1,5 @@
---config for lua_ls
-
+-- lsp config for lua_ls
 local opts = {}
-
 opts = {
   cmd = { "lua-language-server" },
   format = {
