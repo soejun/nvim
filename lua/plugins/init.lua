@@ -467,41 +467,41 @@ local default_plugins = {
       require("statuscol").setup(opts)
     end,
   },
-  {
-    "tpope/vim-dadbod",
-    dependencies = {
-      {
-        "kristijanhusak/vim-dadbod-ui",
-        init = function()
-          require("utils.functions").load_mappings("vim_dadbod")
-        end,
-      },
-      "kristijanhusak/vim-dadbod-completion",
-    },
-    opts = {
-      db_completion = function()
-        require("cmp").setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
-      end,
-    },
-    config = function(_, opts)
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "sql",
-        },
-        command = [[setlocal omnifunc=vim_dadbod_completion#omni]],
-      })
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "sql",
-          "mysql",
-          "plsql",
-        },
-        callback = function()
-          vim.schedule(opts.db_completion)
-        end,
-      })
-    end,
-  },
+  -- {
+  --   "tpope/vim-dadbod",
+  --   dependencies = {
+  --     {
+  --       "kristijanhusak/vim-dadbod-ui",
+  --       init = function()
+  --         require("utils.functions").load_mappings("vim_dadbod")
+  --       end,
+  --     },
+  --     "kristijanhusak/vim-dadbod-completion",
+  --   },
+  --   opts = {
+  --     db_completion = function()
+  --       require("cmp").setup.buffer({ sources = { { name = "vim-dadbod-completion" } } })
+  --     end,
+  --   },
+  --   config = function(_, opts)
+  --     vim.api.nvim_create_autocmd("FileType", {
+  --       pattern = {
+  --         "sql",
+  --       },
+  --       command = [[setlocal omnifunc=vim_dadbod_completion#omni]],
+  --     })
+  --     vim.api.nvim_create_autocmd("FileType", {
+  --       pattern = {
+  --         "sql",
+  --         "mysql",
+  --         "plsql",
+  --       },
+  --       callback = function()
+  --         vim.schedule(opts.db_completion)
+  --       end,
+  --     })
+  --   end,
+  -- },
   {
     "ray-x/web-tools.nvim",
     -- default port is 3000 for preview
@@ -511,13 +511,13 @@ local default_plugins = {
     config = function(_, _)
       require("web-tools").setup({
         keymaps = {
-          rename = nil,         -- by default use same setup of lspconfig
-          repeat_rename = ".",  -- . to repeat
+          rename = nil, -- by default use same setup of lspconfig
+          repeat_rename = ".", -- . to repeat
         },
-        hurl = {                -- hurl default
+        hurl = { -- hurl default
           show_headers = false, -- do not show http headers
-          floating = false,     -- use floating windows (need guihua.lua)
-          formatters = {        -- format the result by filetype
+          floating = false, -- use floating windows (need guihua.lua)
+          formatters = { -- format the result by filetype
             json = { "jq" },
             html = { "prettier", "--parser", "html" },
           },
