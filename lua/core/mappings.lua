@@ -104,27 +104,29 @@ M.general = {
 
 M.dap = {
   plugin = true,
-    -- stylua: ignore start
+  -- stylua: ignore start
   n = {
-    ["<leader>dB"] = { function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
-                       desc = "Breakpoint Condition", },
-    ["<leader>db"] = { function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint",  },
-    ["<leader>dc"] = { function() require("dap").continue() end, desc = "Continue" },
-    ["<leader>dC"] = { function() require("dap").run_to_cursor() end, desc = "Run to Cursor", },
-    ["<leader>dg"] = { function() require("dap").goto_() end, desc = "Go to line (no execute)", },
-    ["<leader>di"] = { function() require("dap").step_into() end, desc = "Step Into", },
-    ["<leader>dj"] = { function() require("dap").down() end, desc = "Down", },
-    ["<leader>dk"] = { function() require("dap").up() end, desc = "Up", },
-    ["<leader>dl"] = { function() require("dap").run_last() end, desc = "Run Last", },
-    ["<leader>do"] = { function() require("dap").step_out() end, desc = "Step Out", },
-    ["<leader>dO"] = { function() require("dap").step_over() end, desc = "Step Over", },
-    ["<leader>dp"] = { function() require("dap").pause() end, desc = "Pause", },
-    ["<leader>dr"] = { function() require("dap").repl.toggle() end, desc = "Toggle REPL", },
-    ["<leader>ds"] = { function() require("dap").session() end, desc = "Session", },
-    ["<leader>dt"] = { function() require("dap").terminate() end, desc = "Terminate", },
-    ["<leader>dw"] = { function() require("dap.ui.widgets").hover() end, desc = "Widgets", },
+    ["<leader>dB"] = {
+      function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
+      "Breakpoint Condition",
+    },
+    ["<leader>db"] = { function() require("dap").toggle_breakpoint() end, "Toggle Breakpoint", },
+    ["<leader>dc"] = { function() require("dap").continue() end, "Continue" },
+    ["<leader>dC"] = { function() require("dap").run_to_cursor() end, "Run to Cursor", },
+    ["<leader>dg"] = { function() require("dap").goto_() end, "Go to line (no execute)", },
+    ["<leader>di"] = { function() require("dap").step_into() end, "Step Into", },
+    ["<leader>dj"] = { function() require("dap").down() end, "Down", },
+    ["<leader>dk"] = { function() require("dap").up() end, "Up", },
+    ["<leader>dl"] = { function() require("dap").run_last() end, "Run Last", },
+    ["<leader>do"] = { function() require("dap").step_out() end, "Step Out", },
+    ["<leader>dO"] = { function() require("dap").step_over() end, "Step Over", },
+    ["<leader>dp"] = { function() require("dap").pause() end, "Pause", },
+    ["<leader>dr"] = { function() require("dap").repl.toggle() end, "Toggle REPL", },
+    ["<leader>ds"] = { function() require("dap").session() end, "Session", },
+    ["<leader>dt"] = { function() require("dap").terminate() end, "Terminate", },
+    ["<leader>dw"] = { function() require("dap.ui.widgets").hover() end, "Widgets", },
   },
-    -- stylua: ignore end
+  -- stylua: ignore end
 }
 
 M.dap_ui = {
@@ -148,8 +150,8 @@ M.dap_ui = {
 M.go = {
   plugin = true,
   n = {
-    ["<leader>gc"] = { "<cmd>GoCodeLenAct<CR>" },
-    ["<leader>ga"] = { "<cmd>GoCodeAction<CR>" },
+    ["<leader>gc"] = { "<cmd>GoCodeLenAct<CR>", "GoCodeLenAct" },
+    ["<leader>ga"] = { "<cmd>GoCodeAction<CR>", "GoCodeAction" },
   },
 }
 M.comment = {
@@ -178,7 +180,7 @@ M.lspconfig = {
     -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
     ["gD"] = { function() vim.lsp.buf.declaration() end, "lsp declaration", },
     ["gd"] = { function() vim.lsp.buf.definition() end, "lsp definition", },
-     ["K"] = { function() vim.lsp.buf.hover() end, "lsp hover; press twice to jump into window", },
+    ["K"] = { function() vim.lsp.buf.hover() end, "lsp hover; press twice to jump into window", },
     ["gi"] = { function() vim.lsp.buf.implementation() end, "lsp implementation", },
     ["<leader>ls"] = { function() vim.lsp.buf.signature_help() end, "lsp signature_help", },
     ["<leader>D"] = { function() vim.lsp.buf.type_definition() end, "lsp definition type", },
@@ -189,7 +191,7 @@ M.lspconfig = {
     ["]d"] = { function() vim.diagnostic.goto_next() end, "goto_next", },
     ["<leader>q"] = { function() vim.diagnostic.setloclist() end, "diagnostic setloclist", },
     ["<leader>fm"] = { function() vim.lsp.buf.format({ async = true }) end, "lsp formatting", },
-    ["<leader>tF"] = { "<cmd>lua require('plugins.configs.lsp.utils').toggle_autoformat()<cr>", { desc = "Toggle format on save", }, },
+    ["<leader>tF"] = { "<cmd>lua require('plugins.configs.lsp.utils').toggle_autoformat()<cr>", "Toggle format on save"},
     ["<leader>wa"] = { function() vim.lsp.buf.add_workspace_folder() end, "add workspace folder", },
     ["<leader>wr"] = { function() vim.lsp.buf.remove_workspace_folder() end, "remove workspace folder", },
     ["<leader>wl"] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "list workspace folders", },
@@ -202,7 +204,7 @@ M.notify = {
   n = {
     ["<leader><Esc>"] = {
       ":lua require('notify').dismiss()<CR>",
-      desc = "clear notifications",
+      "clear notifications",
       opts = { silent = true },
     },
   },
@@ -218,7 +220,7 @@ M.outline_nvim = {
   plugin = true,
   n = {
     -- A lot of keys are in outline_opts fyi as defaults
-    ["<leader>o"] = { "<cmd>Outline<CR>", desc = "Toggle outline" },
+    ["<leader>o"] = { "<cmd>Outline<CR>", "Toggle outline" },
   },
 }
 
@@ -227,7 +229,7 @@ M.outline_nvim = {
 M.whichkey = {
   plugin = true,
   n = {
-    ["<leader>wK"] = { "<cmd>WhichKey<CR>", desc = "which-key all keymaps" },
+    ["<leader>wK"] = { "<cmd>WhichKey<CR>", "which-key all keymaps" },
     ["<leader>wk"] = {
       function()
         local input = vim.fn.input("WhichKey: ")
@@ -282,50 +284,50 @@ M.toggleterm = {
   plugin = true,
   n = {
     -- toggle in normal mode
-    ["<leader>V"] = { "<cmd>ToggleTerm direction=vertical<CR>", desc = "toggle vertical term" },
-    ["<leader>H"] = { "<cmd>ToggleTerm direction=horizontal<CR>", desc = "toggle horizontal term" },
-    ["<leader>F"] = { "<cmd> ToggleTerm direction=float<CR>", desc = "toggle floating term" },
+    ["<leader>V"] = { "<cmd>ToggleTerm direction=vertical<CR>", "toggle vertical term" },
+    ["<leader>H"] = { "<cmd>ToggleTerm direction=horizontal<CR>", "toggle horizontal term" },
+    ["<leader>F"] = { "<cmd> ToggleTerm direction=float<CR>", "toggle floating term" },
   },
   t = {
     -- toggle in terminal mode
-    ["<leader>V"] = { "<cmd>ToggleTerm direction=vertical<CR>", desc = "toggle vertical term" },
-    ["<leader>H"] = { "<cmd>ToggleTerm direction=horizontal<CR>", desc = "toggle horizontal term" },
+    ["<leader>V"] = { "<cmd>ToggleTerm direction=vertical<CR>", "toggle vertical term" },
+    ["<leader>H"] = { "<cmd>ToggleTerm direction=horizontal<CR>", "toggle horizontal term" },
   },
 }
 
 M.ufo = {
   plugin = true,
   n = {
-    ["zR"] = { ":lua require('ufo').openAllFolds()<CR>" },
-    ["zM"] = { ":lua require('ufo').closeAllFolds()<CR>" },
+    ["zR"] = { ":lua require('ufo').openAllFolds()<CR>", "open all folds" },
+    ["zM"] = { ":lua require('ufo').closeAllFolds()<CR>", "close all folds" },
   },
 }
 
 M.webtools = {
   plugin = true,
   n = {
-    ["<leader>bsc"] = { "<cmd>BrowserSync<CR>", desc = "BrowserSync live" },
+    ["<leader>bsc"] = { "<cmd>BrowserSync<CR>", "BrowserSync live" },
   },
 }
 
 M.vim_tmux_navigator = {
   plugin = true,
   n = {
-    ["<C-h>"] = { "<cmd>TmuxNavigateLeft<CR>" },
-    ["<C-j>"] = { "<cmd>TmuxNavigateDown<CR>" },
-    ["<C-k>"] = { "<cmd>TmuxNavigateUp<CR>" },
-    ["<C-l>"] = { "<cmd>TmuxNavigateRight<CR>" },
-    ["<C-\\>"] = { "<cmd>TmuxNavigatePrevious<CR>" },
+    ["<C-h>"] = { "<cmd>TmuxNavigateLeft<CR>", "Navigate to the left Tmux pane" },
+    ["<C-j>"] = { "<cmd>TmuxNavigateDown<CR>", "Navigate to the bottom Tmux pane" },
+    ["<C-k>"] = { "<cmd>TmuxNavigateUp<CR>", "Navigate to the top Tmux pane" },
+    ["<C-l>"] = { "<cmd>TmuxNavigateRight<CR>", "Navigate to the right Tmux pane" },
+    ["<C-\\>"] = { "<cmd>TmuxNavigatePrevious<CR>", "Navigate to the previous Tmux pane" },
   },
 }
 
 M.vim_dadbod = {
   plugin = true,
   n = {
-    ["<leader>Dt"] = { "<cmd>DBUIToggle<cr>", desc = "Toggle UI" },
-    ["<leader>Df"] = { "<cmd>DBUIFindBuffer<cr>", desc = "Find Buffer" },
-    ["<leader>Dr"] = { "<cmd>DBUIRenameBuffer<cr>", desc = "Rename Buffer" },
-    ["<leader>Dq"] = { "<cmd>DBUILastQueryInfo<cr>", desc = "Last Query Info" },
+    ["<leader>Dt"] = { "<cmd>DBUIToggle<cr>", "Toggle UI" },
+    ["<leader>Df"] = { "<cmd>DBUIFindBuffer<cr>", "Find Buffer" },
+    ["<leader>Dr"] = { "<cmd>DBUIRenameBuffer<cr>", "Rename Buffer" },
+    ["<leader>Dq"] = { "<cmd>DBUILastQueryInfo<cr>", "Last Query Info" },
   },
 }
 return M

@@ -23,6 +23,11 @@ M.load_mappings = function(section, mapping_opt)
       for mode, mode_values in pairs(section_values) do
         local default_opts = merge_tb("force", { mode = mode }, mapping_opt or {})
         for keybind, mapping_info in pairs(mode_values) do
+          -- Ensure 'desc' is a string
+          if type(mapping_info[2]) ~= "string" then
+            print("Invalid 'desc' for keybind:", keybind)
+            mapping_info[2] = "No description"
+          end
           -- merge default + user opts
           local opts = merge_tb("force", default_opts, mapping_info.opts or {})
           mapping_info.opts, opts.mode = nil, nil
@@ -152,10 +157,7 @@ function M.on_attach(on_attach)
   })
 end
 
-
-
 function ToggleVirtualText()
-
   local virtual_text_enabled = true
   virtual_text_enabled = not virtual_text_enabled
   vim.diagnostic.config({

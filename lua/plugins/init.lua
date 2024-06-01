@@ -315,7 +315,7 @@ local default_plugins = {
 
   {
     "fei6409/log-highlight.nvim",
-    opts = function ()
+    opts = function()
       return require("plugins.configs.log_highlight_opts")
     end,
     config = function(_, opts)
@@ -511,13 +511,13 @@ local default_plugins = {
     config = function(_, _)
       require("web-tools").setup({
         keymaps = {
-          rename = nil, -- by default use same setup of lspconfig
-          repeat_rename = ".", -- . to repeat
+          rename = nil,         -- by default use same setup of lspconfig
+          repeat_rename = ".",  -- . to repeat
         },
-        hurl = { -- hurl default
+        hurl = {                -- hurl default
           show_headers = false, -- do not show http headers
-          floating = false, -- use floating windows (need guihua.lua)
-          formatters = { -- format the result by filetype
+          floating = false,     -- use floating windows (need guihua.lua)
+          formatters = {        -- format the result by filetype
             json = { "jq" },
             html = { "prettier", "--parser", "html" },
           },

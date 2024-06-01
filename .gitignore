@@ -2,3 +2,5 @@
 lazy-lock.json
 .key.md
 .DS_Store
+lua/.luarc.json
+com.googlecode.iterm2.plist
