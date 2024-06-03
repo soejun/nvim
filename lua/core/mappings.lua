@@ -321,13 +321,13 @@ M.vim_tmux_navigator = {
   },
 }
 
--- M.vim_dadbod = {
---   plugin = true,
---   n = {
---     ["<leader>Dt"] = { "<cmd>DBUIToggle<cr>", "Toggle UI" },
---     ["<leader>Df"] = { "<cmd>DBUIFindBuffer<cr>", "Find Buffer" },
---     ["<leader>Dr"] = { "<cmd>DBUIRenameBuffer<cr>", "Rename Buffer" },
---     ["<leader>Dq"] = { "<cmd>DBUILastQueryInfo<cr>", "Last Query Info" },
---   },
--- }
+M.vim_dadbod = {
+  plugin = true,
+  n = {
+    ["<leader>Dt"] = { "<cmd>DBUIToggle<cr>", "Toggle UI" },
+    ["<leader>Df"] = { "<cmd>DBUIFindBuffer<cr>", "Find Buffer" },
+    ["<leader>Dr"] = { "<cmd>DBUIRenameBuffer<cr>", "Rename Buffer" },
+    ["<leader>Dq"] = { "<cmd>DBUILastQueryInfo<cr>", "Last Query Info" },
+  },
+}
 return M
