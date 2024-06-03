@@ -16,11 +16,14 @@ opts = {
       "vim",
     },
   },
+  --https://www.reddit.com/r/neovim/comments/1cu2hky/neovim_010_lua_ls_is_causing_an_error_when_i_open/
   workspace = {
     library = {
       vim.api.nvim_get_runtime_file("", true),
-      [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-      [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+      vim.fn.expand("$VIMRUNTIME/lua"),
+      vim.fn.expand("$XDG_CONFIG_HOME") .. "/nvim/lua",
+      -- [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+      -- [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
     },
 
     maxPreload = 2000,
