@@ -57,9 +57,11 @@ opt.updatetime = 25
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append("<>[]hl")
 
--- add binaries installed by mason.nvim to path
+-- Add binaries installed by mason.nvim to PATH
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
-vim.env.PATH = vim.env.PATH .. (is_windows and ";" or ":") .. vim.fn.stdpath("data") .. "/mason/bin"
+local path_separator = is_windows and ";" or ":"
+local mason_bin_path = vim.fn.stdpath("data") .. (is_windows and "\\mason\\bin" or "/mason/bin")
+vim.env.PATH = vim.env.PATH .. path_separator .. mason_bin_path
 
 vim.api.nvim_set_var(
   "guicursor",
@@ -71,5 +73,3 @@ vim.o.cmdheight = 1
 vim.o.title = true
 vim.o.titlestring = "nvim/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 vim.o.titleold = "Terminal"
-
-g.python3_host_prog = '/usr/bin/python3'

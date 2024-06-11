@@ -56,7 +56,7 @@ M.treesitter_ensure_installed = {
   -- misc --
 }
 
--- LSPs that should be installed by Mason-lspconfig
+-- lsp server setups
 M.lsp_servers = {
   "bashls",
   "clangd",
