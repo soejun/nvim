@@ -6,6 +6,8 @@ local settings = require("core.settings")
 g.mapleader = " "
 opt.spelllang = "en"
 
+vim.opt.clipboard = "unnamedplus"
+
 if settings.global_statusline then
   opt.laststatus = 3 -- global statusline
 else
