@@ -22,53 +22,23 @@ api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
---   pattern = { "*.txt", "*.md", "*.tex", "*.typ" },
---   callback = function()
---     local ignore_files = {
---       "requirements.txt",
---       "lint_requirements.txt",
---       "test_requirements.txt",
---     }
---     -- Get the name of the current file
---     local filename = vim.fn.expand("%:t")
---
---     -- Check if the current file is in the ignore list
---     local should_ignore = false
---     for _, ignore_file in ipairs(ignore_files) do
---       if filename == ignore_file then
---         should_ignore = true
---         break
---       end
---     end
---
---     -- If the file is not in the ignore list, enable spell checking
---     if not should_ignore then
---       vim.opt.spell = true
---       vim.opt.spelllang = "en"
---     end
---   end,
---   desc = "Enable spell checking for certain file types, excludes certain files",
--- })
-
 -- set various configuration files to .ini file types where applicable
 api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*pylintrc", "*.service", "*.conf", "*.mount" },
+  pattern = { "*pylintrc", "*.service", "*.mount" },
   callback = function()
     vim.api.nvim_command("set filetype=ini")
   end,
   desc = "set ini-like files to filetype ini",
 })
 
--- we'll figure this out later
--- disable warning diagnostics for .env files
--- api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
---   pattern = { ".env",".*.env" },
---   callback = function()
---     vim.diagnostic.config({severity ={ min = vim.diagnostic.severity.INFO, max=vim.diagnostic.severity.ERROR}}, namespace)
---   end,
---   desc = ""
--- })
+api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.conf", "lfrc*"},
+  callback = function()
+    vim.api.nvim_command("set filetype=bash")
+  end,
+  desc = "set ini-like files to filetype ini",
+})
+
 
 -- windows to close with "q"
 api.nvim_create_autocmd("FileType", {
@@ -148,9 +118,4 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   group = format_sync_grp,
 })
 
--- vim will now yank to system clipboard
-vim.api.nvim_create_autocmd({ "BufRead", "VimEnter" }, {
-  callback = function()
-    vim.cmd([[set clipboard+=unnamedplus]])
-  end,
-})
+-- TODO: Quit on man page
