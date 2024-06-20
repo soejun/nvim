@@ -72,13 +72,14 @@ M.lsp_servers = {
   "bashls",
   "clangd",
   "dockerls",
+  "jedi_language_server",
   "jsonls",
   "gopls",
   "html",
-  "nginx_language_server",
-  "marksman",
-  "jedi_language_server",
   "lua_ls",
+  "marksman",
+  -- "omnisharp", -- manually set this up as a separate conig
+  "nginx_language_server",
   "tsserver",
   "yamlls",
 }
@@ -118,6 +119,8 @@ M.mason_ensure_installed = {
   "nginx-language-server",
   "typescript-language-server",
   "yaml-language-server",
+  "csharpier",
+  "netcoredbg"
 }
 
 return M

@@ -62,3 +62,32 @@ for _, lsp in ipairs(servers) do
 
   nvim_lsp[lsp].setup(server_config)
 end
+
+-- Omnisharp setup
+local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+local omnisharp_mason = vim.fn.stdpath("data") .. (is_windows and "\\mason\\bin\\omnisharp" or "/mason/bin/omnisharp")
+
+local omnisharp_config = {
+  cmd = { omnisharp_mason },
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  handlers = {
+    ["textDocument/definition"] = function(...)
+      return require("omnisharp_extended").handler(...)
+    end,
+  },
+  keys = {
+    {
+      "gd",
+      function()
+        require("omnisharp_extended").telescope_lsp_definitions()
+      end,
+      desc = "Goto Definition",
+    },
+  },
+  enable_roslyn_analyzers = true,
+  organize_imports_on_format = true,
+  enable_import_completion = true,
+}
+
+nvim_lsp.omnisharp.setup(omnisharp_config)

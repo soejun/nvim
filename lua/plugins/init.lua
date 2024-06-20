@@ -226,6 +226,7 @@ local default_plugins = {
       {
         "folke/neodev.nvim",
       },
+      { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
     },
     init = function()
       require("utils.functions").lazy_load("nvim-lspconfig")
