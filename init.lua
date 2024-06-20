@@ -22,7 +22,7 @@ if is_windows then
 end
 
 -- bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath("data") .. (is_windows and "\\lazy\\lazy.nvim" or "/lazy/lazy.nvim")
 if not vim.loop.fs_stat(lazypath) then
   require("core.bootstrap").lazy(lazypath)
 end

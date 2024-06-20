@@ -86,12 +86,15 @@ api.nvim_create_autocmd(
 )
 
 -- reload modules on save
+
 local NvReload = api.nvim_create_augroup("NvReload", {})
 api.nvim_create_autocmd("BufWritePost", {
-  pattern = vim.tbl_map(vim.fs.normalize, vim.fn.glob(vim.fn.stdpath("config") .. "/lua/**/*.lua", true, true, true)),
+  pattern = vim.tbl_map(function(path)
+    return vim.fs.normalize(path):gsub("\\", "/")
+  end, vim.fn.glob(vim.fn.stdpath("config") .. "/lua/**/*.lua", true, true, true)),
   group = NvReload,
   callback = function(opts)
-    local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r") --[[@as string]]
+    local fp = vim.fn.fnamemodify(vim.fs.normalize(vim.api.nvim_buf_get_name(opts.buf)), ":r"):gsub("\\", "/") --[[ @as string ]]
     local app_name = vim.env.NVIM_APPNAME and vim.env.NVIM_APPNAME or "nvim"
     local module = string.gsub(fp, "^.*/" .. app_name .. "/lua/", ""):gsub("/", ".")
     require("plenary.reload").reload_module(module)
