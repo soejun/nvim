@@ -1,12 +1,13 @@
 local vim = vim
 local api = vim.api
 
+-- TODO: Add binding to toggle autoformat, temporarily use manual binding instead
 -- remove all trailing whitespace on save
-local TrimWhiteSpaceGrp = api.nvim_create_augroup("TrimWhiteSpaceGrp", { clear = true })
-api.nvim_create_autocmd("BufWritePre", {
-  command = [[:%s/\s\+$//e]],
-  group = TrimWhiteSpaceGrp,
-})
+-- local TrimWhiteSpaceGrp = api.nvim_create_augroup("TrimWhiteSpaceGrp", { clear = true })
+-- api.nvim_create_autocmd("BufWritePre", {
+--   command = [[:%s/\s\+$//e]],
+--   group = TrimWhiteSpaceGrp,
+-- })
 
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()

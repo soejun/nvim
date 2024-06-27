@@ -2,6 +2,7 @@
 -- <A-t> means alt+t, however in macOS it'd be <Option -t>
 
 local M = {}
+local utils = require("utils.functions")
 
 -- format
 -- [binding] = {command, description}
@@ -22,6 +23,15 @@ function ToggleSpellCheck()
   vim.wo.spell = not current_value
 end
 
+function TrimTrailingWhiteSpace()
+  local save_cursor = vim.fn.getpos(".")
+  local save_search = vim.fn.getreg("/")
+  vim.cmd([[%s/\s\+$//e]])
+  vim.fn.setpos(".", save_cursor)
+  vim.fn.setreg("/", save_search)
+  utils.notify("Trailing whitespace trimmed for current buffer", vim.log.levels.OFF)
+end
+
 M.general = {
   i = {
     -- go to  beginning and end
@@ -40,6 +50,8 @@ M.general = {
     -- spellcheck and diagnostics
     ["<leader>te"] = { ":lua ToggleDiagnostics()<CR>", "toggle diagnostics" },
     ["<leader>ts"] = { ":lua ToggleSpellCheck()<CR>", "toggle spellcheck" },
+    -- trim trailing whitespaces
+    ["<leader>tw"] = { ":lua TrimTrailingWhiteSpace()<CR>", "trim trailing whitespaces"},
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },
