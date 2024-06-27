@@ -3,6 +3,9 @@ local opt = vim.opt
 local g = vim.g
 local settings = require("core.settings")
 
+-- OS check, to account for clipboard and binary locations
+local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+
 g.mapleader = " "
 opt.spelllang = "en"
 
@@ -60,7 +63,6 @@ opt.updatetime = 25
 opt.whichwrap:append("<>[]hl")
 
 -- Add binaries installed by mason.nvim to PATH
-local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 local path_separator = is_windows and ";" or ":"
 local mason_bin_path = vim.fn.stdpath("data") .. (is_windows and "\\mason\\bin" or "/mason/bin")
 vim.env.PATH = vim.env.PATH .. path_separator .. mason_bin_path
