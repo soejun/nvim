@@ -202,8 +202,8 @@ M.lspconfig = {
     ["[d"] = { function() vim.diagnostic.goto_prev() end, "goto prev", },
     ["]d"] = { function() vim.diagnostic.goto_next() end, "goto_next", },
     ["<leader>q"] = { function() vim.diagnostic.setloclist() end, "diagnostic setloclist", },
-    ["<leader>fm"] = { function() vim.lsp.buf.format({ async = true }) end, "lsp formatting", },
-    ["<leader>tF"] = { "<cmd>lua require('plugins.configs.lsp.utils').toggle_autoformat()<cr>", "Toggle format on save"},
+    -- DEPRECATED handle formatting with conform instead
+    -- ["<leader>fm"] = { function() vim.lsp.buf.format({ async = true }) end, "lsp formatting", },
     ["<leader>wa"] = { function() vim.lsp.buf.add_workspace_folder() end, "add workspace folder", },
     ["<leader>wr"] = { function() vim.lsp.buf.remove_workspace_folder() end, "remove workspace folder", },
     ["<leader>wl"] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "list workspace folders", },

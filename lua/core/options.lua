@@ -38,7 +38,7 @@ opt.list = true -- show some invisible characters (tabs..)
 -- nvim-ufo folding
 opt.foldcolumn = "1"
 opt.foldlevel = 99
-opt.foldlevelstart = -1
+opt.foldlevelstart = 99
 opt.foldenable = true
 opt.fillchars = {
   foldopen = "",

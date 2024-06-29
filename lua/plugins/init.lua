@@ -153,58 +153,6 @@ local default_plugins = {
     end,
   },
   {
-    -- RIP, deprecated, find different fork eventually
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function(_, _)
-      local null_ls = require("null-ls")
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-      null_ls.setup({
-        debug = true,
-        border = "rounded",
-        sources = {
-          null_ls.builtins.formatting.stylua.with({
-            extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
-          }),
-          null_ls.builtins.diagnostics.eslint,
-          null_ls.builtins.formatting.prettier.with({
-            extra_args = { "--single-quote", "true", "--trailing-comma", "all" },
-          }),
-          null_ls.builtins.diagnostics.pylint,
-          null_ls.builtins.formatting.yapf.with({
-            extra_args = { "--style={based_on_style: google, column_limit=120}" },
-          }),
-          -- golang stuff --
-          null_ls.builtins.formatting.goimports,
-          null_ls.builtins.formatting.gofumpt,
-          -- misc stuff --
-          null_ls.builtins.code_actions.gitsigns,
-          null_ls.builtins.formatting.sqlformat,
-          null_ls.builtins.diagnostics.djlint,
-          -- bash stuff --
-          null_ls.builtins.code_actions.shellcheck,
-          null_ls.builtins.diagnostics.shellcheck,
-          null_ls.builtins.formatting.shfmt,
-        },
-        on_attach = function(client, bufnr)
-          if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                if AUTOFORMAT_ACTIVE then -- global var defined in functions.lua
-                  vim.lsp.buf.format({ bufnr = bufnr })
-                end
-              end,
-            })
-          end
-        end,
-      })
-    end,
-  },
-
-  {
     "neovim/nvim-lspconfig",
     dependencies = {
       {
@@ -280,7 +228,43 @@ local default_plugins = {
       require("cmp").setup(opts)
     end,
   },
-
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        -- Customize or remove this keymap to your liking
+        "<leader>fm",
+        function()
+          require("conform").format({ async = true, lsp_format = "fallback" })
+        end,
+        mode = "",
+        desc = "Format buffer",
+      },
+    },
+    -- Everything in opts will be passed to setup()
+    opts = {
+      -- Define your formatters
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "isort", "black" },
+        javascript = { { "prettierd", "prettier" } },
+      },
+      -- Set up format-on-save
+      -- format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
+      -- Customize formatters
+      formatters = {
+        shfmt = {
+          prepend_args = { "-i", "2" },
+        },
+      },
+    },
+    init = function()
+      -- If you want the formatexpr, here is the place to set it
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    end,
+  },
   {
     -- IMPORTANT: make sure to load nvim-treesitter after indent-blankline otherwise things will break
     "nvim-treesitter/nvim-treesitter",
