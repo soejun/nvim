@@ -209,7 +209,7 @@ local default_plugins = {
       },
       {
         "onsails/lspkind.nvim",
-      }, -- cmp sources plugins
+      },
       {
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lua",
@@ -230,43 +230,22 @@ local default_plugins = {
   },
   {
     "stevearc/conform.nvim",
-    event = { "BufWritePre" },
+    event = { "BufReadPre", "BufNewFile", "BufWritePre" },
     cmd = { "ConformInfo" },
-    keys = {
-      {
-        -- Customize or remove this keymap to your liking
-        "<leader>fm",
-        function()
-          require("conform").format({ async = true, lsp_format = "fallback" })
-        end,
-        mode = "",
-        desc = "Format buffer",
-      },
-    },
-    -- Everything in opts will be passed to setup()
-    opts = {
-      -- Define your formatters
-      formatters_by_ft = {
-        lua = { "stylua" },
-        python = { "isort", "black" },
-        javascript = { { "prettierd", "prettier" } },
-      },
-      -- Set up format-on-save
-      -- format_on_save = { timeout_ms = 500, lsp_format = "fallback" },
-      -- Customize formatters
-      formatters = {
-        shfmt = {
-          prepend_args = { "-i", "2" },
-        },
-      },
-    },
     init = function()
       -- If you want the formatexpr, here is the place to set it
       vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+      require("utils.functions").load_mappings("conform")
+    end,
+    -- TODO: Define mason install dependencies
+    opts = function()
+      return require("plugins.configs.lsp.conform-opts")
+    end,
+    config = function(_, opts)
+      require("conform").setup(opts)
     end,
   },
   {
-    -- IMPORTANT: make sure to load nvim-treesitter after indent-blankline otherwise things will break
     "nvim-treesitter/nvim-treesitter",
     init = function()
       require("utils.functions").lazy_load("nvim-treesitter")
@@ -297,7 +276,6 @@ local default_plugins = {
       require("nvim-ts-autotag").setup(opts)
     end,
   },
-
   {
     "fei6409/log-highlight.nvim",
     opts = function()

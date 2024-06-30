@@ -51,7 +51,7 @@ M.general = {
     ["<leader>te"] = { ":lua ToggleDiagnostics()<CR>", "toggle diagnostics" },
     ["<leader>ts"] = { ":lua ToggleSpellCheck()<CR>", "toggle spellcheck" },
     -- trim trailing whitespaces
-    ["<leader>tw"] = { ":lua TrimTrailingWhiteSpace()<CR>", "trim trailing whitespaces"},
+    ["<leader>tw"] = { ":lua TrimTrailingWhiteSpace()<CR>", "trim trailing whitespaces" },
     -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },
@@ -113,6 +113,15 @@ M.general = {
 --     },
 --   },
 -- }
+
+M.conform = {
+  n = {
+    ["<leader>fm"] = {
+      function() require("conform").format({ async = true, lsp_format = "fallback" }) end,
+      "format buffer",
+    },
+  },
+}
 
 M.dap = {
   plugin = true,
