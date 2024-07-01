@@ -246,6 +246,15 @@ local default_plugins = {
     end,
   },
   {
+    -- configure linters per file, then setup autocmd to trigger linting
+    -- this should follow the same paradigm as our lsp setup
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+    config = function()
+      require("plugins.configs.lsp.nvim-lint")
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     init = function()
       require("utils.functions").lazy_load("nvim-treesitter")

@@ -102,6 +102,7 @@ M.tools = {
   "ruff",
   -- DAP
   "debugpy",
+  "hadolint"
 }
 
 -- LSP's installed by mason
