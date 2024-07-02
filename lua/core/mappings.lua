@@ -114,18 +114,19 @@ M.general = {
 --   },
 -- }
 
+  -- stylua: ignore start
 M.conform = {
   n = {
-    ["<leader>fm"] = {
-      function() require("conform").format({ async = true, lsp_format = "fallback" }) end,
-      "format buffer",
-    },
+    ["<leader>fm"] = { function() require("conform").format({ async = true, lsp_format = "fallback" }) end, "format buffer", },
+  },
+  -- conform will format only selection if in visual mode
+  v = {
+    ["<leader>fm"] = { function() require("conform").format({ async = true, lsp_format = "fallback" }) end, "format buffer", },
   },
 }
 
 M.dap = {
   plugin = true,
-  -- stylua: ignore start
   n = {
     ["<leader>dB"] = {
       function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
@@ -147,23 +148,13 @@ M.dap = {
     ["<leader>dt"] = { function() require("dap").terminate() end, "Terminate", },
     ["<leader>dw"] = { function() require("dap.ui.widgets").hover() end, "Widgets", },
   },
-  -- stylua: ignore end
 }
 
 M.dap_ui = {
   plugin = true,
   n = {
-    ["<leader>du"] = {
-      function()
-        require("dapui").toggle()
-      end,
-      "Toggle dap-ui",
-    },
-    ["<leader>de"] = {
-      function()
-        require("dapui").eval()
-      end,
-      "Evaluate dap-ui",
+    ["<leader>du"] = { function() require("dapui").toggle() end, "Toggle dap-ui", },
+    ["<leader>de"] = { function() require("dapui").eval() end, "Evaluate dap-ui",
     },
   },
 }
@@ -179,25 +170,17 @@ M.comment = {
   plugin = true,
   -- toggle comment in both modes
   n = {
-    ["<leader>/"] = {
-      function()
-        require("Comment.api").toggle.linewise.current()
-      end,
-      "toggle comment",
+    ["<leader>/"] = { function() require("Comment.api").toggle.linewise.current() end, "toggle comment",
     },
   },
   v = {
-    ["<leader>/"] = {
-      "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-      "toggle comment",
-    },
+    ["<leader>/"] = { "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "toggle comment", },
   },
 }
 
 M.lspconfig = {
   plugin = true,
   n = {
-    -- stylua: ignore start
     -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
     ["gD"] = { function() vim.lsp.buf.declaration() end, "lsp declaration", },
     ["gd"] = { function() vim.lsp.buf.definition() end, "lsp definition", },
@@ -216,17 +199,13 @@ M.lspconfig = {
     ["<leader>wa"] = { function() vim.lsp.buf.add_workspace_folder() end, "add workspace folder", },
     ["<leader>wr"] = { function() vim.lsp.buf.remove_workspace_folder() end, "remove workspace folder", },
     ["<leader>wl"] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "list workspace folders", },
-    -- stylua: ignore end
   },
 }
 
 M.notify = {
   plugin = true,
   n = {
-    ["<leader><Esc>"] = {
-      ":lua require('notify').dismiss()<CR>",
-      "clear notifications",
-      opts = { silent = true },
+    ["<leader><Esc>"] = { ":lua require('notify').dismiss()<CR>", "clear notifications", opts = { silent = true },
     },
   },
 }
@@ -251,13 +230,7 @@ M.whichkey = {
   plugin = true,
   n = {
     ["<leader>wK"] = { "<cmd>WhichKey<CR>", "which-key all keymaps" },
-    ["<leader>wk"] = {
-      function()
-        local input = vim.fn.input("WhichKey: ")
-        vim.cmd("WhichKey " .. input)
-      end,
-      "which-key query lookup",
-    },
+    ["<leader>wk"] = { function() local input = vim.fn.input("WhichKey: ") vim.cmd("WhichKey " .. input) end, "which-key query lookup", },
   },
 }
 
@@ -351,4 +324,6 @@ M.vim_dadbod = {
     ["<leader>Dq"] = { "<cmd>DBUILastQueryInfo<cr>", "Last Query Info" },
   },
 }
+
+-- stylua: ignore end
 return M
