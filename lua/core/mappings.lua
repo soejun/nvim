@@ -182,14 +182,16 @@ M.lspconfig = {
   plugin = true,
   n = {
     -- See `<cmd> :help vim.lsp.*` for documentation on any of the below functions
-    ["gD"] = { function() vim.lsp.buf.declaration() end, "lsp declaration", },
+    ["<leader>gD"] = { function() vim.lsp.buf.declaration() end, "lsp declaration", },
     ["gd"] = { function() vim.lsp.buf.definition() end, "lsp definition", },
+    ["<leader>gd"] = { function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, "lsp definition", },
     ["K"] = { function() vim.lsp.buf.hover() end, "lsp hover; press twice to jump into window", },
     ["gi"] = { function() vim.lsp.buf.implementation() end, "lsp implementation", },
     ["<leader>ls"] = { function() vim.lsp.buf.signature_help() end, "lsp signature_help", },
-    ["<leader>D"] = { function() vim.lsp.buf.type_definition() end, "lsp definition type", },
+    -- ["<leader>D"] = { function() vim.lsp.buf.type_definition() end, "lsp definition type", },
+    ["<leader>D"] = { function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, "lsp definition type", },
     ["<leader>ca"] = { function() vim.lsp.buf.code_action() end, "lsp code_action", },
-    ["gr"] = { function() vim.lsp.buf.references() end, "lsp references", },
+    ["<leader>gr"] = { function() vim.lsp.buf.references() end, "lsp references", },
     ["<leader>f"] = { function() vim.diagnostic.open_float({ border = "rounded" }) end, "floating diagnostic", },
     ["[d"] = { function() vim.diagnostic.goto_prev() end, "goto prev", },
     ["]d"] = { function() vim.diagnostic.goto_next() end, "goto_next", },
@@ -258,10 +260,8 @@ M.telescope = {
     ["<leader>fs"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
     -- LSP Related
     ["<leader>fd"] = { "<cmd> Telescope lsp_document_symbols <CR> ", "lists LSP document symbols in current buffer" },
-    ["<leader>fr"] = {
-      "<cmd> Telescope lsp_workspace_symbols <CR> ",
-      "lists LSP document symbols in current workspace",
-    },
+    ["gr"] = { "<cmd> Telescope lsp_references<CR> ", "lists LSP references under cursor in telescope", },
+    ["<leader>td"] = { "<cmd> Telescope diagnostics bufnr=0<CR> ", "lists all diagnostics for current buffer in telescope", },
     -- git
     ["<leader>gm"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
