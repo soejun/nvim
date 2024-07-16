@@ -1,14 +1,6 @@
 local vim = vim
 local api = vim.api
 
--- TODO: Add binding to toggle autoformat, temporarily use manual binding instead
--- remove all trailing whitespace on save
--- local TrimWhiteSpaceGrp = api.nvim_create_augroup("TrimWhiteSpaceGrp", { clear = true })
--- api.nvim_create_autocmd("BufWritePre", {
---   command = [[:%s/\s\+$//e]],
---   group = TrimWhiteSpaceGrp,
--- })
-
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     vim.opt.formatoptions:remove({ "c", "r", "o" })
@@ -103,23 +95,23 @@ api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
-local colors = require("utils.colors")
--- local hexcode = colors.temp_color2
-local hexcode = "#3b4261"
---TODO, Figure out better styling option
-api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    api.nvim_command("hi WinSeparator guifg=" .. hexcode)
-  end,
-})
+-- local colors = require("utils.colors")
+-- -- local hexcode = colors.temp_color2
+-- local hexcode = "#3b4261"
+-- --TODO, Figure out better styling option
+-- api.nvim_create_autocmd("VimEnter", {
+--   callback = function()
+--     api.nvim_command("hi WinSeparator guifg=" .. hexcode)
+--   end,
+-- })
 
-local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    require("go.format").goimport()
-  end,
-  group = format_sync_grp,
-})
+-- local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*.go",
+--   callback = function()
+--     require("go.format").goimport()
+--   end,
+--   group = format_sync_grp,
+-- })
 
 -- TODO: Quit on man page

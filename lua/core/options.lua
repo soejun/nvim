@@ -23,7 +23,7 @@ vim.g.deprecation_warnings = false
 
 
 opt.completeopt = "menu,menuone,noselect"
-opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
+opt.conceallevel = 0 -- Hide * markup for bold and italic, but not markers with substitutions
 
 
 -- Indenting

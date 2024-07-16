@@ -15,7 +15,7 @@ options = {
     split_command = nil,
 
     -- Percentage or integer of columns
-    width = 25,
+    width = 20,
     -- Whether width is relative to the total width of nvim
     -- When relative_width = true, this means take 25% of the total
     -- screen width for outline window.
@@ -25,7 +25,7 @@ options = {
     -- peek_location
     auto_close = false,
     -- Automatically scroll to the location in code when navigating outline window.
-    auto_jump = false,
+    auto_jump = true,
     -- boolean or integer for milliseconds duration to apply a temporary highlight
     -- when jumping. false to disable.
     jump_highlight_duration = 300,
@@ -36,7 +36,7 @@ options = {
     -- Vim options for the outline window
     show_numbers = false,
     show_relative_numbers = false,
-    wrap = false,
+    wrap = true,
 
     -- true/false/'focus_in_outline'/'focus_in_code'.
     -- The last two means only show cursorline when the focus is in outline/code.

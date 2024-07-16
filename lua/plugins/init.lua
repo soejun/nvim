@@ -1,19 +1,23 @@
--- TODO: Organize into the following:
--- core essentials: plenary
--- ui related: tokyonight, nvim-tree, toggleterm
--- lsp functionality: mason, lsp_config
--- dap functionality: nvim-dap, nvim-dap-ui
--- utils organization as it relates to plugins, not core utils
--- database: it's been so long i forgot, whatever this is
+-- TODO: Add aerial.nvim
 local default_plugins = {
   { "nvim-lua/plenary.nvim", lazy = false, priority = 100 },
+  -- {
+  --   "catppuccin/nvim",
+  --   lazy = false,
+  --   priority = 90,
+  --   config = function(_, _)
+  --     require("plugins.themes.catpuccin")
+  --     vim.cmd([[colorscheme catppuccin-macchiato]])
+  --   end,
+  -- },
   {
-    "catppuccin/nvim",
+    "ellisonleao/gruvbox.nvim",
     lazy = false,
-    priority = 90,
+    priority = 1000,
     config = function(_, _)
-      require("plugins.themes.catpuccin")
-      vim.cmd([[colorscheme catppuccin-macchiato]])
+      require("plugins.themes.gruvbox")
+      vim.o.background = "dark"
+      vim.cmd([[colorscheme gruvbox]])
     end,
   },
   {
@@ -170,6 +174,119 @@ local default_plugins = {
       },
       {
         "SmiteshP/nvim-navic",
+        opts = {
+          icons = {
+            File = "󰈙 ",
+            Module = " ",
+            Namespace = "󰌗 ",
+            Package = " ",
+            Class = "󰌗 ",
+            Method = "󰆧 ",
+            Property = " ",
+            Field = " ",
+            Constructor = " ",
+            Enum = "󰕘",
+            Interface = "󰕘",
+            Function = "󰊕 ",
+            Variable = "󰆧 ",
+            Constant = "󰏿 ",
+            String = "󰀬 ",
+            Number = "󰎠 ",
+            Boolean = "◩ ",
+            Array = "󰅪 ",
+            Object = "󰅩 ",
+            Key = "󰌋 ",
+            Null = "󰟢 ",
+            EnumMember = " ",
+            Struct = "󰌗 ",
+            Event = " ",
+            Operator = "󰆕 ",
+            TypeParameter = "󰊄 ",
+          },
+          lsp = {
+            auto_attach = false,
+            preference = nil,
+          },
+          highlight = true,
+          separator = "  ",
+          depth_limit = 0,
+          depth_limit_indicator = "..",
+          safe_output = true,
+          lazy_update_context = false,
+          click = false,
+          format_text = function(text)
+            return text
+          end,
+        },
+        config = function(_, opts)
+          -- Catppuccin Macchiato color palette
+          -- local colors = {
+          --   black = "#24273A",
+          --   red = "#ED8796",
+          --   green = "#A6DA95",
+          --   yellow = "#EED49F",
+          --   blue = "#8AADF4",
+          --   magenta = "#F5BDE6",
+          --   cyan = "#8BD5CA",
+          --   white = "#CAD3F5",
+          --   bright_black = "#5B6078",
+          --   bright_red = "#ED8796",
+          --   bright_green = "#A6DA95",
+          --   bright_yellow = "#EED49F",
+          --   bright_blue = "#8AADF4",
+          --   bright_magenta = "#F5BDE6",
+          --   bright_cyan = "#8BD5CA",
+          --   bright_white = "#B8C0E0",
+          -- }
+          -- gruvbox
+          local colors = {
+            black = "#282828",
+            red = "#cc241d",
+            green = "#98971a",
+            yellow = "#d79921",
+            blue = "#458588",
+            magenta = "#b16286",
+            cyan = "#689d6a",
+            white = "#a89984",
+            bright_black = "#928374",
+            bright_red = "#fb4934",
+            bright_green = "#b8bb26",
+            bright_yellow = "#fabd2f",
+            bright_blue = "#83a598",
+            bright_magenta = "#d3869b",
+            bright_cyan = "#8ec07c",
+            bright_white = "#ebdbb2",
+          }
+          require("nvim-navic").setup(opts)
+          vim.api.nvim_set_hl(0, "NavicIconsFile", { default = true, bg = colors.black, fg = colors.blue })
+          vim.api.nvim_set_hl(0, "NavicIconsModule", { default = true, bg = colors.black, fg = colors.cyan })
+          vim.api.nvim_set_hl(0, "NavicIconsNamespace", { default = true, bg = colors.black, fg = colors.cyan })
+          vim.api.nvim_set_hl(0, "NavicIconsPackage", { default = true, bg = colors.black, fg = colors.cyan })
+          vim.api.nvim_set_hl(0, "NavicIconsClass", { default = true, bg = colors.black, fg = colors.yellow })
+          vim.api.nvim_set_hl(0, "NavicIconsMethod", { default = true, bg = colors.black, fg = colors.blue })
+          vim.api.nvim_set_hl(0, "NavicIconsProperty", { default = true, bg = colors.black, fg = colors.green })
+          vim.api.nvim_set_hl(0, "NavicIconsField", { default = true, bg = colors.black, fg = colors.green })
+          vim.api.nvim_set_hl(0, "NavicIconsConstructor", { default = true, bg = colors.black, fg = colors.magenta })
+          vim.api.nvim_set_hl(0, "NavicIconsEnum", { default = true, bg = colors.black, fg = colors.yellow })
+          vim.api.nvim_set_hl(0, "NavicIconsInterface", { default = true, bg = colors.black, fg = colors.yellow })
+          vim.api.nvim_set_hl(0, "NavicIconsFunction", { default = true, bg = colors.black, fg = colors.blue })
+          vim.api.nvim_set_hl(0, "NavicIconsVariable", { default = true, bg = colors.black, fg = colors.red })
+          vim.api.nvim_set_hl(0, "NavicIconsConstant", { default = true, bg = colors.black, fg = colors.red })
+          vim.api.nvim_set_hl(0, "NavicIconsString", { default = true, bg = colors.black, fg = colors.green })
+          vim.api.nvim_set_hl(0, "NavicIconsNumber", { default = true, bg = colors.black, fg = colors.magenta })
+          vim.api.nvim_set_hl(0, "NavicIconsBoolean", { default = true, bg = colors.black, fg = colors.magenta })
+          vim.api.nvim_set_hl(0, "NavicIconsArray", { default = true, bg = colors.black, fg = colors.blue })
+          vim.api.nvim_set_hl(0, "NavicIconsObject", { default = true, bg = colors.black, fg = colors.blue })
+          vim.api.nvim_set_hl(0, "NavicIconsKey", { default = true, bg = colors.black, fg = colors.red })
+          vim.api.nvim_set_hl(0, "NavicIconsNull", { default = true, bg = colors.black, fg = colors.yellow })
+          vim.api.nvim_set_hl(0, "NavicIconsEnumMember", { default = true, bg = colors.black, fg = colors.green })
+          vim.api.nvim_set_hl(0, "NavicIconsStruct", { default = true, bg = colors.black, fg = colors.yellow })
+          vim.api.nvim_set_hl(0, "NavicIconsEvent", { default = true, bg = colors.black, fg = colors.yellow })
+          vim.api.nvim_set_hl(0, "NavicIconsOperator", { default = true, bg = colors.black, fg = colors.cyan })
+          vim.api.nvim_set_hl(0, "NavicIconsTypeParameter", { default = true, bg = colors.black, fg = colors.yellow })
+          vim.api.nvim_set_hl(0, "NavicText", { default = true, bg = colors.black, fg = colors.white })
+          vim.api.nvim_set_hl(0, "NavicSeparator", { default = true, bg = colors.black, fg = colors.white })
+        end,
       },
       {
         "folke/neodev.nvim",

@@ -30,12 +30,11 @@ end
 local function get_modified()
   -- %t, just the current buffer
   -- %f, includes parent
-  -- %f, absolute path
   if utils.get_buf_option("mod") then
     local mod = icons.git.Mod
-    return "%#WinBarFilename#" .. mod .. " " .. "%f" .. "%*"
+    return "%#WinBarFilename#" .. mod .. " " .. "%t" .. "%*"
   end
-  return "%#WinBarFilename#" .. "%f" .. "%*"
+  return "%#WinBarFilename#" .. "%t" .. "%*"
 end
 
 local function get_location()
