@@ -24,14 +24,34 @@ api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   desc = "set ini-like files to filetype ini",
 })
 
+-- sets .conf and lfrc to use bash syntax highlighting
 api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*.conf", "lfrc*"},
+  pattern = { "*.conf", "lfrc*" },
   callback = function()
     vim.api.nvim_command("set filetype=bash")
   end,
   desc = "set ini-like files to filetype ini",
 })
 
+-- docker_compose_language_service
+api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = {
+    "docker-*.{yml,yaml}",
+    "compose.{,yml,yaml}",
+  },
+  callback = function()
+    vim.api.nvim_command("set filetype=yaml.docker-compose")
+  end,
+  desc = "ensure docker-compose-language-service is properly activated for docker-compose files",
+})
+
+-- gitlab_ci_ls
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.gitlab-ci*.{yml,yaml}" },
+  callback = function()
+    vim.bo.filetype = "yaml.gitlab"
+  end,
+})
 
 -- windows to close with "q"
 api.nvim_create_autocmd("FileType", {

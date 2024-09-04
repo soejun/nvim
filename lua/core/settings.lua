@@ -72,6 +72,8 @@ M.lsp_servers = {
   "bashls",
   "clangd",
   "dockerls",
+  "docker_compose_language_service",
+  "gitlab_ci_ls",
   "jedi_language_server",
   "jsonls",
   "gopls",
@@ -81,7 +83,7 @@ M.lsp_servers = {
   -- "omnisharp", -- manually set this up as a separate conig
   "nginx_language_server",
   "tsserver",
-  "yamlls",
+  "yamlls"
 }
 
 -- Linters, formatters, and debuggers installed by mason
@@ -102,10 +104,11 @@ M.tools = {
   "ruff",
   -- DAP
   "debugpy",
+  "vale",
   "hadolint"
 }
 
--- LSP's installed by mason
+-- installed by mason
 M.mason_ensure_installed = {
   "bash-language-server",
   "clangd",
@@ -121,7 +124,9 @@ M.mason_ensure_installed = {
   "typescript-language-server",
   "yaml-language-server",
   "csharpier",
-  "netcoredbg"
+  "netcoredbg",
+  "docker-compose-language-service",
+  "gitlab-ci-ls"
 }
 
 return M
