@@ -18,13 +18,10 @@ end
 
 vim.opt.winbar = "%{%v:lua.require'utils.winbar'.get_winbar()%}"
 
-
 vim.g.deprecation_warnings = false
-
 
 opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 0 -- Hide * markup for bold and italic, but not markers with substitutions
-
 
 -- Indenting
 opt.expandtab = true
@@ -60,7 +57,7 @@ opt.smartcase = true
 opt.number = true
 opt.numberwidth = 2
 opt.ruler = false
-opt.wrap = false -- disable line wrap
+opt.wrap = true
 opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 opt.sidescrolloff = 8 -- Columns of context
 opt.splitbelow = true
