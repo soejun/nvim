@@ -148,7 +148,7 @@ local default_plugins = {
       vim.g.mason_binaries_list = opts.ensure_installed
       local mr = require("mason-registry")
       local settings = require("core.settings")
-      for _, tool in ipairs(settings.tools) do
+      for _, tool in ipairs(settings.mason_ensure_install_tools) do
         local p = mr.get_package(tool)
         if not p:is_installed() then
           p:install()

@@ -1,5 +1,7 @@
 local M = {}
 
+-- TODO: Install some sort of sorting plugin
+
 M.global_statusline = true -- Toggle global status line
 M.grepprg = "rg --hidden --vimgrep --smart-case --" -- use rg instead of grep, unused for now
 M.showtabline = 1 -- enable or disable listchars
@@ -11,7 +13,6 @@ M.dashboard_recent_files = 5 -- Number of recent files shown in dashboard, 0 dis
 M.disable_dashboard_header = false -- disable the header of the dashboard
 M.disable_dashboard_quick_links = false -- disable quick links of the dashboard
 
--- treesitter parsers to be installed
 -- one of "all", "maintained" (parsers with maintainers), or a list of languages
 M.treesitter_ensure_installed = {
   "awk",
@@ -83,50 +84,47 @@ M.lsp_servers = {
   -- "omnisharp", -- manually set this up as a separate conig
   "nginx_language_server",
   "tsserver",
-  "yamlls"
+  "yamlls",
 }
 
--- Linters, formatters, and debuggers installed by mason
--- TODO, yapf, black, pylint and associated python tools from null_ls should be pointed to virtual environments
-M.tools = {
-  -- Formatter
-  -- "black",
-  -- "yapf",
-  "prettier",
-  "stylua",
-  "shfmt",
-  -- Linter
-  "eslint_d",
-  "shellcheck",
-  "tflint",
-  "yamllint",
-  -- "pylint",
-  "ruff",
-  -- DAP
+-- DAP, Linter, Formatter installed by mason
+M.mason_ensure_install_tools = {
+  "black",
   "debugpy",
+  "eslint_d",
+  "hadolint",
+  "pylint",
+  "prettier",
+  "ruff",
+  "shellcheck",
+  "shfmt",
+  "stylua",
+  "tflint",
   "vale",
-  "hadolint"
+  "xmlformatter",
+  "yamllint",
+  "yapf",
 }
 
 -- installed by mason
 M.mason_ensure_installed = {
   "bash-language-server",
+  "csharpier",
   "clangd",
+  "docker-compose-language-service",
   "dockerfile-language-server",
-  "json-lsp",
+  "gitlab-ci-ls",
   "gopls",
   "html-lsp",
   "htmx-lsp",
-  "marksman",
   "jedi-language-server",
+  "json-lsp",
   "lua-language-server",
+  "marksman",
+  "netcoredbg",
   "nginx-language-server",
   "typescript-language-server",
   "yaml-language-server",
-  "csharpier",
-  "netcoredbg",
-  "docker-compose-language-service",
-  "gitlab-ci-ls"
 }
 
 return M
