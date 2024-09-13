@@ -52,6 +52,7 @@ M.treesitter_ensure_installed = {
   "nasm",
   "ninja",
   "nix",
+  "powershell",
   "python",
   "query",
   "r",
@@ -123,6 +124,7 @@ M.mason_ensure_installed = {
   "marksman",
   "netcoredbg",
   "nginx-language-server",
+  "powershell-editor-services",
   "typescript-language-server",
   "yaml-language-server",
 }

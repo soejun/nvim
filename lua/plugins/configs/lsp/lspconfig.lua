@@ -89,5 +89,13 @@ local omnisharp_config = {
   organize_imports_on_format = true,
   enable_import_completion = true,
 }
-
 nvim_lsp.omnisharp.setup(omnisharp_config)
+
+-- powershell
+local powershell_path = vim.fn.stdpath("data")
+  .. (is_windows and "\\mason\\packages\\powershell-editor-services" or "/mason/packages/powershell-editor-services")
+local powershell_config = {
+  bundle_path = powershell_path,
+  shell = "powershell.exe",
+}
+nvim_lsp.powershell_es.setup(powershell_config)
