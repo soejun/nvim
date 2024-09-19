@@ -1,6 +1,6 @@
 local settings = require("core.settings")
 local options = {
-  autotag = { enable = true },
+  -- autotag = { enable = true },
   context_commentstring = {
     enable = true,
     enable_autocmd = false,

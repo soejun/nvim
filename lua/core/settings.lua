@@ -13,7 +13,6 @@ M.dashboard_recent_files = 5 -- Number of recent files shown in dashboard, 0 dis
 M.disable_dashboard_header = false -- disable the header of the dashboard
 M.disable_dashboard_quick_links = false -- disable quick links of the dashboard
 
--- one of "all", "maintained" (parsers with maintainers), or a list of languages
 M.treesitter_ensure_installed = {
   "awk",
   "asm",
@@ -52,7 +51,7 @@ M.treesitter_ensure_installed = {
   "nasm",
   "ninja",
   "nix",
-  "powershell",
+  -- "powershell", -- this has been removed, install manually
   "python",
   "query",
   "r",
@@ -67,9 +66,9 @@ M.treesitter_ensure_installed = {
   "vimdoc",
   "xml",
   "yaml",
+  "vala",
 }
 
--- lsp server setups
 M.lsp_servers = {
   "bashls",
   "clangd",
@@ -86,28 +85,9 @@ M.lsp_servers = {
   "nginx_language_server",
   "tsserver",
   "yamlls",
+  "vala_ls",
 }
 
--- DAP, Linter, Formatter installed by mason
-M.mason_ensure_install_tools = {
-  "black",
-  "debugpy",
-  "eslint_d",
-  "hadolint",
-  "pylint",
-  "prettier",
-  "ruff",
-  "shellcheck",
-  "shfmt",
-  "stylua",
-  "tflint",
-  "vale",
-  "xmlformatter",
-  "yamllint",
-  "yapf",
-}
-
--- installed by mason
 M.mason_ensure_installed = {
   "bash-language-server",
   "csharpier",
@@ -127,6 +107,28 @@ M.mason_ensure_installed = {
   "powershell-editor-services",
   "typescript-language-server",
   "yaml-language-server",
+  "vala-language-server@0.48.7",
+}
+
+-- $ npm install --save markdown-toc
+-- npm install markdownlint-cli2 --global
+M.mason_ensure_install_tools = {
+  "black",
+  "debugpy",
+  "eslint_d",
+  "hadolint",
+  "markdownlint-cli2",
+  "pylint",
+  "prettier",
+  "ruff",
+  "shellcheck",
+  "shfmt",
+  "stylua",
+  "tflint",
+  "vale",
+  "xmlformatter",
+  "yamllint",
+  "yapf",
 }
 
 return M

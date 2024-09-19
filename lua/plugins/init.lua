@@ -100,6 +100,30 @@ local default_plugins = {
     end,
   },
   {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    keys = {
+      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
+      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
+      { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete Other Buffers" },
+      { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
+      { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
+      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+      { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
+      { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
+    },
+    dependencies = "nvim-tree/nvim-web-devicons",
+    opts = function()
+      return require("plugins.configs.bufferline_opts")
+    end,
+    config = function(_, opts)
+      require("bufferline").setup(opts)
+    end,
+  },
+  {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     init = function()
@@ -387,7 +411,6 @@ local default_plugins = {
       parser_config.tsx.filettpe_to_parsername = { "javascript", "typescript.tsx" }
     end,
   },
-
   {
     "danymat/neogen",
     dependencies = "nvim-treesitter/nvim-treesitter",
@@ -623,9 +646,43 @@ local default_plugins = {
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    ft = { "markdown" },
     build = function()
+      require("lazy").load({ plugins = { "markdown-preview.nvim" } })
       vim.fn["mkdp#util#install"]()
+    end,
+    keys = {
+      {
+        "<leader>cp",
+        ft = "markdown",
+        "<cmd>MarkdownPreviewToggle<cr>",
+        desc = "Markdown Preview",
+      },
+    },
+    config = function()
+      vim.cmd([[do FileType]])
+    end,
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    init = function()
+      require("utils.functions").load_mappings("render_markdown")
+    end,
+    opts = {
+      file_types = { "markdown", "norg", "rmd", "org" },
+      code = {
+        sign = false,
+        width = "block",
+        right_pad = 1,
+      },
+      heading = {
+        sign = false,
+        icons = {},
+      },
+    },
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    ft = { "markdown", "norg", "rmd", "org" },
+    config = function(_, opts)
+      require("render-markdown").setup(opts)
     end,
   },
   {

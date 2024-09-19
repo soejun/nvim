@@ -226,6 +226,13 @@ M.outline_nvim = {
   },
 }
 
+M.render_markdown = {
+  plugin = true,
+  n = {
+    ["<leader>um"] = {":lua require('render-markdown').toggle()<CR>", "toggle render-markdown"}
+  }
+}
+
 -- ctrl+y, move screen up one line
 -- ctrl+e, move screen down one line
 M.whichkey = {
