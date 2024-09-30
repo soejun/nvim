@@ -409,6 +409,16 @@ local default_plugins = {
       require("nvim-treesitter.configs").setup(opts)
       local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
       parser_config.tsx.filettpe_to_parsername = { "javascript", "typescript.tsx" }
+      parser_config.powershell = {
+        install_info = {
+          url = vim.fn.stdpath("config") .. (is_windows and "\\tsparsers\\tree-sitter-powershell" or "/tsparsers/treesitter-powershell"),
+          files = { "src/parser.c", "src/scanner.c" },
+          branch = "main",
+          generate_requires_npm = false,
+          requires_generate_from_grammar = false,
+        },
+        filetype = "ps1",
+      }
     end,
   },
   {
@@ -502,6 +512,31 @@ local default_plugins = {
         end,
         config = function(_, opts)
           local dap = require("dap")
+          -- TODO: Fix
+          if not dap.adapters["netcoredbg"] then
+            require("dap").adapters["netcoredbg"] = {
+              type = "executable",
+              command = vim.fn.exepath("netcoredbg"),
+              args = { "--interpreter=vscode" },
+              options = { detached = false },
+            }
+          end
+          for _, lang in ipairs({ "cs", "fsharp", "vb" }) do
+            if not dap.configurations[lang] then
+              dap.configurations[lang] = {
+                {
+                  type = "netcoredbg",
+                  name = "Launch file",
+                  request = "launch",
+                  ---@diagnostic disable-next-line: redundant-parameter
+                  program = function()
+                    return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/", "file")
+                  end,
+                  cwd = "${workspaceFolder}",
+                },
+              }
+            end
+          end
           local dapui = require("dapui")
           dapui.setup(opts)
           dap.listeners.after.event_initialized["dapui_config"] = function()
