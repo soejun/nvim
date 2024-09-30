@@ -1,10 +1,35 @@
 local utils = require("utils.functions")
+local lsp_utils = require("plugins.configs.lsp.utils")
 local nvim_lsp = require("lspconfig")
+local configs = require("lspconfig.configs")
 local settings = require("core.settings")
 local lsp_settings = require("plugins.configs.lsp.settings")
 local navic = require("nvim-navic")
 
 local M = {}
+
+-- TODO: fix
+configs.jinja_lsp = {
+  default_config = {
+    name = "jinja-lsp",
+    cmd = { "jinja-lsp" },
+    filetypes = { "jinja", "rust", "htmldjango", "html" },
+    root_dir = function(fname)
+      return nvim_lsp.util.find_git_ancestor(fname)
+    end,
+    init_options = {
+      templates = function()
+        local root_directory = vim.fn.getcwd()
+        local target_directory = "templates"
+        return lsp_utils.find_path_from_root(root_directory, target_directory) or ""
+      end,
+      backend = function()
+        return { vim.fn.getcwd() }
+      end,
+      lang = "python",
+    },
+  },
+}
 
 -------------------- on_attach logic ----------------------
 
@@ -43,10 +68,10 @@ for _, lsp in ipairs(servers) do
   local server_config = {
     before_init = function(_, config)
       -- jedi_language_server is capable of automatically detecting virtual environments
-      if lsp == "jedi_language_server" then
-        local lsp_utils = require("plugins.configs.lsp.utils")
-        config.initializationOptions.workspace.environmentPath = lsp_utils.get_python_path(config.root_dir)
-      end
+      -- if lsp == "jedi_language_server" then
+      --   local lsp_utils = require("plugins.configs.lsp.utils")
+      --   config.initializationOptions.workspace.environmentPath = lsp_utils.get_python_path(config.root_dir)
+      -- end
     end,
     on_attach = M.on_attach,
     capabilities = M.capabilities,
@@ -99,3 +124,9 @@ local powershell_config = {
   shell = "powershell.exe",
 }
 nvim_lsp.powershell_es.setup(powershell_config)
+
+-- jinja-lsp
+nvim_lsp.jinja_lsp.setup({
+  capabilities = M.capabilities,
+  on_attach = M.on_attach,
+})

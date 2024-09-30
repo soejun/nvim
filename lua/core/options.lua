@@ -92,3 +92,11 @@ vim.o.titleold = "Terminal"
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
+
+vim.filetype.add({
+  extension = {
+    jinja = "jinja",
+    jinja2 = "jinja",
+    j2 = "jinja",
+  },
+})

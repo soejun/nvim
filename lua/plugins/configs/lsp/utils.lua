@@ -23,4 +23,48 @@ end
 M.get_python_path_pylsp = function()
 end
 
+
+local uv = vim.loop
+M.find_path_from_root = function(root, target)
+    local function is_directory(path)
+        local stat = uv.fs_stat(path)
+        return stat and stat.type == "directory"
+    end
+
+    local function scan_dir(path)
+        local handle = uv.fs_scandir(path)
+        if not handle then
+            return nil
+        end
+
+        repeat
+            local name, type = uv.fs_scandir_next(handle)
+            if not name then break end
+            local full_path = path .. "/" .. name
+
+            -- Check if it's the target
+            if name == target then
+                return full_path
+            end
+
+            -- Recursively scan directories
+            if type == "directory" then
+                local found = scan_dir(full_path)
+                if found then
+                    return found
+                end
+            end
+        until not name
+
+        return nil
+    end
+
+    -- Ensure the root exists and is a directory
+    if is_directory(root) then
+        return scan_dir(root)
+    else
+        return nil
+    end
+end
+
 return M
