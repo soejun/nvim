@@ -264,9 +264,10 @@ M.telescope = {
     ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
-    ["<leader>fs"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
+    ["<leader>cb"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
     -- LSP Related
-    ["<leader>fd"] = { "<cmd> Telescope lsp_document_symbols <CR> ", "lists LSP document symbols in current buffer" },
+    ["<leader>ld"] = { "<cmd> Telescope lsp_document_symbols <CR> ", "lists LSP document symbols in current buffer" },
+    ["<leader>lw"] = { "<cmd> Telescope lsp_workspace_symbols<CR> ", "lists LSP document symbols in current buffer" },
     ["gr"] = { "<cmd> Telescope lsp_references<CR> ", "lists LSP references under cursor in telescope", },
     ["<leader>td"] = { "<cmd> Telescope diagnostics bufnr=0<CR> ", "lists all diagnostics for current buffer in telescope", },
     -- git
