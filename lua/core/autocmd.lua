@@ -115,6 +115,8 @@ api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
+-- TODO: Autosize quick fix list menu 
+
 -- local colors = require("utils.colors")
 -- -- local hexcode = colors.temp_color2
 -- local hexcode = "#3b4261"

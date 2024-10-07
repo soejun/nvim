@@ -2,7 +2,7 @@ local M = {}
 
 -- TODO: Install some sort of sorting plugin
 
-M.global_statusline = true -- Toggle global status line
+M.global_statusline = true-- Toggle global status line
 M.grepprg = "rg --hidden --vimgrep --smart-case --" -- use rg instead of grep, unused for now
 M.showtabline = 1 -- enable or disable listchars
 M.list = false
@@ -87,6 +87,7 @@ M.lsp_servers = {
   "tsserver",
   "yamlls",
   "vala_ls",
+  "rnix"
 }
 
 M.mason_ensure_installed = {
@@ -110,6 +111,7 @@ M.mason_ensure_installed = {
   "typescript-language-server",
   "yaml-language-server",
   "vala-language-server@0.48.7",
+  "rnix-lsp"
 }
 
 -- $ npm install --save markdown-toc

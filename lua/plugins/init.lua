@@ -10,21 +10,43 @@ local default_plugins = {
   --     vim.cmd([[colorscheme catppuccin-macchiato]])
   --   end,
   -- },
+  --
+  -- TODO: Add one-dark-pro theme
+  -- {
+  --   "ellisonleao/gruvbox.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function(_, _)
+  --     require("plugins.themes.gruvbox")
+  --     vim.o.background = "dark"
+  --     vim.cmd([[colorscheme gruvbox]])
+  --   end,
+  -- },
   {
-    "ellisonleao/gruvbox.nvim",
+    "navarasu/onedark.nvim",
     lazy = false,
     priority = 1000,
     config = function(_, _)
-      require("plugins.themes.gruvbox")
-      vim.o.background = "dark"
-      vim.cmd([[colorscheme gruvbox]])
+      require("plugins.themes.onedark")
+      vim.cmd([[colorscheme onedark]])
     end,
   },
+  -- {
+  --   {
+  --     "olimorris/onedarkpro.nvim",
+  --     priority = 1000,
+  --     config = function(_,_)
+  --       require("plugins.themes.onedark-pro")
+  --     vim.cmd("colorscheme onedark")
+  --     end
+  --   },
+  -- },
   {
     "nvim-tree/nvim-web-devicons",
     lazy = false, -- stops invalid window id error
     config = function(_, _)
       require("nvim-web-devicons").setup({})
+      vim.cmd([[hi WinBar guibg=transparent guifg=transparent]])
     end,
   },
   {
@@ -263,23 +285,42 @@ local default_plugins = {
           --   bright_white = "#B8C0E0",
           -- }
           -- gruvbox
+          -- local colors = {
+          --   black = "#282828",
+          --   red = "#cc241d",
+          --   green = "#98971a",
+          --   yellow = "#d79921",
+          --   blue = "#458588",
+          --   magenta = "#b16286",
+          --   cyan = "#689d6a",
+          --   white = "#a89984",
+          --   bright_black = "#928374",
+          --   bright_red = "#fb4934",
+          --   bright_green = "#b8bb26",
+          --   bright_yellow = "#fabd2f",
+          --   bright_blue = "#83a598",
+          --   bright_magenta = "#d3869b",
+          --   bright_cyan = "#8ec07c",
+          --   bright_white = "#ebdbb2",
+          -- }
+          -- onedark
           local colors = {
-            black = "#282828",
-            red = "#cc241d",
-            green = "#98971a",
-            yellow = "#d79921",
-            blue = "#458588",
-            magenta = "#b16286",
-            cyan = "#689d6a",
-            white = "#a89984",
-            bright_black = "#928374",
-            bright_red = "#fb4934",
-            bright_green = "#b8bb26",
-            bright_yellow = "#fabd2f",
-            bright_blue = "#83a598",
-            bright_magenta = "#d3869b",
-            bright_cyan = "#8ec07c",
-            bright_white = "#ebdbb2",
+            black = "#3F4451",
+            red = "#E06C75",
+            green = "#98C379",
+            yellow = "#D19A66",
+            blue = "#61AFEF",
+            magenta = "#C678DD",
+            cyan = "#56B6C2",
+            white = "#D7DAE0",
+            bright_black = "#4F5666",
+            bright_red = "#BE5046",
+            bright_green = "#A5E075",
+            bright_yellow = "#E5C07B",
+            bright_blue = "#4DC4FF",
+            bright_magenta = "#DE73FF",
+            bright_cyan = "#4CD1E0",
+            bright_white = "#E6E6E6",
           }
           require("nvim-navic").setup(opts)
           vim.api.nvim_set_hl(0, "NavicIconsFile", { default = true, bg = colors.black, fg = colors.blue })
@@ -411,7 +452,8 @@ local default_plugins = {
       parser_config.tsx.filettpe_to_parsername = { "javascript", "typescript.tsx" }
       parser_config.powershell = {
         install_info = {
-          url = vim.fn.stdpath("config") .. (is_windows and "\\tsparsers\\tree-sitter-powershell" or "/tsparsers/treesitter-powershell"),
+          url = vim.fn.stdpath("config")
+            .. (is_windows and "\\tsparsers\\tree-sitter-powershell" or "/tsparsers/treesitter-powershell"),
           files = { "src/parser.c", "src/scanner.c" },
           branch = "main",
           generate_requires_npm = false,
@@ -736,3 +778,4 @@ local default_plugins = {
   },
 }
 require("lazy").setup(default_plugins)
+require("onedark").load()
