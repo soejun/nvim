@@ -39,5 +39,5 @@ end
 AUTOFORMAT_ACTIVE = false
 
 -- onedark fix with winbar
-vim.cmd([[hi WinBar guibg=transparent guifg=transparent]])
-vim.cmd([[hi WinBarNC guibg=transparent guifg=transparent]])
+-- vim.cmd([[hi WinBar guibg=transparent guifg=transparent]])
+-- vim.cmd([[hi WinBarNC guibg=transparent guifg=transparent]])

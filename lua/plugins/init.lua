@@ -31,6 +31,18 @@ local default_plugins = {
       vim.cmd([[colorscheme onedark]])
     end,
   },
+  --  {
+  --   "gbprod/nord.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("nord").setup({ "themes.plugins.nord" })
+  --     vim.cmd.colorscheme("nord")
+  --   end,
+  --   install = {
+  --     colorscheme = { "nord" },
+  --   },
+  -- },
   -- {
   --   {
   --     "olimorris/onedarkpro.nvim",
@@ -40,6 +52,16 @@ local default_plugins = {
   --     vim.cmd("colorscheme onedark")
   --     end
   --   },
+  -- },
+  -- {
+  --
+  --   "AlexvZyl/nordic.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("plugins.themes.nordic")
+  --     vim.cmd([[colorscheme nordic]])
+  --   end,
   -- },
   {
     "nvim-tree/nvim-web-devicons",
@@ -778,4 +800,3 @@ local default_plugins = {
   },
 }
 require("lazy").setup(default_plugins)
-require("onedark").load()
