@@ -37,7 +37,3 @@ vim.cmd([[  set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   \,sm:block-blinkwait175-blinkoff150-blinkon175]])
 end
 AUTOFORMAT_ACTIVE = false
-
--- onedark fix with winbar
--- vim.cmd([[hi WinBar guibg=transparent guifg=transparent]])
--- vim.cmd([[hi WinBarNC guibg=transparent guifg=transparent]])
