@@ -246,25 +246,22 @@ M.whichkey = {
 M.telescope = {
   plugin = true,
   n = {
-    -- misc help
-    ["<leader>tc"] = { "<cmd> Telescope commands <CR>", "commands" },
-    ["<leader>tk"] = { "<cmd> Telescope keymaps <CR>", "keymaps" },
-    ["<leader>to"] = { "<cmd> Telescope vim_options <CR>", "vim options" },
-    ["<leader>t;"] = { "<cmd> Telescope command_history <CR>", "command history" },
-
-    -- find
-    ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "find files" },
-    ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
-    ["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
-    ["<leader>fc"] = { "<cmd> Telescope grep_string<CR>", "string under cursor" },
-    ["<leader>ft"] = {
-      "<cmd>lua require'telescope.builtin'.grep_string{ shorten_path = true, word_match = '-w', only_sort_text = true, search = '' }<cr>",
+    -- searching stuff
+    ["<leader>sc"] = { "<cmd> Telescope commands <CR>", "commands" },
+    ["<leader>sK"] = { "<cmd> Telescope keymaps <CR>", "keymaps" },
+    ["<leader>sO"] = { "<cmd> Telescope vim_options <CR>", "vim options" },
+    ["<leader>s;"] = { "<cmd> Telescope command_history <CR>", "command history" },
+    ["<leader>s?"] = { "<cmd> Telescope help_tags <CR>", "help page" },
+    ["<leader>sw"] = { "<cmd> Telescope grep_string<CR>", "string under cursor" },
+    ["<leader>ss"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
+    ["<leader>sW"] = { "<cmd>lua require'telescope.builtin'.grep_string{ shorten_path = true, word_match = '-w', only_sort_text = true, search = '' }<cr>",
       "Word search",
     },
-    ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
-    ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
-    ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
-    ["<leader>cb"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
+    ["<C-f>"] = {"<cmd>Telescope current_buffer_fuzzy_find<cr>", "Search in buffer"},
+    -- files
+    ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "find files" },
+    ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
+    ["<leader>fr"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
     -- LSP Related
     ["<leader>ld"] = { "<cmd> Telescope lsp_document_symbols <CR> ", "lists LSP document symbols in current buffer" },
     ["<leader>lw"] = { "<cmd> Telescope lsp_workspace_symbols<CR> ", "lists LSP document symbols in current buffer" },
@@ -274,6 +271,10 @@ M.telescope = {
     ["<leader>gm"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
     ["<leader>gb"] = { "<cmd> Telescope git_branches<CR>", "git branches" },
+
+    -- misc
+    ["<leader>mt"] = {"<cmd> Telescope <CR>", "Telescope"},
+    ["<leader>bb"] = { "<cmd> Telescope buffers <CR>", "buffer list" },
     -- pick a hidden term
     ["<leader>pt"] = {
       "<cmd> Telescope find_files follow=false no_ignore=false hidden=true<CR>",
