@@ -7,6 +7,7 @@ local options = {
     python = { "isort", "yapf" },
     javascript = { { "prettierd", "prettier" } },
     cs = { "csharpier" },
+    sql = { "sqlfluff" },
     xml = { "xmlformat" }, -- No autocmd needed, it will detect *.*.proj .NET, MSBuild files accordingly
     ["markdown"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
     ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
@@ -22,6 +23,7 @@ local options = {
       commands = "dotnet-csharpier",
       args = { "--write-stdout" },
     },
+    sqlfluff = { args = "format", "--dialect=ansi", "-" },
     xmlformat = {
       prepend_args = {
         --

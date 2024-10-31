@@ -87,7 +87,8 @@ M.lsp_servers = {
   "tsserver",
   "yamlls",
   "vala_ls",
-  "rnix"
+  "rnix",
+  "sqls"
 }
 
 M.mason_ensure_installed = {
@@ -111,7 +112,8 @@ M.mason_ensure_installed = {
   "typescript-language-server",
   "yaml-language-server",
   "vala-language-server@0.48.7",
-  "rnix-lsp"
+  "rnix-lsp",
+  "sqls"
 }
 
 -- $ npm install --save markdown-toc
@@ -127,6 +129,7 @@ M.mason_ensure_install_tools = {
   "ruff",
   "shellcheck",
   "shfmt",
+  "sqlfluff",
   "stylua",
   "tflint",
   "vale",
