@@ -1,5 +1,5 @@
 require("core.options") -- all non plugin related (vim) options
-require("utils.functions").load_mappings() --load mappings
+require("utils.functions").load_mappings()
 
 -- check if windows
 is_windows = vim.loop.os_uname().sysname == "Windows_NT"
@@ -30,7 +30,7 @@ end
 vim.opt.rtp:prepend({ lazypath })
 
 require("plugins") --plugin management via lazy
-require("core.autocmd") -- vim autocommands/autogroups
+require("core.autocmd")
 if is_windows == false then
 vim.cmd([[  set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor

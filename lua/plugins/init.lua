@@ -1,27 +1,6 @@
 -- TODO: Add aerial.nvim
 local default_plugins = {
   { "nvim-lua/plenary.nvim", lazy = false, priority = 100 },
-  -- {
-  --   "catppuccin/nvim",
-  --   lazy = false,
-  --   priority = 90,
-  --   config = function(_, _)
-  --     require("plugins.themes.catpuccin")
-  --     vim.cmd([[colorscheme catppuccin-macchiato]])
-  --   end,
-  -- },
-  --
-  -- TODO: Add one-dark-pro theme
-  -- {
-  --   "ellisonleao/gruvbox.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function(_, _)
-  --     require("plugins.themes.gruvbox")
-  --     vim.o.background = "dark"
-  --     vim.cmd([[colorscheme gruvbox]])
-  --   end,
-  -- },
   {
     "navarasu/onedark.nvim",
     lazy = false,
@@ -31,41 +10,10 @@ local default_plugins = {
       vim.cmd([[colorscheme onedark]])
     end,
   },
-  --  {
-  --   "gbprod/nord.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("nord").setup({ "themes.plugins.nord" })
-  --     vim.cmd.colorscheme("nord")
-  --   end,
-  --   install = {
-  --     colorscheme = { "nord" },
-  --   },
-  -- },
-  -- {
-  --   {
-  --     "olimorris/onedarkpro.nvim",
-  --     priority = 1000,
-  --     config = function(_,_)
-  --       require("plugins.themes.onedark-pro")
-  --     vim.cmd("colorscheme onedark")
-  --     end
-  --   },
-  -- },
-  -- {
-  --
-  --   "AlexvZyl/nordic.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("plugins.themes.nordic")
-  --     vim.cmd([[colorscheme nordic]])
-  --   end,
-  -- },
   {
     "nvim-tree/nvim-web-devicons",
-    lazy = false, -- stops invalid window id error
+    -- TODO: Fix load order to prevent window id error
+    lazy = false, 
     config = function(_, _)
       require("nvim-web-devicons").setup({})
       vim.cmd([[hi WinBar guibg=transparent guifg=transparent]])
@@ -287,44 +235,6 @@ local default_plugins = {
           end,
         },
         config = function(_, opts)
-          -- Catppuccin Macchiato color palette
-          -- local colors = {
-          --   black = "#24273A",
-          --   red = "#ED8796",
-          --   green = "#A6DA95",
-          --   yellow = "#EED49F",
-          --   blue = "#8AADF4",
-          --   magenta = "#F5BDE6",
-          --   cyan = "#8BD5CA",
-          --   white = "#CAD3F5",
-          --   bright_black = "#5B6078",
-          --   bright_red = "#ED8796",
-          --   bright_green = "#A6DA95",
-          --   bright_yellow = "#EED49F",
-          --   bright_blue = "#8AADF4",
-          --   bright_magenta = "#F5BDE6",
-          --   bright_cyan = "#8BD5CA",
-          --   bright_white = "#B8C0E0",
-          -- }
-          -- gruvbox
-          -- local colors = {
-          --   black = "#282828",
-          --   red = "#cc241d",
-          --   green = "#98971a",
-          --   yellow = "#d79921",
-          --   blue = "#458588",
-          --   magenta = "#b16286",
-          --   cyan = "#689d6a",
-          --   white = "#a89984",
-          --   bright_black = "#928374",
-          --   bright_red = "#fb4934",
-          --   bright_green = "#b8bb26",
-          --   bright_yellow = "#fabd2f",
-          --   bright_blue = "#83a598",
-          --   bright_magenta = "#d3869b",
-          --   bright_cyan = "#8ec07c",
-          --   bright_white = "#ebdbb2",
-          -- }
           -- onedark
           local colors = {
             black = "#3F4451",
@@ -526,7 +436,6 @@ local default_plugins = {
     config = function(_, opts)
       local telescope = require("telescope")
       telescope.setup(opts)
-      -- load extensions
       for _, ext in ipairs(opts.extensions_list) do
         telescope.load_extension(ext)
       end
@@ -559,7 +468,6 @@ local default_plugins = {
     end,
   },
   {
-    -- Debugger functionality
     "mfussenegger/nvim-dap",
     init = function()
       require("utils.functions").load_mappings("dap")

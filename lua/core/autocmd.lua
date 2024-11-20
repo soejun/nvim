@@ -8,14 +8,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
   desc = "Disable New Line Comment",
 })
 
--- Highlight on yank
 api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
 })
 
--- set various configuration files to .ini file types where applicable
 api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = { "*pylintrc", "*.service", "*.mount" },
   callback = function()
@@ -47,7 +45,7 @@ api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 -- gitlab_ci_ls
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = { "*.gitlab-ci*.{yml,yaml}" },
+  pattern = { "*.gitlab-ci*.{yml,yaml}", "kaniko-build.yml" },
   callback = function()
     vim.bo.filetype = "yaml.gitlab"
   end,
@@ -85,7 +83,6 @@ api.nvim_create_autocmd("BufReadPost", {
   desc = "go to last loc when opening a buffer",
 })
 
--- cursor line stuff
 local cursorGrp = api.nvim_create_augroup("CursorLine", { clear = true })
 api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
   pattern = "*",
@@ -99,7 +96,6 @@ api.nvim_create_autocmd(
 )
 
 -- reload modules on save
-
 local NvReload = api.nvim_create_augroup("NvReload", {})
 api.nvim_create_autocmd("BufWritePost", {
   pattern = vim.tbl_map(function(path)
@@ -114,26 +110,3 @@ api.nvim_create_autocmd("BufWritePost", {
     vim.cmd([[redraw!]])
   end,
 })
-
--- TODO: Autosize quick fix list menu 
-
--- local colors = require("utils.colors")
--- -- local hexcode = colors.temp_color2
--- local hexcode = "#3b4261"
--- --TODO, Figure out better styling option
--- api.nvim_create_autocmd("VimEnter", {
---   callback = function()
---     api.nvim_command("hi WinSeparator guifg=" .. hexcode)
---   end,
--- })
-
--- local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
--- vim.api.nvim_create_autocmd("BufWritePre", {
---   pattern = "*.go",
---   callback = function()
---     require("go.format").goimport()
---   end,
---   group = format_sync_grp,
--- })
-
--- TODO: Quit on man page

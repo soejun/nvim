@@ -1,14 +1,14 @@
 local opt = vim.opt
-local g = vim.g
 local settings = require("core.settings")
 
 -- OS check, to account for clipboard and binary locations
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 
-g.mapleader = " "
-opt.spelllang = "en"
+vim.g.mapleader = " "
 
-vim.opt.clipboard = "unnamedplus"
+vim.g.deprecation_warnings = false
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 if settings.global_statusline then
   opt.laststatus = 3 -- global statusline
@@ -16,10 +16,9 @@ else
   opt.laststatus = 2
 end
 
-vim.opt.winbar = "%{%v:lua.require'utils.winbar'.get_winbar()%}"
-
-vim.g.deprecation_warnings = false
-
+opt.clipboard = "unnamedplus"
+opt.winbar = "%{%v:lua.require'utils.winbar'.get_winbar()%}"
+opt.spelllang = "en"
 opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 0 -- Hide * markup for bold and italic, but not markers with substitutions
 
@@ -46,7 +45,6 @@ opt.fillchars = {
   eob = " ",
 }
 
---
 opt.shortmess:append("sI") -- disable nvim intro
 opt.linebreak = true -- Wrap lines at convenient points
 opt.cursorline = true
@@ -62,13 +60,13 @@ opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift t
 opt.sidescrolloff = 8 -- Columns of context
 opt.splitbelow = true
 opt.splitright = true
-opt.termguicolors = true
 opt.timeoutlen = 400
 opt.undofile = true
 opt.undolevels = 10000
 opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.updatetime = 200 -- interval for writing swap file to disk, also used by gitsigns
+
 
 -- go to previous/next line with h,l,left arrow and right arrow
 -- when cursor reaches end/beginning of line
@@ -85,18 +83,9 @@ vim.api.nvim_set_var(
 )
 
 vim.o.cmdheight = 1
-
 vim.o.title = true
 vim.o.titlestring = "nvim/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 vim.o.titleold = "Terminal"
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
-
-vim.filetype.add({
-  extension = {
-    jinja = "jinja",
-    jinja2 = "jinja",
-    j2 = "jinja",
-  },
-})

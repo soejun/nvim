@@ -29,12 +29,12 @@ end
 
 local function get_modified()
   -- %t, just the current buffer
-  -- %f, includes parent
+  -- %f, includes parent 
+  -- this will give absolute path if you use ranger to open neovim
   if utils.get_buf_option("mod") then
-    local mod = icons.git.Mod
-    return "%#WinBarFilename#" .. mod .. " " .. "%t" .. "%*"
+    return "%#WinBarFilename#" .. icons.git.Mod .. " " .. "%f" .. "%*"
   end
-  return "%#WinBarFilename#" .. "%t" .. "%*"
+  return "%#WinBarFilename#" .. "%f" .. "%*"
 end
 
 local function get_location()

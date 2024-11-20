@@ -1,13 +1,8 @@
--- lsp config for html
-local opts = {}
-
-opts = {
+return {
   cmd = { "vscode-html-language-server", "--stdio" },
   filetypes = {
     "html",
     "htmldjango",
-    "jinja",
-    "templ",
   },
   init_options = {
     configurationSection = { "html", "css", "javascript" },
@@ -19,4 +14,3 @@ opts = {
   },
 }
 
-return opts

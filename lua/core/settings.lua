@@ -34,7 +34,6 @@ M.treesitter_ensure_installed = {
   "gosum",
   "ini",
   "html",
-  "htmldjango",
   "http",
   "javascript",
   "jsdoc",
@@ -71,18 +70,16 @@ M.treesitter_ensure_installed = {
 
 M.lsp_servers = {
   "bashls",
+  "basedpyright",
   "clangd",
   "dockerls",
   "docker_compose_language_service",
   "gitlab_ci_ls",
-  "jedi_language_server",
-  -- "jinja_lsp",
   "jsonls",
   "gopls",
   "html",
   "lua_ls",
   "marksman",
-  -- "omnisharp", -- manually set this up as a separate conig
   "nginx_language_server",
   "tsserver",
   "yamlls",
@@ -93,6 +90,7 @@ M.lsp_servers = {
 
 M.mason_ensure_installed = {
   "bash-language-server",
+  "basedpyright",
   "csharpier",
   "clangd",
   "docker-compose-language-service",
@@ -101,8 +99,6 @@ M.mason_ensure_installed = {
   "gopls",
   "html-lsp",
   "htmx-lsp",
-  "jedi-language-server",
-  -- "jinja-lsp",
   "json-lsp",
   "lua-language-server",
   "marksman",
@@ -112,8 +108,6 @@ M.mason_ensure_installed = {
   "typescript-language-server",
   "yaml-language-server",
   "vala-language-server@0.48.7",
-  "rnix-lsp",
-  "sqls"
 }
 
 -- $ npm install --save markdown-toc

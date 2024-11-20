@@ -34,42 +34,29 @@ end
 
 M.general = {
   i = {
-    -- go to  beginning and end
     ["<C-b>"] = { "<ESC>^i", "beginning of line" },
     ["<C-e>"] = { "<End>", "end of line" },
-    -- navigate within insert mode
     ["<C-h>"] = { "<Left>", "move left" },
     ["<C-l>"] = { "<Right>", "move right" },
     ["<C-j>"] = { "<Down>", "move down" },
     ["<C-k>"] = { "<Up>", "move up" },
-    -- exit insert mode
     ["jk"] = { "<ESC>", "exit insert mode" },
   },
   n = {
     ["<leader>nh"] = { ":noh <CR>", "clear highlights" },
-    -- spellcheck and diagnostics
     ["<leader>te"] = { ":lua ToggleDiagnostics()<CR>", "toggle diagnostics" },
     ["<leader>ts"] = { ":lua ToggleSpellCheck()<CR>", "toggle spellcheck" },
-    -- trim trailing whitespaces
     ["<leader>tw"] = { ":lua TrimTrailingWhiteSpace()<CR>", "trim trailing whitespaces" },
-    -- switch between windows
     ["<C-h>"] = { "<C-w>h", "window left" },
     ["<C-l>"] = { "<C-w>l", "window right" },
     ["<C-j>"] = { "<C-w>j", "window down" },
     ["<C-k>"] = { "<C-w>k", "window up" },
-    -- window sizing management
     ["<leader>sv"] = { "<C-w>v", "split window vertically" },
     ["<leader>sh"] = { "<C-w>s", "split window horizontally" },
     ["<leader>se"] = { "<C-w>=", "windows equal width and height" },
     ["<leader>sx"] = { ":close<CR>", "close current split window" },
-    -- save
     ["<C-s>"] = { "<cmd> w <CR>", "save file" },
-    -- Copy all
     ["<C-c>"] = { "<cmd> %y+ <CR>", "copy whole file" },
-    -- line numbers
-    -- ["<leader>n"] = { "<cmd> set nu! <CR>", "toggle line number" },
-    -- ["<leader>rn"] = { "<cmd> set rnu! <CR>", "toggle relative number" },
-
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
     -- empty mode is same as using <cmd> :map
@@ -78,7 +65,6 @@ M.general = {
     ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "move up", opts = { expr = true } },
     ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "move up", opts = { expr = true } },
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "move down", opts = { expr = true } },
-    -- new buffer
     ["<leader>b"] = { "<cmd> enew <CR>", "new buffer" },
   },
   v = {
@@ -93,26 +79,6 @@ M.general = {
     ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', "dont copy replaced text", opts = { silent = true } },
   },
 }
-
--- M.blankline = {
---   plugin = true,
---   n = {
---     ["<leader>cc"] = {
---       function()
---         local ok, start = require("indent_blankline.utils").get_current_context(
---           vim.g.indent_blankline_context_patterns,
---           vim.g.indent_blankline_use_treesitter_scope
---         )
---         if ok then
---           vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
---           vim.cmd([[normal! _]])
---         end
---       end,
---
---       "Jump to current_context",
---     },
---   },
--- }
 
   -- stylua: ignore start
 M.conform = {
@@ -188,7 +154,6 @@ M.lspconfig = {
     ["K"] = { function() vim.lsp.buf.hover() end, "lsp hover; press twice to jump into window", },
     ["gi"] = { function() vim.lsp.buf.implementation() end, "lsp implementation", },
     ["<leader>ls"] = { function() vim.lsp.buf.signature_help() end, "lsp signature_help", },
-    -- ["<leader>D"] = { function() vim.lsp.buf.type_definition() end, "lsp definition type", },
     ["<leader>D"] = { function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, "lsp definition type", },
     ["<leader>ca"] = { function() vim.lsp.buf.code_action() end, "lsp code_action", },
     ["<leader>gr"] = { function() vim.lsp.buf.references() end, "lsp references", },
@@ -196,8 +161,6 @@ M.lspconfig = {
     ["[d"] = { function() vim.diagnostic.goto_prev() end, "goto prev", },
     ["]d"] = { function() vim.diagnostic.goto_next() end, "goto_next", },
     ["<leader>q"] = { function() vim.diagnostic.setloclist() end, "diagnostic setloclist", },
-    -- DEPRECATED handle formatting with conform instead
-    -- ["<leader>fm"] = { function() vim.lsp.buf.format({ async = true }) end, "lsp formatting", },
     ["<leader>wa"] = { function() vim.lsp.buf.add_workspace_folder() end, "add workspace folder", },
     ["<leader>wr"] = { function() vim.lsp.buf.remove_workspace_folder() end, "remove workspace folder", },
     ["<leader>wl"] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "list workspace folders", },
@@ -221,7 +184,6 @@ M.nvimtree = {
 M.outline_nvim = {
   plugin = true,
   n = {
-    -- A lot of keys are in outline_opts fyi as defaults
     ["<leader>o"] = { "<cmd>Outline<CR>", "Toggle outline" },
   },
 }
@@ -260,7 +222,7 @@ M.telescope = {
     ["<C-f>"] = {"<cmd>Telescope current_buffer_fuzzy_find<cr>", "Search in buffer"},
     -- files
     ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "find files" },
-    ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
+    ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=false hidden=true <CR>", "find all" },
     ["<leader>fr"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
     -- LSP Related
     ["<leader>ld"] = { "<cmd> Telescope lsp_document_symbols <CR> ", "lists LSP document symbols in current buffer" },
@@ -286,13 +248,11 @@ M.telescope = {
 M.toggleterm = {
   plugin = true,
   n = {
-    -- toggle in normal mode
     ["<leader>V"] = { "<cmd>ToggleTerm direction=vertical<CR>", "toggle vertical term" },
     ["<leader>H"] = { "<cmd>ToggleTerm direction=horizontal<CR>", "toggle horizontal term" },
     ["<leader>F"] = { "<cmd> ToggleTerm direction=float<CR>", "toggle floating term" },
   },
   t = {
-    -- toggle in terminal mode
     ["<leader>V"] = { "<cmd>ToggleTerm direction=vertical<CR>", "toggle vertical term" },
     ["<leader>H"] = { "<cmd>ToggleTerm direction=horizontal<CR>", "toggle horizontal term" },
   },
