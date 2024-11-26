@@ -385,7 +385,7 @@ local default_plugins = {
       parser_config.powershell = {
         install_info = {
           url = vim.fn.stdpath("config")
-            .. (is_windows and "\\tsparsers\\tree-sitter-powershell" or "/tsparsers/treesitter-powershell"),
+            .. (vim.g.is_windows and "\\tsparsers\\tree-sitter-powershell" or "/tsparsers/treesitter-powershell"),
           files = { "src/parser.c", "src/scanner.c" },
           branch = "main",
           generate_requires_npm = false,

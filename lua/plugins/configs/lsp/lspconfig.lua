@@ -61,8 +61,7 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(server_config)
 end
 
-local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
-local omnisharp_mason = vim.fn.stdpath("data") .. (is_windows and "\\mason\\bin\\omnisharp" or "/mason/bin/omnisharp")
+local omnisharp_mason = vim.fn.stdpath("data") .. (vim.g.is_windows and "\\mason\\bin\\omnisharp" or "/mason/bin/omnisharp")
 
 local omnisharp_config = {
   cmd = { omnisharp_mason },
@@ -89,7 +88,7 @@ local omnisharp_config = {
 nvim_lsp.omnisharp.setup(omnisharp_config)
 
 local powershell_path = vim.fn.stdpath("data")
-  .. (is_windows and "\\mason\\packages\\powershell-editor-services" or "/mason/packages/powershell-editor-services")
+  .. (vim.g.is_windows and "\\mason\\packages\\powershell-editor-services" or "/mason/packages/powershell-editor-services")
 local powershell_config = {
   bundle_path = powershell_path,
   shell = "powershell.exe",

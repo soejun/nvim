@@ -1,8 +1,6 @@
 local opt = vim.opt
 local settings = require("core.settings")
 
--- OS check, to account for clipboard and binary locations
-local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 
 vim.g.mapleader = " "
 
@@ -73,8 +71,8 @@ opt.updatetime = 200 -- interval for writing swap file to disk, also used by git
 opt.whichwrap:append("<>[]hl")
 
 -- Add binaries installed by mason.nvim to PATH
-local path_separator = is_windows and ";" or ":"
-local mason_bin_path = vim.fn.stdpath("data") .. (is_windows and "\\mason\\bin" or "/mason/bin")
+local path_separator = vim.g.is_windows and ";" or ":"
+local mason_bin_path = vim.fn.stdpath("data") .. (vim.g.is_windows and "\\mason\\bin" or "/mason/bin")
 vim.env.PATH = vim.env.PATH .. path_separator .. mason_bin_path
 
 vim.api.nvim_set_var(

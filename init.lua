@@ -2,8 +2,8 @@ require("core.options") -- all non plugin related (vim) options
 require("utils.functions").load_mappings()
 
 -- check if windows
-is_windows = vim.loop.os_uname().sysname == "Windows_NT"
-if is_windows then
+vim.g.is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+if vim.g.is_windows then
   -- Set the shell to pwsh (PowerShell Core) if available, otherwise fallback to powershell
   vim.opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
 
@@ -31,7 +31,7 @@ vim.opt.rtp:prepend({ lazypath })
 
 require("plugins") --plugin management via lazy
 require("core.autocmd")
-if is_windows == false then
+if vim.g.is_windows == false then
 vim.cmd([[  set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
   \,sm:block-blinkwait175-blinkoff150-blinkon175]])
