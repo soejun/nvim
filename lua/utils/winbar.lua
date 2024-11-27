@@ -28,13 +28,11 @@ local excludes = function()
 end
 
 local function get_modified()
-  -- %t, just the current buffer
-  -- %f, includes parent 
-  -- this will give absolute path if you use ranger to open neovim
+  local filepath = vim.fn.fnamemodify(vim.fn.expand("%:p"), ":~:.")
   if utils.get_buf_option("mod") then
-    return "%#WinBarFilename#" .. icons.git.Mod .. " " .. "%f" .. "%*"
+    return "%#WinBarFilename#" .. icons.git.Mod .. " " .. filepath .. "%*"
   end
-  return "%#WinBarFilename#" .. "%f" .. "%*"
+  return "%#WinBarFilename#" .. filepath .. "%*"
 end
 
 local function get_location()
