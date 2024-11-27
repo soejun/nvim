@@ -13,7 +13,7 @@ M = {
     -- section_separators = { left = "",right = '' },
     section_separators = { left = "", right = "" },
 
-    disabled_filetypes = {},
+    disabled_filetypes = { "dashboard", "alpha", "ministarter", "snacks_dashboard" },
   },
   sections = {
     lualine_a = {

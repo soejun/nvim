@@ -13,7 +13,7 @@ local default_plugins = {
   {
     "nvim-tree/nvim-web-devicons",
     -- TODO: Fix load order to prevent window id error
-    lazy = false, 
+    lazy = false,
     config = function(_, _)
       require("nvim-web-devicons").setup({})
       vim.cmd([[hi WinBar guibg=transparent guifg=transparent]])
@@ -83,7 +83,18 @@ local default_plugins = {
   },
   {
     "nvim-lualine/lualine.nvim",
-    lazy = false,
+    event = "VeryLazy",
+    -- init = function()
+    --   vim.g.lualine_laststatus = vim.o.laststatus
+    --   if vim.fn.argc(-1) > 0 then
+    --     -- set an empty statusline till lualine loads
+    --     vim.o.statusline = " "
+    --   else
+    --     -- hide the statusline on the starter page
+    --     vim.o.laststatus = 0
+    --   end
+    -- end,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = function()
       return require("plugins.configs.lualine_opts")
     end,
@@ -117,6 +128,8 @@ local default_plugins = {
   },
   {
     "nvim-tree/nvim-tree.lua",
+    -- TODO: Fix the window thing
+    -- This only happens in linux for some reason
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     init = function()
       require("utils.functions").load_mappings("nvimtree")
@@ -126,7 +139,7 @@ local default_plugins = {
     end,
     config = function(_, opts)
       require("nvim-tree").setup(opts)
-      vim.g.nvimtree_side = opts.view.side
+      -- vim.g.nvimtree_side = opts.view.side
     end,
   },
   {
