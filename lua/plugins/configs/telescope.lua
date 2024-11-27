@@ -48,7 +48,6 @@ local telescope_file_ignore_patterns = {
   ".git/",
   ".gradle/",
   ".idea/",
-  ".settings/",
   ".vale/",
   ".vscode/",
   "__pycache__/*",
@@ -67,7 +66,7 @@ local options = {
   },
   pickers = {
     find_files = {
-      hidden = false,
+      hidden = true,
     },
     buffers = {
       ignore_current_buffer = true,
