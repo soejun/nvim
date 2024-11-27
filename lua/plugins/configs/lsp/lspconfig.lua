@@ -35,8 +35,8 @@ local basedpyright_settings = {
   analysis = {
     diagnosticMode = "workspace",
     inlayHints = {
-      genericTypes = true
-    }
+      genericTypes = true,
+    },
   },
 }
 
@@ -51,18 +51,39 @@ for _, lsp in ipairs(servers) do
       debounce_text_changes = 150,
     },
     settings = {
-      html = lsp_settings.html,
       Lua = lsp_settings.lua,
       yaml = lsp_settings.yaml,
       basedpyright = basedpyright_settings,
     },
   }
-
   nvim_lsp[lsp].setup(server_config)
 end
 
-local omnisharp_mason = vim.fn.stdpath("data") .. (vim.g.is_windows and "\\mason\\bin\\omnisharp" or "/mason/bin/omnisharp")
+local html_config = {
+  cmd = { "vscode-html-language-server", "--stdio" },
+  filetypes = {
+    "html",
+    "templ",
+    "htmldjango",
+  },
+  init_options = {
+    configurationSection = { "html", "css", "javascript" },
+    embeddedLanguages = {
+      css = true,
+      javascript = true,
+    },
+    provideFormatter = true,
+  },
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
+  flags = {
+    debounce_text_changes = 150,
+  },
+}
+nvim_lsp.html.setup(html_config)
 
+local omnisharp_mason = vim.fn.stdpath("data")
+  .. (vim.g.is_windows and "\\mason\\bin\\omnisharp" or "/mason/bin/omnisharp")
 local omnisharp_config = {
   cmd = { omnisharp_mason },
   on_attach = M.on_attach,
@@ -88,9 +109,10 @@ local omnisharp_config = {
 nvim_lsp.omnisharp.setup(omnisharp_config)
 
 local powershell_path = vim.fn.stdpath("data")
-  .. (vim.g.is_windows and "\\mason\\packages\\powershell-editor-services" or "/mason/packages/powershell-editor-services")
-local powershell_config = {
+  .. (
+    vim.g.is_windows and "\\mason\\packages\\powershell-editor-services" or "/mason/packages/powershell-editor-services"
+  )
+nvim_lsp.powershell_es.setup({
   bundle_path = powershell_path,
   shell = "powershell.exe",
-}
-nvim_lsp.powershell_es.setup(powershell_config)
+})

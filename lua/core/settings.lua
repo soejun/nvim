@@ -2,7 +2,7 @@ local M = {}
 
 -- TODO: Install some sort of sorting plugin
 
-M.global_statusline = true-- Toggle global status line
+M.global_statusline = true -- Toggle global status line
 M.grepprg = "rg --hidden --vimgrep --smart-case --" -- use rg instead of grep, unused for now
 M.showtabline = 1 -- enable or disable listchars
 M.list = false
@@ -34,6 +34,7 @@ M.treesitter_ensure_installed = {
   "gosum",
   "ini",
   "html",
+  "htmldjango",
   "http",
   "javascript",
   "jsdoc",
@@ -72,20 +73,23 @@ M.lsp_servers = {
   "bashls",
   "basedpyright",
   "clangd",
+  "cssls",
+  "css_variables",
+  "cssmodules_ls",
   "dockerls",
   "docker_compose_language_service",
   "gitlab_ci_ls",
   "jsonls",
   "gopls",
-  "html",
+  -- "html", -- TODO: Consolidate LSP Configs
   "lua_ls",
   "marksman",
   "nginx_language_server",
-  "tsserver",
+  "ts_ls",
   "yamlls",
   "vala_ls",
   "rnix",
-  "sqls"
+  "sqls",
 }
 
 M.mason_ensure_installed = {
@@ -93,12 +97,15 @@ M.mason_ensure_installed = {
   "basedpyright",
   "csharpier",
   "clangd",
+  "css-lsp",
+  "css-variables-language-server",
+  "cssmodules-language-server",
   "docker-compose-language-service",
   "dockerfile-language-server",
   "gitlab-ci-ls",
   "gopls",
   "html-lsp",
-  "htmx-lsp",
+  -- "htmx-lsp",
   "json-lsp",
   "lua-language-server",
   "marksman",
