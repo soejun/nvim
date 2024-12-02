@@ -1,12 +1,7 @@
--- keymap settings for most plugins
 -- <A-t> means alt+t, however in macOS it'd be <Option -t>
 
 local M = {}
 local utils = require("utils.functions")
-
--- format
--- [binding] = {command, description}
--- example: ["<C-b>"] = { "<ESC>^i", "beginning of line" },
 
 local diagnostics_visible = true
 function ToggleDiagnostics()
@@ -14,7 +9,6 @@ function ToggleDiagnostics()
   vim.diagnostic.config({
     virtual_text = diagnostics_visible,
     underline = diagnostics_visible,
-    -- You can add other diagnostic configurations here if needed
   })
 end
 
@@ -177,14 +171,16 @@ M.notify = {
 M.nvimtree = {
   plugin = true,
   n = {
-    ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
-    ["<leader>e"] = { "<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
-  },
+    ["\\"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
+    ["<leader>f\\"] = {"<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
+  }
 }
+
 M.outline_nvim = {
   plugin = true,
   n = {
     ["<leader>o"] = { "<cmd>Outline<CR>", "Toggle outline" },
+    ["<leader>fo"] = { "<cmd>OutlineFocusOutline<CR>", "Focus outline" },
   },
 }
 
@@ -195,8 +191,6 @@ M.render_markdown = {
   }
 }
 
--- ctrl+y, move screen up one line
--- ctrl+e, move screen down one line
 M.whichkey = {
   plugin = true,
   n = {
