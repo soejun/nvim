@@ -37,7 +37,7 @@ M.general = {
     ["jk"] = { "<ESC>", "exit insert mode" },
   },
   n = {
-    ["<leader>nh"] = { ":noh <CR>", "clear highlights" },
+    ["<ESC>"] = { ":noh <CR>", "clear highlights" },
     ["<leader>te"] = { ":lua ToggleDiagnostics()<CR>", "toggle diagnostics" },
     ["<leader>ts"] = { ":lua ToggleSpellCheck()<CR>", "toggle spellcheck" },
     ["<leader>tw"] = { ":lua TrimTrailingWhiteSpace()<CR>", "trim trailing whitespaces" },
@@ -45,10 +45,10 @@ M.general = {
     ["<C-l>"] = { "<C-w>l", "window right" },
     ["<C-j>"] = { "<C-w>j", "window down" },
     ["<C-k>"] = { "<C-w>k", "window up" },
-    ["<leader>sv"] = { "<C-w>v", "split window vertically" },
-    ["<leader>sh"] = { "<C-w>s", "split window horizontally" },
-    ["<leader>se"] = { "<C-w>=", "windows equal width and height" },
-    ["<leader>sx"] = { ":close<CR>", "close current split window" },
+    ["<leader>|"] = { "<C-w>v", "split window vertically" },
+    ["<leader>-"] = { "<C-w>s", "split window horizontally" },
+    ["<leader>we"] = { "<C-w>=", "windows equal width and height" },
+    ["<leader>wd"] = { ":close<CR>", "close current split window" },
     ["<C-s>"] = { "<cmd> w <CR>", "save file" },
     ["<C-c>"] = { "<cmd> %y+ <CR>", "copy whole file" },
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
@@ -59,7 +59,7 @@ M.general = {
     ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "move up", opts = { expr = true } },
     ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "move up", opts = { expr = true } },
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', "move down", opts = { expr = true } },
-    ["<leader>b"] = { "<cmd> enew <CR>", "new buffer" },
+    -- ["<leader>b"] = { "<cmd> enew <CR>", "new buffer" },
   },
   v = {
     ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', "move up", opts = { expr = true } },
@@ -171,8 +171,8 @@ M.notify = {
 M.nvimtree = {
   plugin = true,
   n = {
-    ["\\"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
-    ["<leader>f\\"] = {"<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
+    ["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
+    ["<leader>E"] = {"<cmd> NvimTreeFocus <CR>", "focus nvimtree" },
   }
 }
 
