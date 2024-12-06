@@ -19,15 +19,4 @@
 
 </div>
 
-![](./docs/nvim2.png)
-
-💻 This configuration is configured on macOS and requires Neovim >= 0.8!
-Configuration takes ideas from NvChad, Allaman/Nvim, and cratzdog/dotfiles-public (Takyua-Dev)
-
-_Terminal_: iterm2
-
-_Font_: Liga Mono
-
-
-Note: Set iTerm2 margin bottom to 1 to allow LuaLine to be flush with the bottom of the monitor
-
+I'm using LazyVim for the foreseeable future, this was fun to learn though. Til next time!
