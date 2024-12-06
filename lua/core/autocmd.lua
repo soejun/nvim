@@ -1,9 +1,9 @@
--- vim.api.nvim_create_autocmd("BufEnter", {
---   callback = function()
---     vim.opt.formatoptions:remove({ "c", "r", "o" })
---   end,
---   desc = "Disable New Line Comment",
--- })
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    vim.opt.formatoptions:remove({ "c", "r", "o" })
+  end,
+  desc = "Disable New Line Comment",
+})
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -53,8 +53,8 @@ vim.api.nvim_create_autocmd("FileType", {
     "checkhealth",
     "dap-float",
     "fugitive",
-    -- "help",
-    -- "man",
+    "help",
+    "man",
     "notify",
     "null-ls-info",
     "qf",
