@@ -40,3 +40,9 @@ return {
     return opts
   end,
 }
+
+-- This plugin won't properly work with vstls and volar, for vue
+-- There's a fix somewhere, probably need to make it merge lsp symbols somehow
+--
+-- I looked at the code, hell no to that fix that's a lot of effort
+-- I'll live with the snacks picker that already gets me my smybols SHEESH

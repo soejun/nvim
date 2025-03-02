@@ -10,15 +10,24 @@ return {
         bashls = {
           filetypes = { "sh", "zsh" },
         },
-        css_variables = {},
-        cssls= {},
-        cssmodules_ls = {},
+        -- Disabling this, for some reason these collid when using on hover for vue
+        -- css_variables = {},
+        -- cssls= {},
+        -- cssmodules_ls = {},
         html = {
           filetypes = { "html", "templ", "htmldjango" },
         },
         jedi_language_server = {},
         gitlab_ci_ls = {},
         nginx_language_server = {},
+        volar = {
+          init_options = {
+            vue = {
+              -- Oh, yeah they definitely conflict if this is set to false
+              hybridMode = true,
+            },
+          },
+        },
       },
     },
   },
