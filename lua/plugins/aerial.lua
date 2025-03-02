@@ -46,3 +46,4 @@ return {
 --
 -- I looked at the code, hell no to that fix that's a lot of effort
 -- I'll live with the snacks picker that already gets me my smybols SHEESH
+-- Update: Ok NOW it works with the base config setup (minus the disabling hover for noice) thing if we just open up more references/files
