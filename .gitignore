@@ -1,6 +1,8 @@
-.vscode/
-lazy-lock.json
-.key.md
-.DS_Store
-lua/.luarc.json
-com.googlecode.iterm2.plist
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
