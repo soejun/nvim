@@ -87,3 +87,15 @@ vim.api.nvim_create_autocmd("FileType", {
 --     end
 --   end,
 -- })
+--
+--
+-- jinja stuff wip
+-- taken from markdown, similar concept we look for {% ... %} syntax
+--   condition = function(_, ctx)
+--     for _, line in ipairs(vim.api.nvim_buf_get_lines(ctx.buf, 0, -1, false)) do
+--       if line:find("<!%-%- toc %-%->") then -- change, obviously
+--         return true
+--       end
+--     end
+--   end,
+-- },
