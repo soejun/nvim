@@ -1,22 +1,35 @@
 return {
   "maskudo/devdocs.nvim",
-  -- lazy = false,
+  lazy = false,
   dependencies = {
     "folke/snacks.nvim",
   },
   opts = {
+    -- TODO: Organize
     ensure_installed = {
+      "bash",
       "go",
       "html",
-      -- "dom",
+      "dom",
       "http",
-      -- "css",
+      "css",
       "javascript",
       -- "rust",
       -- some docs such as lua require version number along with the language name
       -- check `DevDocs install` to view the actual names of the docs
       "lua~5.1",
       -- "openjdk~21"
+      "nginx",
+      "postgresql~16",
+      "jquery",
+      "python~3.10",
+      "flask~2.0",
+      "jinja~3.0",
+      "bootstrap~3",
+      "jq",
+      "docker",
+      "duckdb",
+      "vue~3"
     },
   },
   -- stylua: ignore
