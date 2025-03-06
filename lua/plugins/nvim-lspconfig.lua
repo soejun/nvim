@@ -18,6 +18,14 @@ return {
           filetypes = { "html", "templ", "htmldjango" },
         },
         jedi_language_server = {},
+        -- example path
+        -- /home/wchan/Workspace/Internal-Tools/recruiting/recruiting-portal/portal/portal/templates/default/challenge.html
+        -- jinja_lsp = {
+        --   default_config = {
+        --     name = "jinj-lsp",
+        --
+        --   }
+        -- },
         gitlab_ci_ls = {},
         nginx_language_server = {},
         tsserver = {
