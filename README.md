@@ -76,13 +76,22 @@ that can make changes to the default values, or return new values to be used ins
 - Yanking an entire file: `:%y+`
   - `+` is a register that is tied to the system clipboard.
 
-## Python
+### VIM API Commands
+
+**Getting current buffer path:**
+```lua
+-- 0 stands for current buffer
+-- https://neovim.io/doc/user/api.html#nvim_buf_get_name()
+vim.api.nvim_buf_get_name(0)
+```
+
+### Python
 
 Reference for [PyLsp LazyVim Configuration](https://www.reddit.com/r/neovim/comments/14316t9/help_me_to_get_the_best_python_neovim_environment/)
 
 - Blob for PyLSP and Ruff heavily customized in the context of LazyVim.
 
-### Pyright and BasedPyright Stubs
+#### Pyright and BasedPyright Stubs
 
 [Using Microsoft python-type-stubs with Pyright](https://jaewonchung.me/technical/Using-Microsoft-python-type-stubs-with-Pyright/)
 
