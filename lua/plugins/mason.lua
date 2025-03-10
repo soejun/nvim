@@ -5,7 +5,6 @@ return {
       "stylua",
       "shfmt",
       "prettierd",
-      "sql-formatter"
     },
   },
 }
