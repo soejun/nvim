@@ -17,7 +17,18 @@ return {
         html = {
           filetypes = { "html", "templ", "htmldjango" },
         },
-        jedi_language_server = {},
+        -- See: https://www.reddit.com/r/neovim/comments/1603eif/comment/jxl4cvn/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+        jedi_language_server = {
+          root_dir = function(fname)
+            return lspconfig.util.root_pattern(".git", "package.json", "Makefile", "CMakeLists.txt")(fname)
+              or vim.fn.getcwd()
+          end,
+          init_options = {
+            workspace = {
+              extraPaths = {},
+            },
+          },
+        },
         -- example path
         -- /home/wchan/Workspace/Internal-Tools/recruiting/recruiting-portal/portal/portal/templates/default/challenge.html
         -- jinja_lsp = {
@@ -80,8 +91,8 @@ return {
               variableTypes = { enabled = false },
             },
             tsserver = {
-              maxTsServerMemory = 8192
-            }
+              maxTsServerMemory = 8192,
+            },
           },
         },
       },
