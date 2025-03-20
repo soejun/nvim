@@ -17,18 +17,19 @@ return {
   -- URL for default bindings: https://www.lazyvim.org/extras/editor/snacks_picker
   -- stylua: ignore
   keys = {
+    -- TODO: Until we can make consistent disable our previous binding switch
     -- LazyVim docs imo switch the meaning of root dir and CWD, at least in a working sense,
     -- this is why we swap the =biindings here and set root = false
-    { "<leader>/", LazyVim.pick("grep", { root = false }), desc = "Grep (cwd)" },
-    { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
+    -- { "<leader>/", LazyVim.pick("grep", { root = false }), desc = "Grep (cwd)" },
+    -- { "<leader><space>", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
     -- find
-    { "<leader>fF", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
-    { "<leader>ff", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
+    -- { "<leader>fF", LazyVim.pick("files"), desc = "Find Files (Root Dir)" },
+    -- { "<leader>ff", LazyVim.pick("files", { root = false }), desc = "Find Files (cwd)" },
     -- grep
-    { "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (Root Dir)" },
-    { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
-    { "<leader>sW", LazyVim.pick("grep_word"), desc = "Visual selection or word (Root Dir)", mode = { "n", "x" } },
-    { "<leader>sw", LazyVim.pick("grep_word", { root = false }), desc = "Visual selection or word (cwd)", mode = { "n", "x" } },
+    -- { "<leader>sG", LazyVim.pick("live_grep"), desc = "Grep (Root Dir)" },
+    -- { "<leader>sg", LazyVim.pick("live_grep", { root = false }), desc = "Grep (cwd)" },
+    -- { "<leader>sW", LazyVim.pick("grep_word"), desc = "Visual selection or word (Root Dir)", mode = { "n", "x" } },
+    -- { "<leader>sw", LazyVim.pick("grep_word", { root = false }), desc = "Visual selection or word (cwd)", mode = { "n", "x" } },
     -- search
   }
 }
