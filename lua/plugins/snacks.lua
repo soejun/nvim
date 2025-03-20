@@ -5,7 +5,7 @@ return {
     },
     terminal = {
       win = {
-        height = 0.25,
+        height = 0.27,
       },
       scroll = {
         animate = {
@@ -17,6 +17,11 @@ return {
   -- URL for default bindings: https://www.lazyvim.org/extras/editor/snacks_picker
   -- stylua: ignore
   keys = {
+    -- Note: Disable for No-Neck-Pain, use <leader>snt instead
+    -- Disable keymap to pick snacks notifcations
+    {"<leader>n", false}
+      -- { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
+
     -- TODO: Until we can make consistent disable our previous binding switch
     -- LazyVim docs imo switch the meaning of root dir and CWD, at least in a working sense,
     -- this is why we swap the =biindings here and set root = false
