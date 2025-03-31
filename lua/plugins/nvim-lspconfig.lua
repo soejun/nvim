@@ -45,6 +45,7 @@ return {
         ts_ls = {
           enabled = false,
         },
+        vimls = {},
         volar = {
           init_options = {
             vue = {
