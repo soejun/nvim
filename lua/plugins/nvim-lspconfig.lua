@@ -29,8 +29,6 @@ return {
             },
           },
         },
-        -- example path
-        -- /home/wchan/Workspace/Internal-Tools/recruiting/recruiting-portal/portal/portal/templates/default/challenge.html
         -- jinja_lsp = {
         --   default_config = {
         --     name = "jinj-lsp",
