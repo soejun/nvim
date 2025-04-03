@@ -36,6 +36,7 @@ return {
         --   }
         -- },
         gitlab_ci_ls = {},
+        fsautocomplete = {},
         nginx_language_server = {},
         tsserver = {
           enabled = false,
