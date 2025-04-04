@@ -30,15 +30,10 @@ return {
       SnacksPickerUnselected = { link = "GruvboxGray" },
       SnacksPickerTotals = { link = "GruvboxGray" },
       SnacksPickerPathIgnored = { link = "GruvboxGray" },
-      SnacksWinKeySep = { link = "GruvBoxGray" },
-      -- It is for some reason easier to mess with highlight groups instead of configuring nvim-lspconfig
-      BlinkCmpMenu = { link = "Normal" },
-      BlinkCmpMenuBorder = { link = "Normal" },
-      FloatBorder = { link = "NoiceCmdlinePopupBorder" },
-      NonText = { link = "GruvBoxGray" }, -- This works better for visibility w/ snacks, at least until GruvBox gets updated
-      WhichKeyBorder = { link = "Normal"},
-      -- So only cmp and lsp related can be set to NoiceCmdLine
-      -- SnacksPickerBorder = { link = "Normal"}
+      SnacksWinKeySep = { link = "GruvboxGray" },
+      NonText = { link = "GruvboxGray" }, -- This works better for visibility w/ snacks, at least until GruvBox gets updated
+      BlinkCmpMenu = { bg = "#3C3836" },
+      FloatBorder = { link = "GruvboxFg4" },
     },
     dim_inactive = false,
     transparent_mode = true, -- enable true for snacks.nvim terminal compatibility
