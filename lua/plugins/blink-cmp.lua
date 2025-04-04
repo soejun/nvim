@@ -9,10 +9,7 @@ return {
         },
       },
       menu = {
-        border = "rounded",
-        winhighlight = "Normal:Normal,FloatBorder:NoiceCmdlinePopupBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
         draw = {
-          gap = 4,
           treesitter = { "lsp" },
         },
       },
@@ -21,7 +18,7 @@ return {
         auto_show_delay_ms = 200,
         window = {
           border = "rounded",
-          winhighlight = "Normal:Normal,FloatBorder:NoiceCmdlinePopupBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
+          winhighlight = "Normal:Normal,FloatBorder:GruvboxBg4,CursorLine:BlinkCmpDocCursorLine,Search:None",
         },
       },
       ghost_text = {
