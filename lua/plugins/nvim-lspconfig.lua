@@ -18,23 +18,21 @@ return {
           filetypes = { "html", "templ", "htmldjango" },
         },
         -- See: https://www.reddit.com/r/neovim/comments/1603eif/comment/jxl4cvn/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+        -- pin jedi to 0.44.0, 0.45.0 has a bug
         jedi_language_server = {
           root_dir = function(fname)
             return lspconfig.util.root_pattern(".git", "package.json", "Makefile", "CMakeLists.txt")(fname)
               or vim.fn.getcwd()
           end,
-          init_options = {
-            workspace = {
-              extraPaths = {},
-            },
-          },
         },
-        -- jinja_lsp = {
-        --   default_config = {
-        --     name = "jinj-lsp",
-        --
-        --   }
-        -- },
+        jinja_lsp = {
+          init_options = {
+            templates = "./templates",
+            backend = { "./src" },
+            lang = "python",
+          },
+          filetypes = { "jinja", "html" },
+        },
         gitlab_ci_ls = {},
         fsautocomplete = {},
         nginx_language_server = {},
@@ -76,6 +74,10 @@ return {
                 enableServerSideFuzzyMatch = true,
               },
             },
+          },
+          javascript = {
+            preferences = { quoteStyle = { default = "single" } },
+            -- inlayhints = { functionLikeReturnTypes = { enabled = true }, variableTypes = { enabled = true } },
           },
           typescript = {
             updateImportsOnFileMove = { enabled = "always" },
