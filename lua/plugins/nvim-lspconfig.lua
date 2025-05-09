@@ -11,9 +11,9 @@ return {
           filetypes = { "sh", "zsh" },
         },
         -- Disabling this, for some reason these collid when using on hover for vue
-        -- css_variables = {},
-        -- cssls= {},
-        -- cssmodules_ls = {},
+        css_variables = {},
+        cssls= {},
+        cssmodules_ls = {},
         html = {
           filetypes = { "html", "templ", "htmldjango" },
         },
@@ -53,7 +53,7 @@ return {
         },
       },
       vtsls = {
-        enabled = false,
+        enabled = true,
         -- explicitly add default filetypes, so that we can extend
         -- them in related extras
         filetypes = {
