@@ -20,10 +20,10 @@ return {
         -- See: https://www.reddit.com/r/neovim/comments/1603eif/comment/jxl4cvn/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
         -- pin jedi to 0.44.0, 0.45.0 has a bug
         jedi_language_server = {
-          root_dir = function(fname)
-            return lspconfig.util.root_pattern(".git", "package.json", "Makefile", "CMakeLists.txt")(fname)
-              or vim.fn.getcwd()
-          end,
+          -- root_dir = function(fname)
+          --   return lspconfig.util.root_pattern(".git", "package.json", "Makefile", "CMakeLists.txt")(fname)
+          --     or vim.fn.getcwd()
+          -- end,
         },
         jinja_lsp = {
           init_options = {

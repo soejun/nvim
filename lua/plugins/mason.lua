@@ -7,7 +7,9 @@ return {
     ensure_installed = {
       "stylua",
       "shfmt",
-      "prettierd",
+      "prettier",
+      -- "isort",
+      -- "yapf"
     },
   },
 }
