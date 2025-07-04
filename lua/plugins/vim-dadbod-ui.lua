@@ -14,7 +14,7 @@ return {
     vim.g.db_ui_tmp_query_location = data_path .. "/dadbod_ui/tmp"
     vim.g.db_ui_use_nerd_fonts = true
     vim.g.db_ui_use_nvim_notify = true
-    vim.g.db_ui_win_position = "right"
+    vim.g.db_ui_win_position = "left"
 
 
     -- NOTE: The default behavior of auto-execution of queries on save is disabled
