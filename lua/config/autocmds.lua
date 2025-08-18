@@ -2,12 +2,12 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
-local augroup = vim.api.nvim_create_augroup
+-- local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd({ "BufRead", "BufNewFile" }, {
   desc = "Ensure gitlab_ci_ls is properly activated for gitlab ci files",
-  pattern = { "*.gitlab-ci*.{yml,yaml}", "kaniko-build.yml" },
+  pattern = { "*.gitlab-ci*.{yml,yaml}", "kaniko-build.yml", "step.{yml,yaml}", "templates/*.yml" },
   callback = function()
     vim.bo.filetype = "yaml.gitlab"
   end,
