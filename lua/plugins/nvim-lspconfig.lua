@@ -1,5 +1,3 @@
-local lspconfig = require("lspconfig")
-
 return {
   {
     "neovim/nvim-lspconfig",
@@ -7,12 +5,13 @@ return {
       format_notify = true,
       inlay_hints = { enabled = false },
       servers = {
+        awk_ls={},
         bashls = {
           filetypes = { "sh", "zsh" },
         },
         -- Disabling this, for some reason these collid when using on hover for vue
         css_variables = {},
-        cssls= {},
+        cssls = {},
         cssmodules_ls = {},
         html = {
           filetypes = { "html", "templ", "htmldjango" },
@@ -36,21 +35,20 @@ return {
         gitlab_ci_ls = {},
         fsautocomplete = {},
         nginx_language_server = {},
-        tsserver = {
-          enabled = false,
-        },
-        ts_ls = {
-          enabled = false,
-        },
         vimls = {},
         volar = {
           init_options = {
             vue = {
-              -- Oh, yeah they definitely conflict if this is set to false
               hybridMode = true,
             },
           },
         },
+      },
+      tsserver = {
+        enabled = false,
+      },
+      ts_ls = {
+        enabled = false,
       },
       vtsls = {
         enabled = true,
@@ -93,9 +91,9 @@ return {
               propertyDeclarationTypes = { enabled = true },
               variableTypes = { enabled = false },
             },
-            tsserver = {
-              maxTsServerMemory = 8192,
-            },
+            -- tsserver = {
+            --   maxTsServerMemory = 8192,
+            -- },
           },
         },
       },

@@ -1,17 +1,21 @@
 return {
   "folke/snacks.nvim",
   opts = {
-    explorer = {
-    },
+    explorer = {},
     terminal = {
       win = {
         height = 0.27,
       },
       scroll = {
         animate = {
-          duration = { step = 15, total = 150},
+          duration = { step = 15, total = 150 },
         },
       },
+    },
+  },
+  picker = {
+    sources = {
+      explorer = {},
     },
   },
   -- URL for default bindings: https://www.lazyvim.org/extras/editor/snacks_picker
@@ -38,4 +42,5 @@ return {
     -- { "<leader>sw", LazyVim.pick("grep_word", { root = false }), desc = "Visual selection or word (cwd)", mode = { "n", "x" } },
     -- search
   }
+,
 }

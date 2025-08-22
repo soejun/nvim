@@ -5,6 +5,7 @@ return {
   -- and  manually change the  target
   opts = {
     ensure_installed = {
+      "awk-language-server",
       "stylua",
       "shfmt",
       "prettier",

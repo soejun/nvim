@@ -3,7 +3,9 @@ return {
   opts = {
     ensure_installed = {
       "fsharp",
-      "http"
+      "http",
+      "vue",
+      "css"
     }
   }
 }
