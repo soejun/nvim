@@ -23,7 +23,7 @@ return {
         resize_to_content = true,
         min_width = 15,
         win_opts = {
-          winhl = "Normal:NormalFloat,FloatBorder:NormalFloat,SignColumn:SignColumnSB",
+          -- winhl = "Normal:NormalFloat,FloatBorder:NormalFloat,SignColumn:SignColumnSB",
           signcolumn = "yes",
           statuscolumn = " ",
         },
