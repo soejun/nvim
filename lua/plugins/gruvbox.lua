@@ -32,7 +32,7 @@ return {
       SnacksPickerPathIgnored = { link = "GruvboxGray" },
       SnacksWinKeySep = { link = "GruvboxGray" },
       NonText = { link = "GruvboxGray" }, -- This works better for visibility w/ snacks, at least until GruvBox gets updated
-      BlinkCmpMenu = { bg = "#3C3836" },
+      -- BlinkCmpMenu = { bg = "#1D2021" },
       FloatBorder = { link = "GruvboxFg4" },
     },
     dim_inactive = false,
