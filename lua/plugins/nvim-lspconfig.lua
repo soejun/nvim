@@ -5,7 +5,7 @@ return {
       format_notify = true,
       inlay_hints = { enabled = false },
       servers = {
-        awk_ls={},
+        awk_ls = {},
         bashls = {
           filetypes = { "sh", "zsh" },
         },
@@ -43,57 +43,62 @@ return {
             },
           },
         },
-      },
-      tsserver = {
-        enabled = false,
-      },
-      ts_ls = {
-        enabled = false,
-      },
-      vtsls = {
-        enabled = true,
-        -- explicitly add default filetypes, so that we can extend
-        -- them in related extras
-        filetypes = {
-          "javascript",
-          "javascriptreact",
-          "javascript.jsx",
-          "typescript",
-          "typescriptreact",
-          "typescript.tsx",
+        tsserver = {
+          enabled = false,
         },
-        settings = {
-          complete_function_calls = true,
-          vtsls = {
-            enableMoveToFileCodeAction = true,
-            autoUseWorkspaceTsdk = true,
-            experimental = {
-              maxInlayHintLength = 30,
-              completion = {
-                enableServerSideFuzzyMatch = true,
+        ts_ls = {
+          enabled = false,
+        },
+        vtsls = {
+          enabled = true,
+          -- explicitly add default filetypes, so that we can extend
+          -- them in related extras
+          filetypes = {
+            "javascript",
+            "javascriptreact",
+            "javascript.jsx",
+            "typescript",
+            "typescriptreact",
+            "typescript.tsx",
+          },
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                maxInlayHintLength = 30,
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            javascript = {
+              preferences = { quoteStyle = { default = "single" } },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = "always" },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = "literals" },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
               },
             },
           },
-          javascript = {
-            preferences = { quoteStyle = { default = "single" } },
-            -- inlayhints = { functionLikeReturnTypes = { enabled = true }, variableTypes = { enabled = true } },
-          },
-          typescript = {
-            updateImportsOnFileMove = { enabled = "always" },
-            suggest = {
-              completeFunctionCalls = true,
+        },
+        yamlls = {
+          settings = {
+            yaml = {
+              editor = {
+                tabSize = 2,
+              },
             },
-            inlayHints = {
-              enumMemberValues = { enabled = true },
-              functionLikeReturnTypes = { enabled = true },
-              parameterNames = { enabled = "literals" },
-              parameterTypes = { enabled = true },
-              propertyDeclarationTypes = { enabled = true },
-              variableTypes = { enabled = false },
-            },
-            -- tsserver = {
-            --   maxTsServerMemory = 8192,
-            -- },
           },
         },
       },
