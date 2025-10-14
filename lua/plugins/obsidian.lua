@@ -1,6 +1,7 @@
 return {
   -- community fork
   "obsidian-nvim/obsidian.nvim",
+  -- enabled = false,
   version = "*", -- recommended, use latest release instead of latest commit
   lazy = true,
   ft = "markdown",

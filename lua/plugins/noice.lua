@@ -10,9 +10,9 @@ return {
       hover = {
         -- https://github.com/LazyVim/LazyVim/discussions/830?sort=old
         -- Set not show a message if hover is not available
-          -- ex: shift+k on Typescript code
-        silent = true
-      }
+        -- ex: shift+k on Typescript code
+        silent = true,
+      },
     },
     routes = {
       {
@@ -28,10 +28,11 @@ return {
       },
     },
     presets = {
+      inc_rename = true,
       bottom_search = true,
       command_palette = true,
       long_message_to_split = true,
-      lsp_doc_border = true
+      lsp_doc_border = true,
     },
   },
 }
