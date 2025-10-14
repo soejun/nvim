@@ -9,8 +9,8 @@ return {
       "stylua",
       "shfmt",
       "prettier",
-      -- "isort",
-      -- "yapf"
+      "isort",
+      "yapf"
     },
   },
 }

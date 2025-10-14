@@ -33,9 +33,17 @@ return {
           filetypes = { "jinja", "html" },
         },
         gitlab_ci_ls = {},
+        graphql = {},
         fsautocomplete = {},
         nginx_language_server = {},
-        vimls = {},
+        ruff = {
+          on_attach = function(client, bufnr)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+
+          end,
+        },
+                vimls = {},
         yamlls = {
           settings = {
             yaml = {
