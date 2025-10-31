@@ -35,15 +35,46 @@ return {
         gitlab_ci_ls = {},
         graphql = {},
         fsautocomplete = {},
+        metals = {
+          keys = {
+            {
+              "<leader>me",
+              function()
+                require("telescope").extensions.metals.commands()
+              end,
+              desc = "Metals commands",
+            },
+            {
+              "<leader>mc",
+              function()
+                require("metals").compile_cascade()
+              end,
+              desc = "Metals compile cascade",
+            },
+            {
+              "<leader>mh",
+              function()
+                require("metals").hover_worksheet()
+              end,
+              desc = "Metals hover worksheet",
+            },
+          },
+          init_options = {
+            statusBarProvider = "off",
+          },
+          settings = {
+            showImplicitArguments = true,
+            excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+          },
+        },
         nginx_language_server = {},
         ruff = {
           on_attach = function(client, bufnr)
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentRangeFormattingProvider = false
-
           end,
         },
-                vimls = {},
+        vimls = {},
         yamlls = {
           settings = {
             yaml = {
