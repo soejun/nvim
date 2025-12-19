@@ -1,5 +1,6 @@
 return {
   "CopilotC-Nvim/CopilotChat.nvim",
+  enabled =false,
   opts = function()
     local user = "soejun"
     user = user:sub(1, 1):lower() .. user:sub(2)

@@ -15,6 +15,7 @@ return {
     vim.g.db_ui_use_nerd_fonts = true
     vim.g.db_ui_use_nvim_notify = true
     vim.g.db_ui_win_position = "left"
+    vim.g.db_ui_winwidth = 50
 
 
     -- NOTE: The default behavior of auto-execution of queries on save is disabled
