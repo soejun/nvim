@@ -21,3 +21,12 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = false
   end,
 })
+
+autocmd({ "BufRead", "BufNewFile" }, {
+  desc = "Set file type to xml for .NET related files",
+  pattern = { "*.{wxs,wxl,wxi,wixproj,sln,csproj}"},
+  callback = function()
+    vim.bo.filetype = "xml"
+  end,
+})
+
