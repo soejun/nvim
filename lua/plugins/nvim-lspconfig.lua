@@ -19,6 +19,7 @@ return {
         -- See: https://www.reddit.com/r/neovim/comments/1603eif/comment/jxl4cvn/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
         -- pin jedi to 0.44.0, 0.45.0 has a bug
         jedi_language_server = {
+          enabled = false,
           -- root_dir = function(fname)
           --   return lspconfig.util.root_pattern(".git", "package.json", "Makefile", "CMakeLists.txt")(fname)
           --     or vim.fn.getcwd()
@@ -69,9 +70,10 @@ return {
         },
         nginx_language_server = {},
         ruff = {
+          enabled = false,
           on_attach = function(client, bufnr)
             client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = true
+            client.server_capabilities.documentRangeFormattingProvider = false
           end,
         },
         vimls = {},
