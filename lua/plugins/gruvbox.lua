@@ -16,11 +16,14 @@ return {
     invert_selection = false,
     invert_signs = false,
     invert_tabline = false,
-    invert_intend_guides = false,
+    invert_indent_guides = false,
     inverse = true, -- invert background for search, diffs, statuslines and errors
     contrast = "hard", -- can be "hard", "soft" or empty string
     palette_overrides = {},
     overrides = {
+      -- python docstrings share color with function names by default; remap to comment style
+      ["@string.documentation"] = { link = "Comment" },
+      ["@comment.documentation"] = { link = "Comment" },
       -- snacks compatibility
       SnacksPickerDir = { link = "GruvboxGray" },
       SnacksDashboardDir = { link = "GruvboxGray" },
