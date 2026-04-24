@@ -24,7 +24,7 @@ return {
             "--stdin-filepath",
             "$FILENAME",
             "--semi=false",
-            "--tab-width=2",
+            "--tab-width=4",
             "--print-width=100",
             "--trailing-comma=none",
           }
@@ -76,7 +76,8 @@ return {
       },
     },
     formatters_by_ft = {
-      python = { "isort", "yapf" },
+      -- python = { "ruff" },
+      -- python = { ruff, "isort", "yapf" },
       sql = { "sqlfluff" },
       yaml = { "prettier" },
     },

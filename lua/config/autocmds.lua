@@ -22,6 +22,17 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- When working with existing html files of tabSpace 4
+autocmd("FileType", {
+  desc = "Use 4-space indentation for HTML files",
+  pattern = { "html", "templ", "htmldjango" },
+  callback = function()
+    vim.bo.shiftwidth = 4
+    vim.bo.tabstop = 4
+    vim.bo.softtabstop = 4
+  end,
+})
+
 autocmd({ "BufRead", "BufNewFile" }, {
   desc = "Set file type to xml for .NET related files",
   pattern = { "*.{wxs,wxl,wxi,wixproj,sln,csproj}"},
@@ -29,4 +40,3 @@ autocmd({ "BufRead", "BufNewFile" }, {
     vim.bo.filetype = "xml"
   end,
 })
-
