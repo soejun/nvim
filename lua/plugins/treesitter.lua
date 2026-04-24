@@ -2,9 +2,9 @@ return {
   "nvim-treesitter/nvim-treesitter",
   opts = {
     ensure_installed = {
-      "fsharp",
+      -- "fsharp",
       "http",
-      "vue",
+      -- "vue",
       "css"
     }
   }

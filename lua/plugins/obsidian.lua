@@ -23,6 +23,7 @@ return {
   ---@type obsidian.config.ClientOpts
   opts = {
     ui = { enable = false },
+    legacy_commands = false,
     workspaces = {
       {
         name = "Kaleidoscope",
