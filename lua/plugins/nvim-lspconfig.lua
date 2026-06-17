@@ -18,6 +18,21 @@ return {
       },
       basedpyright = {
         enabled = true,
+        settings = {
+          basedpyright = {
+            analysis = {
+              diagnosticSeverityOverrides = {
+                -- ruff handles these (F401, F811, F841, ...)
+                reportUnusedImport = "none",
+                reportUnusedVariable = "none",
+                reportUnusedClass = "none",
+                reportUnusedFunction = "none",
+                reportDuplicateImport = "none",
+                reportRedeclaration = "none",
+              },
+            },
+          },
+        },
       },
       -- See: https://www.reddit.com/r/neovim/comments/1603eif/comment/jxl4cvn/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
       -- pin jedi to 0.44.0, 0.45.0 has a bug
