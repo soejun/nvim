@@ -2,7 +2,7 @@ return {
   "neovim/nvim-lspconfig",
   opts = {
     format_notify = true,
-    inlay_hints = { enabled = false },
+    inlay_hints = { enabled = true },
     servers = {
       -- awk_ls = {},
       bashls = {
