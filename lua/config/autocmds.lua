@@ -17,7 +17,7 @@ autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
   callback = function()
-    vim.opt_local.wrap = false
+    -- vim.opt_local.wrap = false
     vim.opt_local.spell = false
   end,
 })
@@ -74,3 +74,26 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  once = true,
+  callback = function()
+    -- vtsls / vue_ls return the whole graphql(`…`) template literal as a single
+    -- documentHighlight occurrence, so Snacks.words paints the entire query block.
+    -- Identifier occurrences are always single-line; drop multi-line ranges, but
+    -- only for these clients so other servers (e.g. html tag matching) are untouched.
+    local targets = { vtsls = true, vue_ls = true }
+    local method = "textDocument/documentHighlight"
+    local orig = vim.lsp.handlers[method]
+    vim.lsp.handlers[method] = function(err, result, ctx, config)
+      local client = ctx and vim.lsp.get_client_by_id(ctx.client_id)
+      if client and targets[client.name] and type(result) == "table" then
+        result = vim.tbl_filter(function(hl)
+          return hl.range and hl.range.start.line == hl.range["end"].line
+        end, result)
+      end
+      return orig(err, result, ctx, config)
+    end
+  end,
+})
+
