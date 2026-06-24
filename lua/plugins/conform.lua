@@ -24,7 +24,7 @@ return {
             "--stdin-filepath",
             "$FILENAME",
             "--semi=false",
-            "--tab-width=4",
+            "--tab-width=2",
             "--print-width=100",
             "--trailing-comma=none",
           }
