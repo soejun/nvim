@@ -10,7 +10,8 @@ return {
       "shfmt",
       "prettier",
       "isort",
-      "yapf"
+      "yapf",
+      "debugpy", -- python DAP adapter for nvim-dap-python
     },
   },
 }
