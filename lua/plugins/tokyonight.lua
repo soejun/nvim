@@ -4,7 +4,7 @@ return {
   lazy = false,
   opts = {
     transparent = false,
-    style = "moon",
+    style = "night",
     terminal_colors = true,
     styles = {
       -- sidebars = "transparent",
