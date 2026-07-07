@@ -5,62 +5,64 @@ return {
   version = "*", -- recommended, use latest release instead of latest commit
   lazy = true,
   ft = "markdown",
-  -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-  -- event = {
-  --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-  --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
-  --   -- refer to `:h file-pattern` for more examples
-  --   "BufReadPre path/to/my-vault/*.md",
-  --   "BufNewFile path/to/my-vault/*.md",
-  -- },
+  cmd = "Obsidian",
   dependencies = {
     -- Required.
     "nvim-lua/plenary.nvim",
-
-    -- see above for full list of optional dependencies ☝️
+  },
+  -- Vault-wide actions under <leader>o. The prefix is unused by this config
+  -- and by LazyVim core; of the LazyVim extras only overseer (not enabled)
+  -- claims it. Note-scoped maps live in callbacks.enter_note below.
+  keys = {
+    { "<leader>o", "", desc = "+obsidian", mode = { "n", "v" } },
+    { "<leader>oo", "<cmd>Obsidian quick_switch<cr>", desc = "Find Note" },
+    { "<leader>os", "<cmd>Obsidian search<cr>", desc = "Search Vault" },
+    { "<leader>on", "<cmd>Obsidian new<cr>", desc = "New Note" },
+    { "<leader>oN", "<cmd>Obsidian new_from_template<cr>", desc = "New Note from Template" },
+    { "<leader>ot", "<cmd>Obsidian today<cr>", desc = "Today's Daily Note" },
+    { "<leader>oy", "<cmd>Obsidian yesterday<cr>", desc = "Yesterday's Daily Note" },
+    { "<leader>oT", "<cmd>Obsidian tomorrow<cr>", desc = "Tomorrow's Daily Note" },
+    { "<leader>od", "<cmd>Obsidian dailies<cr>", desc = "Daily Notes" },
+    { "<leader>og", "<cmd>Obsidian tags<cr>", desc = "Tags" },
+    { "<leader>oO", "<cmd>Obsidian open<cr>", desc = "Open in Obsidian App" },
   },
   ---@module 'obsidian'
-  ---@type obsidian.config.ClientOpts
+  ---@type obsidian.config
   opts = {
     ui = { enable = false },
     legacy_commands = false,
     workspaces = {
       {
-        name = "Kaleidoscope",
-        path = "~/Documents/Kaleidoscope",
+        name = "Pengyou",
+        path = "~/Documents/Pengyou",
       },
     },
+    -- Completion is served by the plugin's built-in obsidian-ls LSP server
+    -- (the old nvim_cmp/blink flags are deprecated no-ops); blink.cmp picks
+    -- it up through its LSP source.
     completion = {
-      -- Enables completion using nvim_cmp
-      nvim_cmp = false,
-      -- Enables completion using blink.cmp
-      blink = true,
       -- Trigger completion at 2 chars.
       min_chars = 2,
     },
-    -- mappings = {
-    --   -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-    --   ["gf"] = {
-    --     action = function()
-    --       return require("obsidian").util.gf_passthrough()
-    --     end,
-    --     opts = { noremap = false, expr = true, buffer = true },
-    --   },
-    --   -- Toggle check-boxes.
-    --   ["<leader>ch"] = {
-    --     action = function()
-    --       return require("obsidian").util.toggle_checkbox()
-    --     end,
-    --     opts = { buffer = true },
-    --   },
-    --   -- Smart action depending on context: follow link, show notes with tag, toggle checkbox, or toggle heading fold
-    --   ["<cr>"] = {
-    --     action = function()
-    --       return require("obsidian").util.smart_action()
-    --     end,
-    --     opts = { buffer = true, expr = true },
-    --   },
-    -- },
+    callbacks = {
+      -- Buffer-local maps for vault notes only (the deprecated top-level
+      -- `mappings` table no longer has any effect). The plugin itself also
+      -- maps <CR> (smart action) and ]o / [o (next/prev link) in notes.
+      enter_note = function()
+        local function bmap(mode, lhs, rhs, desc)
+          vim.keymap.set(mode, lhs, rhs, { buffer = true, desc = desc })
+        end
+        bmap("n", "<leader>ob", "<cmd>Obsidian backlinks<cr>", "Backlinks")
+        bmap("n", "<leader>oc", "<cmd>Obsidian toggle_checkbox<cr>", "Toggle Checkbox")
+        bmap("n", "<leader>or", "<cmd>Obsidian rename<cr>", "Rename Note (Updates Backlinks)")
+        bmap("n", "<leader>op", "<cmd>Obsidian paste_img<cr>", "Paste Image")
+        bmap("n", "<leader>oi", "<cmd>Obsidian template<cr>", "Insert Template")
+        bmap("n", "<leader>ol", "<cmd>Obsidian links<cr>", "Note Links")
+        bmap("v", "<leader>ol", ":Obsidian link<cr>", "Link to Existing Note")
+        bmap("v", "<leader>oL", ":Obsidian link_new<cr>", "Link to New Note")
+        bmap("v", "<leader>oe", ":Obsidian extract_note<cr>", "Extract to New Note")
+      end,
+    },
     picker = {
       -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', 'mini.pick' or 'snacks.pick'.
       name = "snacks.pick",
