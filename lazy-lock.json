@@ -65,7 +65,7 @@
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "851e865342e5a4cb1ae23d31caf6e991e1c99f1e" },
   "nvim-ts-autotag": { "branch": "main", "commit": "88c1453db4ba7dd24131086fe51fdf74e587d275" },
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "6141a40173c6efa98242dc951ed4b6f892c97027" },
-  "obsidian.nvim": { "branch": "main", "commit": "2a8af7bd141123c7911fd0956ad986f29fe5bf12" },
+  "obsidian.nvim": { "branch": "main", "commit": "4bf07e502c4e35425a0bfc3438232a10971c1355" },
   "omnisharp-extended-lsp.nvim": { "branch": "main", "commit": "51e407a46ddb15e49727139b5b1ae3650cd6a069" },
   "onedark.nvim": { "branch": "master", "commit": "df4792accde9db0043121f32628bcf8e645d9aea" },
   "persistence.nvim": { "branch": "main", "commit": "b20b2a7887bd39c1a356980b45e03250f3dce49c" },
