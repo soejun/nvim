@@ -1,5 +1,17 @@
 local util = require("conform.util")
 
+-- prettier resolves its own config zoo (.prettierrc*, prettier.config.*,
+-- package.json "prettier"), so ask it instead of tracking filenames.
+-- Cached per directory; picking up a newly added config needs a restart.
+local prettier_config_found = {}
+local function has_prettier_config(dirname, filename)
+  if prettier_config_found[dirname] == nil then
+    vim.fn.system({ "prettier", "--find-config-path", filename })
+    prettier_config_found[dirname] = vim.v.shell_error == 0
+  end
+  return prettier_config_found[dirname]
+end
+
 return {
   "stevearc/conform.nvim",
   opts = {
@@ -13,12 +25,16 @@ return {
         end,
       },
       prettier = {
-        command = "prettier",
+        -- command comes from conform's builtin: repo node_modules/.bin/prettier, else mason's
         args = function(_, ctx)
+          -- a repo prettier config wins; the flags below only apply without one
+          if has_prettier_config(ctx.dirname, ctx.filename) then
+            return { "--stdin-filepath", "$FILENAME" }
+          end
+
           -- detect docker-compose files
-          local filename = vim.api.nvim_buf_get_name(ctx.buf)
-          local is_docker_compose = filename:match("docker[%w%-_.]*compose[%w%-_.]*%.ya?ml$")
-            or filename:match("compose[%w%-_.]*%.ya?ml$")
+          local is_docker_compose = ctx.filename:match("docker[%w%-_.]*compose[%w%-_.]*%.ya?ml$")
+            or ctx.filename:match("compose[%w%-_.]*%.ya?ml$")
 
           local args = {
             "--stdin-filepath",
