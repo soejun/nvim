@@ -20,7 +20,12 @@ return {
         enabled = true,
         settings = {
           basedpyright = {
+            -- defer organize-imports to ruff             disableOrganizeImports = true,
             analysis = {
+              -- basedpyright defaults to "recommended", which enables every rule
+              -- and re-lints much of what ruff covers; "standard" keeps it to type
+              -- checking.
+              typeCheckingMode = "standard",
               diagnosticSeverityOverrides = {
                 -- ruff handles these (F401, F811, F841, ...)
                 reportUnusedImport = "none",
@@ -29,6 +34,9 @@ return {
                 reportUnusedFunction = "none",
                 reportDuplicateImport = "none",
                 reportRedeclaration = "none",
+                reportUnusedParameter = "none",
+                -- ruff F821
+                reportUndefinedVariable = "none",
               },
             },
           },
