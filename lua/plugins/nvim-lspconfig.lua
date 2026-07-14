@@ -1,74 +1,55 @@
+-- Overrides only: LazyVim's lsp defaults (lazyvim.plugins.lsp.init) and the language
+-- extras merge first; this table deep-merges last, so keys here win. Inspect the
+-- final result with :LazyOpts nvim-lspconfig (defined in lua/config/options.lua),
+-- and hover/gd the types below to jump to what actually gets merged.
+---@type LazySpec
 return {
   "neovim/nvim-lspconfig",
+  init = function()
+    -- ruff diagnostics carry no virtual text (signs/underline/pickers keep
+    -- them). Diagnostic namespaces are created per (client, pull_id), so catch
+    -- each by name as it first reports rather than predicting ids.
+    local configured = {} ---@type table<integer, true>
+    vim.api.nvim_create_autocmd("DiagnosticChanged", {
+      group = vim.api.nvim_create_augroup("ruff_no_virtual_text", {}),
+      callback = function()
+        for name, ns in pairs(vim.api.nvim_get_namespaces()) do
+          if not configured[ns] and name:find("^nvim%.lsp%.ruff%.") then
+            configured[ns] = true
+            vim.diagnostic.config({ virtual_text = false }, ns)
+          end
+        end
+      end,
+    })
+  end,
+  ---@type PluginLspOpts
   opts = {
-    format_notify = true,
     inlay_hints = { enabled = true },
+    -- keys are vim.lsp.config server names; LazyVim adds mason/enabled/keys per server
+    ---@type table<string, lazyvim.lsp.Config|boolean>
     servers = {
-      -- awk_ls = {},
+      basedpyright = {
+        enabled = true,
+        settings = {
+          basedpyright = {},
+        },
+      },
       bashls = {
         filetypes = { "sh", "zsh" },
       },
-      -- Disabling this, for some reason these collid when using on hover for vue
+      -- NOTE: these css servers can produce colliding hovers in vue files
       css_variables = {},
       cssls = {},
       cssmodules_ls = {},
+      fsautocomplete = {},
+      gitlab_ci_ls = {},
+      graphql = {},
       html = {
         init_options = { provideFormatter = true },
         filetypes = { "html", "templ", "htmldjango" },
       },
-      basedpyright = {
-        enabled = true,
-        settings = {
-          basedpyright = {
-            -- defer organize-imports to ruff             disableOrganizeImports = true,
-            analysis = {
-              -- basedpyright defaults to "recommended", which enables every rule
-              -- and re-lints much of what ruff covers; "standard" keeps it to type
-              -- checking.
-              typeCheckingMode = "standard",
-              diagnosticSeverityOverrides = {
-                -- ruff handles these (F401, F811, F841, ...)
-                reportUnusedImport = "none",
-                reportUnusedVariable = "none",
-                reportUnusedClass = "none",
-                reportUnusedFunction = "none",
-                reportDuplicateImport = "none",
-                reportRedeclaration = "none",
-                reportUnusedParameter = "none",
-                -- ruff F821
-                reportUndefinedVariable = "none",
-              },
-            },
-          },
-        },
-      },
-      -- See: https://www.reddit.com/r/neovim/comments/1603eif/comment/jxl4cvn/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-      -- pin jedi to 0.44.0, 0.45.0 has a bug
-      jedi_language_server = {
-        enabled = false,
-        -- root_dir = function(fname)
-        --   return lspconfig.util.root_pattern(".git", "package.json", "Makefile", "CMakeLists.txt")(fname)
-        --     or vim.fn.getcwd()
-        -- end,
-      },
-      -- jinja_lsp = {
-      --   init_options = {
-      --     templates = "./carl/templates",
-      --     backend = { "./carl" },
-      --     lang = "python",
-      --   },
-      --   filetypes = { "jinja", "html", "python" },
-      --   root_dir = require("lspconfig.util").root_pattern(
-      --     "jinja-lsp.toml",
-      --     "pyproject.toml",
-      --     "Cargo.toml",
-      --     ".git"
-      --   ),
-      -- },
-      gitlab_ci_ls = {},
-      graphql = {},
-      fsautocomplete = {},
       metals = {
+        ---@type LazyKeysLspSpec[]
         keys = {
           {
             "<leader>me",
@@ -103,11 +84,14 @@ return {
       nginx_language_server = {},
       ruff = {
         init_options = {
-          settings = {},
+          settings = {
+            -- syntax errors belong to basedpyright (which has no switch to stop
+            -- reporting them); silence ruff's duplicate `invalid-syntax` copies
+            showSyntaxErrors = false,
+          },
         },
-        on_attach = function(client, bufnr)
-          -- client.server_capabilities.documentFormattingProvider = false
-          -- client.server_capabilities.documentRangeFormattingProvider = false
+        on_attach = function(client)
+          -- hover belongs to basedpyright; virtual text is stripped in init above
           client.server_capabilities.hoverProvider = false
         end,
       },
