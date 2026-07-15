@@ -16,115 +16,30 @@
 
 Oh we're so back.
 
-Based on the starter template for [💤 LazyVim](https://github.com/LazyVim/LazyVim).
+Based on the starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
 
-## 🎓 LazyVim and General VIM Notes
-
-Will contain a combination of snippets derived from LazyVim documentation and various VIM notes that include but aren't limited to its functionality, QoL, and quirks.
-
-### 📂 File Structure
+## File Structure
 
 <pre>
 ~/.config/nvim
+├── docs        <- notes (see below)
 ├── lua
-│   ├── config
-│   │   ├── autocmds.lua
-│   │   ├── keymaps.lua
-│   │   ├── lazy.lua
-│   │   └── options.lua
-│   └── plugins
-│       ├── spec1.lua
-│       ├── **
-│       └── spec2.lua
+│   ├── config
+│   │   ├── autocmds.lua
+│   │   ├── keymaps.lua
+│   │   ├── lazy.lua
+│   │   └── options.lua
+│   └── plugins
+│       ├── spec1.lua
+│       ├── **
+│       └── spec2.lua
 └── init.lua
 </pre>
 
-### [📦 Plugin Configuration (Merge Rules)](https://www.lazyvim.org/configuration/plugins#%EF%B8%8F-customizing-plugin-specs)
+## Notes
 
-| **Property**       | **Default Merging Rule**                                                 |
-| ------------------ | ------------------------------------------------------------------------ |
-| `cmd`              | The list of commands will be extended with your custom commands.         |
-| `event`            | The list of events will be extended with your custom events.             |
-| `ft`               | The list of filetypes will be extended with your custom filetypes.       |
-| `keys`             | The list of keymaps will be extended with your custom keymaps.           |
-| `opts`             | Your custom options (`opts`) will be merged with the default options.    |
-| `dependencies`     | The list of dependencies will be extended with your custom dependencies. |
-| Any other property | Will override the defaults.                                              |
+Deep-dives, root-cause analyses, and reference cards live in [docs/](docs/README.md) —
+one topic per file, indexed there. Highlights:
 
-For ft, event, keys, cmd and opts you can instead also specify a values function
-that can make changes to the default values, or return new values to be used instead.
-
-### References
-
-| **Mode**                   | **Identifier** |
-| -------------------------- | -------------- |
-| Normal Mode                | `n`            |
-| Insert Mode                | `i`            |
-| Character-wise Visual Mode | `v`            |
-| Line-wise Visual Mode      | `V`            |
-| Block-wise Visual Mode     | `^V` (Ctrl-v)  |
-| Replace Mode               | `R`            |
-| Virtual Replace Mode       | `Rv`           |
-| Command-Line Mode          | `c`            |
-| Terminal Mode              | `t`            |
-| Operator-Pending Mode      | `o`            |
-| Select Mode                | `s`            |
-| Ex-Mode                    | `!`            |
-
-### Tips and Tricks (Normal VIM friendly)
-
-- Yanking an entire file: `:%y+`
-  - `+` is a register that is tied to the system clipboard.
-
-### VIM API Commands
-
-**Getting current buffer path:**
-
-```lua
--- 0 stands for current buffer
--- https://neovim.io/doc/user/api.html#nvim_buf_get_name()
-vim.api.nvim_buf_get_name(0)
-```
-
-### Python
-
-Reference for [PyLsp LazyVim Configuration](https://www.reddit.com/r/neovim/comments/14316t9/help_me_to_get_the_best_python_neovim_environment/)
-
-- Blob for PyLSP and Ruff heavily customized in the context of LazyVim.
-
-#### Pyright and BasedPyright Stubs
-
-[Using Microsoft python-type-stubs with Pyright](https://jaewonchung.me/technical/Using-Microsoft-python-type-stubs-with-Pyright/)
-
-Essentially:
-
-1. Add python-type-stubs as a git submodule under the directory stubs:
-
-```bash
-cd proj
-# Assuming you have GitHub SSH authentication set up.
-git submodule add git@github.com:microsoft/python-type-stubs stubs
-```
-
-2. Point to stubs
-
-- Using `pyrproject.toml`
-
-```toml
-[tool.pyright]
-stubPath = "./stubs/stubs"
-```
-
-- If not `pyporject.toml`, must have `pyrightconfig.json` in root of workspace
-
-```json
-{
-  "stubPath": "./stubs/stubs"
-}
-```
-
-3. To update: `git submodule update`
-
-### Obsidian
-
-TODO: [obsidian.nvim community fork](https://github.com/obsidian-nvim/obsidian.nvim)
+- [How LazyVim merges plugin opts & why lua_ls types wouldn't resolve](docs/lazydev-word-gated-types.md)
+- [snacks grep pickers: live vs fuzzy](docs/grep-vs-ripgrep-pickers.md)
