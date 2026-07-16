@@ -28,6 +28,20 @@ return {
     -- keys are vim.lsp.config server names; LazyVim adds mason/enabled/keys per server
     ---@type table<string, lazyvim.lsp.Config|boolean>
     servers = {
+      -- servers["*"].keys is in lazy's opts_extend, so this appends to (not
+      -- replaces) LazyVim's default LSP keymaps
+      ["*"] = {
+        ---@type LazyKeysLspSpec[]
+        keys = {
+          {
+            "gR",
+            function()
+              Snacks.picker.lsp_references({ filter = { buf = true } })
+            end,
+            desc = "References (buffer)",
+          },
+        },
+      },
       basedpyright = {
         enabled = true,
         settings = {
