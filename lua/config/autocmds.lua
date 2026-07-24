@@ -42,6 +42,31 @@ autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 
+-- Spec files touched within the last 3 months that import @/actions helpers
+-- calling performMutation — reference material when writing new tests.
+-- Args go through the shell, so quoting works: :RefSpecs -s "6 months ago"
+vim.api.nvim_create_user_command("RefSpecs", function(cmd)
+  local script = vim.fn.shellescape(vim.fn.stdpath("config") .. "/scripts/ref-specs.sh")
+  local out = vim.fn.systemlist(cmd.args == "" and script or script .. " " .. cmd.args)
+  local files, notes = {}, {}
+  for _, line in ipairs(out) do
+    table.insert(line:find("^ref%-specs:") and notes or files, line)
+  end
+  if vim.v.shell_error ~= 0 or #files == 0 then
+    local msg = #notes > 0 and table.concat(notes, "\n") or "no matching spec files"
+    vim.notify(msg, vim.log.levels.WARN, { title = "RefSpecs" })
+    return
+  end
+  local root = vim.fn.systemlist({ "git", "rev-parse", "--show-toplevel" })[1]
+  Snacks.picker.pick({
+    title = "Reference specs",
+    items = vim.tbl_map(function(f)
+      return { file = root .. "/" .. f, text = f }
+    end, files),
+    format = "file",
+  })
+end, { nargs = "*", desc = "Recent spec files importing performMutations helpers" })
+
 vim.api.nvim_create_autocmd("LspAttach", {
   once = true,
   callback = function()
