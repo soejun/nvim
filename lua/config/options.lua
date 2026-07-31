@@ -5,6 +5,7 @@
 vim.g.autoformat = false
 vim.g.snacks_animate = true
 vim.g.lazyvim_python_lsp = "basedpyright"
+vim.opt.wrap = false
 
 vim.api.nvim_create_user_command("LspInfo", ":checkhealth vim.lsp", { desc = "Alias to `:checkhealth vim.lsp`" })
 
