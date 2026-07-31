@@ -1,0 +1,43 @@
+return {
+  -- lsp symbol navigation for lualine. This shows where
+  -- in the code structure you are - within functions, classes,
+  -- etc - in the statusline.
+  {
+    "SmiteshP/nvim-navic",
+    lazy = true,
+    init = function()
+      vim.g.navic_silence = true
+    end,
+    opts = function()
+      Snacks.util.lsp.on({ method = "textDocument/documentSymbol" }, function(buffer, client)
+        require("nvim-navic").attach(client, buffer)
+      end)
+      return {
+        separator = " ",
+        highlight = true,
+        depth_limit = 5,
+        icons = LazyVim.config.icons.kinds,
+        lazy_update_context = true,
+      }
+    end,
+  },
+
+  -- lualine integration
+  {
+    "nvim-lualine/lualine.nvim",
+    optional = true,
+    opts = function(_, opts)
+      if not vim.g.trouble_lualine then
+        table.insert(opts.sections.lualine_c, { "navic", color_correction = "dynamic" })
+      end
+      opts.winbar = {
+        lualine_x = { { "filename", path = 1 } },
+      }
+      opts.inactive_winbar = {
+        lualine_x = { { "filename", path = 1 } },
+      }
+      opts.options.disabled_filetypes.winbar =
+        { "dashboard", "alpha", "ministarter", "snacks_dashboard", "neo-tree", "Trouble" }
+    end,
+  },
+}
