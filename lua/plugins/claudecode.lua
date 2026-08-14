@@ -1,8 +1,18 @@
 return {
   "coder/claudecode.nvim",
   opts = {
-    terminal_cmd = vim.fn.expand("$HOME/.local/bin/claude")
-
+    terminal_cmd = vim.fn.expand("$HOME/.local/bin/claude"),
+    git_repo_cwd = true,
+    terminal = {
+      split_side = "right",
+      split_width_percentage = 0.40,
+      provider = "auto",
+      auto_close = true,
+      snacks_win_opts = {},
+      provider_opts = {
+        external_terminal_cmd = nil,
+      },
+    },
   },
   keys = {
     { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
