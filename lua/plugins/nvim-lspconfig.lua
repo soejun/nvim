@@ -6,17 +6,31 @@
 return {
   "neovim/nvim-lspconfig",
   init = function()
-    -- ruff diagnostics carry no virtual text (signs/underline/pickers keep
-    -- them). Diagnostic namespaces are created per (client, pull_id), so catch
-    -- each by name as it first reports rather than predicting ids.
+    local overrides = {
+      ["^nvim%.lsp%.ruff%."] = function()
+        return { virtual_text = false }
+      end,
+      ["^nvim%.lsp%.vtsls%."] = function()
+        -- keep the global virtual text styling, add a severity floor
+        local vt = vim.diagnostic.config().virtual_text
+        vt = type(vt) == "table" and vim.deepcopy(vt) or {}
+        vt.severity = { min = vim.diagnostic.severity.INFO }
+        return { virtual_text = vt }
+      end,
+    }
     local configured = {} ---@type table<integer, true>
     vim.api.nvim_create_autocmd("DiagnosticChanged", {
-      group = vim.api.nvim_create_augroup("ruff_no_virtual_text", {}),
+      group = vim.api.nvim_create_augroup("lsp_ns_diagnostic_overrides", {}),
       callback = function()
         for name, ns in pairs(vim.api.nvim_get_namespaces()) do
-          if not configured[ns] and name:find("^nvim%.lsp%.ruff%.") then
-            configured[ns] = true
-            vim.diagnostic.config({ virtual_text = false }, ns)
+          if not configured[ns] then
+            for pat, make_config in pairs(overrides) do
+              if name:find(pat) then
+                configured[ns] = true
+                vim.diagnostic.config(make_config(), ns)
+                break
+              end
+            end
           end
         end
       end,
