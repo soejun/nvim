@@ -5,7 +5,8 @@ return {
       -- "fsharp",
       "http",
       -- "vue",
-      "css"
+      "css",
+      "graphql"
     }
   }
 }
