@@ -135,6 +135,38 @@ return {
           },
         },
       },
+      vue_ls = {
+        -- see vtsls below
+        flags = {
+          allow_incremental_sync = false,
+          debounce_text_changes = 1000,
+        },
+      },
+      vtsls = {
+        -- Typing in a big TS/Vue project sends a didChange per keystroke group
+        -- (default debounce 150ms) and the server re-checks each time. Batch
+        -- them into one full-document sync per second instead.
+        -- https://www.reddit.com/r/neovim/comments/1guifug/lsp_extreme_lag/
+        -- NOTE: change tracking groups clients by sync kind and uses the
+        -- smallest debounce in the group, so another full-sync server
+        -- attaching anywhere pulls this back down to its own value.
+        flags = {
+          allow_incremental_sync = false,
+          debounce_text_changes = 1000,
+        },
+        settings = {
+          vtsls = {
+            experimental = {
+              maxInlayHintLength = 60,
+            },
+          },
+          typescript = {
+            inlayHints = {
+              variableTypes = { enabled = false },
+            },
+          },
+        },
+      },
     },
   },
 }
