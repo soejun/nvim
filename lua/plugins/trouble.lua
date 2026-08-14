@@ -4,12 +4,8 @@ return {
   opts = {
     modes = {
       diagnostics = {
-        -- Related to ruff and basedpyright showing excessive diagnostics when used together with  project config
-        filter = function(items)
-          return vim.tbl_filter(function(item)
-            return item.severity ~= vim.diagnostic.severity.HINT
-          end, items)
-        end,
+        -- Hide hints. The type servers report them again as linter errors:
+        filter = { ["not"] = { severity = vim.diagnostic.severity.HINT } },
       },
     },
   },
