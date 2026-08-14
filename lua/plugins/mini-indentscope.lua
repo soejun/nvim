@@ -3,8 +3,9 @@ return {
   opts = {
     draw = {
       delay = 50,
-      animation = function(s, n)
-        return 10
+      -- no animation: same as MiniIndentscope.gen_animation.none()
+      animation = function()
+        return 0
       end,
     },
   },

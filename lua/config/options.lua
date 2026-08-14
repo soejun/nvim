@@ -28,3 +28,5 @@ end, {
     return names
   end,
 })
+
+vim.g.snacks_animate  = false
