@@ -71,7 +71,9 @@ return {
       cssmodules_ls = {},
       fsautocomplete = {},
       gitlab_ci_ls = {},
-      graphql = {},
+      graphql = {
+        filetypes = { "graphql", "typescriptreact", "javascriptreact", "typescript", "javascript", "vue" },
+      },
       html = {
         init_options = { provideFormatter = true },
         filetypes = { "html", "templ", "htmldjango" },
