@@ -18,15 +18,18 @@ return {
         return { virtual_text = vt }
       end,
     }
-    local configured = {} ---@type table<integer, true>
+    -- every namespace already checked, matching or not. A namespace name is
+    -- fixed at creation, so one that misses every pattern never matches later;
+    -- caching only the hits re-tested every miss on each DiagnosticChanged.
+    local seen = {} ---@type table<integer, true>
     vim.api.nvim_create_autocmd("DiagnosticChanged", {
       group = vim.api.nvim_create_augroup("lsp_ns_diagnostic_overrides", {}),
       callback = function()
         for name, ns in pairs(vim.api.nvim_get_namespaces()) do
-          if not configured[ns] then
+          if not seen[ns] then
+            seen[ns] = true
             for pat, make_config in pairs(overrides) do
               if name:find(pat) then
-                configured[ns] = true
                 vim.diagnostic.config(make_config(), ns)
                 break
               end
@@ -45,6 +48,14 @@ return {
       -- servers["*"].keys is in lazy's opts_extend, so this appends to (not
       -- replaces) LazyVim's default LSP keymaps
       ["*"] = {
+        -- Typing in a big TS/Vue project sends a didChange per keystroke group
+        -- (default debounce 150ms) and every server re-checks each time. Batch
+        -- them into one sync per second instead.
+        -- https://www.reddit.com/r/neovim/comments/1guifug/lsp_extreme_lag/
+        -- NOTE: change tracking groups clients by sync kind and uses the
+        -- smallest debounce in the group, so this only takes effect when every
+        -- server attached to the buffer sets it.
+        -- flags = { debounce_text_changes = 1000 },
         ---@type LazyKeysLspSpec[]
         keys = {
           {
@@ -57,10 +68,10 @@ return {
         },
       },
       basedpyright = {
-        enabled = true,
-        settings = {
-          basedpyright = {},
-        },
+        -- enabled = true,
+        -- settings = {
+        --   basedpyright = {},
+        -- },
       },
       bashls = {
         filetypes = { "sh", "zsh" },
@@ -135,25 +146,12 @@ return {
           },
         },
       },
-      vue_ls = {
-        -- see vtsls below
-        flags = {
-          allow_incremental_sync = false,
-          debounce_text_changes = 1000,
-        },
-      },
       vtsls = {
-        -- Typing in a big TS/Vue project sends a didChange per keystroke group
-        -- (default debounce 150ms) and the server re-checks each time. Batch
-        -- them into one full-document sync per second instead.
-        -- https://www.reddit.com/r/neovim/comments/1guifug/lsp_extreme_lag/
-        -- NOTE: change tracking groups clients by sync kind and uses the
-        -- smallest debounce in the group, so another full-sync server
-        -- attaching anywhere pulls this back down to its own value.
-        flags = {
-          allow_incremental_sync = false,
-          debounce_text_changes = 1000,
-        },
+        -- NOTE: do not set flags.allow_incremental_sync = false here. Full
+        -- document sync makes vtsls send tsserver a whole-file range that ends
+        -- one line past the file, and tsserver aborts the process with
+        -- "Debug Failure. Bad line number". vue_ls then reports that it cannot
+        -- find vtsls, because the process is gone.
         settings = {
           vtsls = {
             experimental = {

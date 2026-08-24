@@ -28,5 +28,10 @@ return {
         enabled = vim.g.ai_cmp,
       },
     },
+    sources = {
+      providers = {
+        -- lsp = { async = true },
+      },
+    },
   },
 }
