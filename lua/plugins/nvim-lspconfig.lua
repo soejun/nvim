@@ -69,9 +69,13 @@ return {
       },
       basedpyright = {
         -- enabled = true,
-        -- settings = {
-        --   basedpyright = {},
-        -- },
+        settings = {
+          basedpyright = {
+            analysis = {
+              baselineMode = "discard",
+            },
+          },
+        },
       },
       bashls = {
         filetypes = { "sh", "zsh" },
