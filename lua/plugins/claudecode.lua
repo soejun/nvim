@@ -1,5 +1,6 @@
 return {
   "coder/claudecode.nvim",
+  enabled = true,
   opts = {
     terminal_cmd = vim.fn.expand("$HOME/.local/bin/claude"),
     git_repo_cwd = true,
