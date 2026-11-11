@@ -1,4 +1,7 @@
 -- GitLab MR/issue pickers via glab, plus gitbrowse URLs for self-hosted GitLab.
+-- Pickers are off in favour of gitlab.nvim (see gitlab-nvim.lua); set true to restore them.
+local pickers_enabled = false
+
 local function is_gitlab()
   local url = vim.fn.systemlist({ "git", "remote", "get-url", "origin" })[1] or ""
   return url:find("gitlab") ~= nil
@@ -19,6 +22,59 @@ local function val(v)
   return v ~= vim.NIL and v or nil
 end
 
+local cache = vim.fn.stdpath("cache") .. "/glab-uploads"
+
+-- GitLab uploads need auth, so fetch them via glab and point links at the local copies.
+local function localize(text, cb)
+  local pending = 0
+  for path in text:gmatch("!%b[]%((/uploads/[^)%s]+)%)") do
+    local file = cache .. path:sub(9):gsub("%%", "_")
+    text = text:gsub(vim.pesc(path), file)
+    if not vim.uv.fs_stat(file) then
+      pending = pending + 1
+      vim.fn.mkdir(vim.fs.dirname(file), "p")
+      vim.system({ "glab", "api", "projects/:id" .. path }, {}, function(res)
+        if res.code == 0 then
+          local f = assert(io.open(file, "wb"))
+          f:write(res.stdout)
+          f:close()
+        end
+        pending = pending - 1
+        if pending == 0 then
+          vim.schedule(function() cb(text) end)
+        end
+      end)
+    end
+  end
+  if pending == 0 then
+    cb(text)
+  end
+end
+
+-- Text preview first; items with images switch to a markdown buffer once downloads finish.
+local function preview(ctx)
+  local item, picker = ctx.item, ctx.picker
+  if item.buf and vim.api.nvim_buf_is_valid(item.buf) then
+    return Snacks.picker.preview.file(ctx)
+  end
+  Snacks.picker.preview.preview(ctx)
+  if item.loading or not item.preview.text:find("!%b[]%(/uploads/") then
+    return
+  end
+  item.loading = true
+  localize(item.preview.text, function(text)
+    item.loading = false
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.bo[buf].bufhidden = "wipe"
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.split(text, "\n"))
+    vim.bo[buf].filetype = "markdown"
+    item.buf = buf
+    if not picker.closed and picker:current() == item then
+      picker.preview:show(picker, { force = true })
+    end
+  end)
+end
+
 ---@param kind "mr"|"issue"
 ---@param opts {all?: boolean, args?: string[], label?: string}
 local function glab_pick(kind, opts)
@@ -36,6 +92,7 @@ local function glab_pick(kind, opts)
       table.insert(items, {
         text = ("%s %s @%s [%s] %s %s"):format(ref, it.title, it.author.username, it.state, ms, iter),
         url = it.web_url,
+        preview_title = ref,
         preview = { text = ("# %s %s\n\n%s"):format(ref, it.title, val(it.description) or ""), ft = "markdown" },
       })
     end
@@ -43,7 +100,7 @@ local function glab_pick(kind, opts)
       title = ("GitLab %s (%s)"):format(kind == "mr" and "MRs" or "Issues", opts.label or (opts.all and "all" or "open")),
       items = items,
       format = "text",
-      preview = "preview",
+      preview = preview,
       confirm = function(picker, item)
         picker:close()
         vim.ui.open(item.url)
@@ -96,6 +153,7 @@ end
 return {
   "folke/snacks.nvim",
   opts = {
+    image = pickers_enabled and {} or nil,
     gitbrowse = {
       url_patterns = {
         ["^https://gitlab%."] = {
@@ -108,7 +166,7 @@ return {
     },
   },
   -- stylua: ignore
-  keys = {
+  keys = not pickers_enabled and {} or {
     { "<leader>gi", pick(function() glab_pick("issue", {}) end, function() Snacks.picker.gh_issue() end), desc = "Issues (open)" },
     { "<leader>gI", pick(function() glab_pick("issue", { all = true }) end, function() Snacks.picker.gh_issue({ state = "all" }) end), desc = "Issues (all)" },
     { "<leader>gp", pick(function() glab_pick("mr", {}) end, function() Snacks.picker.gh_pr() end), desc = "MRs/PRs (open)" },
